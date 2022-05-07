@@ -5,36 +5,26 @@ const userSchema = new Schema(
         
         username: {
             type: String,
-            required: true,
-            unique: true,
-            trim: true
+            required: true
         },
         password: {
             type: String,
-            required: true,
-            unique: false,
-            trim: true
+            required: true
         },
 
         nombre: {
             type: String,
-            required: true,
-            unique: false,
-            trim: true
+            required: true
         },
 
         numero: {
             type: String,
-            required: true,
-            unique: false,
-            trim: true
+            required: TextTrackCue
         },
 
         correo: {
             type: String,
-            required: true,
-            unique: false,
-            trim: true
+            required: true
         }
         
     }, {
