@@ -14,6 +14,7 @@ export default class CreateUser extends Component {
     }
 
     async componentDidMount() {
+        console.log(this.props.match.params.id);
         this.getUsers();
     }
 
@@ -27,9 +28,7 @@ export default class CreateUser extends Component {
 
     exit = async () => {
 
-        this.state.users.map((item)=>
-            <div>{console.log(item.password)}</div>
-        )
+        window.location.href = '/';
     }
 
     onInputChange = (e) => {

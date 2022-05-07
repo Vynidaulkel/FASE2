@@ -8,6 +8,7 @@ import NotesList from './components/NotesList'
 import Login from './components/Inicio'
 import CreateUser from './components/CreateUser'
 import './App.css';
+import modificarUsuario from './components/ModificarUsuario'
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/menu" exact component={Navigation} />
         <Route path="/edit/:id" component={NotesList} />
         <Route path="/createUser" component={CreateUser} />
+        <Route path="/modificarUsuario/:id" component={modificarUsuario} />
   
       </div>
     </Router>

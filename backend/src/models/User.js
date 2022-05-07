@@ -12,28 +12,28 @@ const userSchema = new Schema(
         password: {
             type: String,
             required: true,
-            unique: true,
+            unique: false,
             trim: true
         },
 
         nombre: {
             type: String,
             required: true,
-            unique: true,
+            unique: false,
             trim: true
         },
 
         numero: {
             type: String,
             required: true,
-            unique: true,
+            unique: false,
             trim: true
         },
 
         correo: {
             type: String,
             required: true,
-            unique: true,
+            unique: false,
             trim: true
         }
         

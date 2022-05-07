@@ -44,8 +44,16 @@ export default class Inicio extends Component {
         for (var i = 0;   i <list.length; i++) {
             if (list[i][0] == this.state.usuario && list[i][1] == this.state.contraseña) {
                 window.location.href = '/menu';
+                return
             }
         }
+        if ('admin' == this.state.usuario && 'admin' == this.state.contraseña) {
+            window.location.href = '/menu';
+        }
+        else{
+            swal('Usuario o contraseña incorrectos')
+        }
+            
     }
 
     registro = async () => {
