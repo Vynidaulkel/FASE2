@@ -3,6 +3,7 @@ const userCtrl = {};
 const User = require('../models/User');
 
 userCtrl.getUsers = async (req, res) => {
+    console.log(req.body);
     try {
         const users = await User.find();
         res.json(users);
@@ -16,9 +17,13 @@ userCtrl.getUsers = async (req, res) => {
 
 userCtrl.createUser = async (req, res) => {
     try {
+        console.log(req.body);
         const { username } = req.body;
-
-        const newUser = new User({ username });
+        const { password } = req.body;
+        const { nombre } = req.body;
+        const { numero } = req.body;
+        const { correo } = req.body;
+        const newUser = new User({ username,password, nombre, numero, correo });
         await newUser.save();
         res.json('User created');
     } catch (e) {

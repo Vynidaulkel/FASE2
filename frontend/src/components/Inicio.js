@@ -1,23 +1,57 @@
 import React, { Component } from 'react'
-import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css'
+import swal from 'sweetalert'
 import axios from 'axios'
+
 
 export default class Inicio extends Component {
 
     state = {
-        title: '',
+        usuario: '',
         contraseña: '',
-    
+        users: []
+    }
+
+    getUsers = async () => {
+        const res = await axios.get('http://localhost:4000/api/users');
+        this.setState({
+            users: res.data
+        });
+       
+        
+        console.log(res.data);
     }
 
     
 
     onSubmit = async (e) => {
         e.preventDefault();
-        window.location.href = '/menu';
+        const res = await axios.get('http://localhost:4000/api/users');
+        this.setState({
+            users: res.data
+        });
+        
+        let list= []
 
+        this.state.users.map((item)=>
+            <div>{list.push([item.username,item.password])}
+            </div>)
+
+        console.log(list[0])
+        let prueba = [[this.state.usuario, this.state.contraseña]]
+        console.log(prueba)
+        
+        for (var i = 0;   i <list.length; i++) {
+            if (list[i][0] == this.state.usuario && list[i][1] == this.state.contraseña) {
+                window.location.href = '/menu';
+            }
+        }
     }
+
+    registro = async () => {
+        window.location.href = '/createUser';
+    }
+    
 
     onInputChange = (e) => {
         this.setState({
@@ -28,12 +62,12 @@ export default class Inicio extends Component {
   
     render() {
         return (
+            
             <div className="col-md-4 offset-md-4">
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}>
                 <div className="card card-body">
-                    <h4>Login</h4>
+                    <h3>Login</h3>
                     <form onSubmit={this.onSubmit}>
-                       
                        
                         {/* Note Title */}
                         <div className="form-group">
@@ -42,8 +76,9 @@ export default class Inicio extends Component {
                                 className="form-control"
                                 placeholder="User"
                                 onChange={this.onInputChange}
-                                name="title"
-                                value={this.state.title}
+                                name="usuario"
+                                autocomplete="off"
+                                value={this.state.usuario}
                                 required />
                         </div>
                         {/* Note Content */}
@@ -59,12 +94,20 @@ export default class Inicio extends Component {
                                 required />
                         </div>
                         
-                        <button className="btn btn-primary">
+                        <button className="btn btn-primary btn-block">
                             Login 
                         </button>
+
                     </form>
+                        <h4></h4>
+                        
+                        <button className="btn btn-primary btn-success" onClick={this.registro} height = {50}>
+                            Register
+                        </button>
+            
                     </div>
                 </div>
+                
             </div>
         )
     }

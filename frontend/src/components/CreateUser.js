@@ -1,22 +1,35 @@
 import React, { Component } from 'react'
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css'
 import axios from 'axios'
+import swal from 'sweetalert'
 
 export default class CreateUser extends Component {
 
     state = {
-        title: '',
-        contra: '',
-    
+        username: '',
+        password: '',
+        nombre: '',
+        numero: '',
+        correo: '',
+        users: []
     }
 
-    
+    async componentDidMount() {
+        this.getUsers();
+    }
 
-    onSubmit = async (e) => {
-        e.preventDefault();
-        window.location.href = '/menu';
+    getUsers = async () => {
+        const res = await axios.get('http://localhost:4000/api/users');
+        this.setState({
+            users: res.data
+        });
+        
+    }
 
+    exit = async () => {
+
+        this.state.users.map((item)=>
+            <div>{console.log(item.password)}</div>
+        )
     }
 
     onInputChange = (e) => {
@@ -25,45 +38,114 @@ export default class CreateUser extends Component {
         })
     }
 
-  
+    onSubmit = async (e) => {
+        e.preventDefault();
+        console.log(e);
+        await axios.post('http://localhost:4000/api/users', {
+            username: this.state.username,    
+            password: this.state.password,
+            nombre: this.state.nombre,
+            numero: this.state.numero,
+            correo: this.state.correo
+        });
+        const response = window.confirm('Usuario creado con exito');
+      
+        window.location.href = '/menu';
+
+        this.getUsers();
+    }
+
+    deleteUser = async (userId) => {
+        const response = window.confirm('are you sure you want to delete it?');
+        if (response) {
+            await axios.delete('http://localhost:4000/api/users/' + userId);
+            this.getUsers();
+        }
+    }
+
     render() {
         return (
-            <div className="col-md-4 offset-md-4">
+            <div className="row">
+                <div className="col-md-4 offset-md-4">
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}>
-                <div className="card card-body">
-                    <h4>Login</h4>
-                    <form onSubmit={this.onSubmit}>
-                       
-                       
-                        {/* Note Title */}
+
+                    <div className="card card-body">
+                        <h3>Create New User</h3>
+                        <form onSubmit={this.onSubmit}>
+
                         <div className="form-group">
                             <input
                                 type="text"
                                 className="form-control"
-                                placeholder="User"
+                                placeholder="Nombre"
                                 onChange={this.onInputChange}
-                                name="title"
-                                value={this.state.title}
+                                name="nombre"
+                                autocomplete="off"
+                                value={this.state.nombre}
                                 required />
                         </div>
-                        {/* Note Content */}
+
                         <div className="form-group">
                             <input
                                 type="text"
                                 className="form-control"
-                                placeholder="Contra"
-                                name="contra"
+                                placeholder="Correo"
                                 onChange={this.onInputChange}
-                                value={this.state.contra}
+                                name="correo"
+                                autocomplete="off"
+                                value={this.state.correo}
                                 required />
                         </div>
                         
-                        <button className="btn btn-primary">
-                            Login 
+                        <div className="form-group">
+                            <input
+                                type="text"
+                                className="form-control"
+                                placeholder="Numero"
+                                onChange={this.onInputChange}
+                                name="numero"
+                                autocomplete="off"
+                                value={this.state.numero}
+                                required />
+                        </div>
+
+                        <div className="form-group">
+                            <input
+                                type="text"
+                                className="form-control"
+                                placeholder="Username"
+                                onChange={this.onInputChange}
+                                name="username"
+                                autocomplete="off"
+                                value={this.state.username}
+                                required />
+                        </div>
+
+                        <div className="form-group">
+                            <input
+                                type="text"
+                                className="form-control"
+                                placeholder="Password"
+                                onChange={this.onInputChange}
+                                name="password"
+                                autocomplete="off"
+                                value={this.state.password}
+                                required />
+                        </div>
+
+                            <button type="submit" className="btn btn-success btn-block">
+                                Save
+                    </button>
+                        </form>
+                        <h4></h4>
+                        
+                        <button className="btn btn-danger " onClick={this.exit} height = {50}>
+                            Regresar
                         </button>
-                    </form>
+                    </div>
                     </div>
                 </div>
+                
             </div>
         )
     }
