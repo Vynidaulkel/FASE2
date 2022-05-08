@@ -16,7 +16,7 @@ function App() {
     <Router>
       <div className="container p-4">
       <Route path="/" exact component={Login} />
-        <Route path="/menu" exact component={Navigation} />
+        <Route path="/menu/:id" exact component={Navigation} />
         <Route path="/edit/:id" component={NotesList} />
         <Route path="/createUser" component={CreateUser} />
         <Route path="/modificarUsuario/:id" component={modificarUsuario} />
