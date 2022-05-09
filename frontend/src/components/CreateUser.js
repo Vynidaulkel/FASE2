@@ -49,7 +49,7 @@ export default class CreateUser extends Component {
         });
         const response = window.confirm('Usuario creado con exito');
       
-        window.location.href = '/menu';
+        window.location.href = '/';
 
         this.getUsers();
     }
