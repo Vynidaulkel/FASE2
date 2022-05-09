@@ -1,4 +1,4 @@
-const CreadorCampus = require('./CreadorCampus.js');
+const CreadorCampus = require('../models/CreadorCampus.js');
 
 var parqueo = new Array(); 
 console.log('campus')
