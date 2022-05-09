@@ -17,12 +17,12 @@ export default class Inicio extends Component {
         this.setState({
             users: res.data
         });
-       
-        
+
+
         console.log(res.data);
     }
 
-    
+
 
     onSubmit = async (e) => {
         e.preventDefault();
@@ -30,36 +30,32 @@ export default class Inicio extends Component {
         this.setState({
             users: res.data
         });
-        
-        let list= []
 
-        this.state.users.map((item)=>
-            <div>{list.push([item.username,item.password, item._id])}
+        let list = []
+
+        this.state.users.map((item) =>
+            <div>{list.push([item.username, item.password, item._id])}
             </div>)
 
         console.log(list[0])
         let prueba = [[this.state.usuario, this.state.contraseña]]
         console.log(prueba)
-        
-        for (var i = 0;   i <list.length; i++) {
-            if (list[i][0] == this.state.usuario && list[i][1] == this.state.contraseña) {
+
+        for (var i = 0; i < list.length; i++) {
+            if (list[i][0] === this.state.usuario && list[i][1] === this.state.contraseña) {
                 window.location.href = '/menu/' + list[i][2];
                 return
             }
         }
-        if ('admin' == this.state.usuario && 'admin' == this.state.contraseña) {
-            window.location.href = '/menu/'+'admin';
+        if ('admin' === this.state.usuario && 'admin' === this.state.contraseña) {
+            window.location.href = '/menu/' + 'admin';
         }
-        else{
+        else {
             swal('Usuario o contraseña incorrectos')
         }
-            
+
     }
 
-    registro = async () => {
-        window.location.href = '/createUser';
-    }
-    
 
     onInputChange = (e) => {
         this.setState({
@@ -67,55 +63,51 @@ export default class Inicio extends Component {
         })
     }
 
-  
+
     render() {
         return (
-            
+
             <div className="col-md-4 offset-md-4">
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}>
-                <div className="card card-body">
-                    <h3>Login</h3>
-                    <form onSubmit={this.onSubmit}>
-                       
-                        {/* Note Title */}
-                        <div className="form-group">
-                            <input
-                                type="text"
-                                className="form-control"
-                                placeholder="User"
-                                onChange={this.onInputChange}
-                                name="usuario"
-                                autocomplete="off"
-                                value={this.state.usuario}
-                                required />
-                        </div>
-                        {/* Note Content */}
-                        <div className="form-group">
-                            <input
-                                type="text"
-                                className="form-control"
-                                placeholder="Password"
-                                autocomplete="off"
-                                name="contraseña"
-                                onChange={this.onInputChange}
-                                value={this.state.contraseña}
-                                required />
-                        </div>
-                        
-                        <button className="btn btn-primary btn-block">
-                            Login 
-                        </button>
+                    <div className="card card-body">
+                        <h3>Login</h3>
+                        <form onSubmit={this.onSubmit}>
 
-                    </form>
-                        <h4></h4>
-                        
-                        <button className="btn btn-primary btn-success" onClick={this.registro} height = {50}>
-                            Register
-                        </button>
-            
+                            {/* Note Title */}
+                            <div className="form-group">
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="User"
+                                    onChange={this.onInputChange}
+                                    name="usuario"
+                                    autocomplete="off"
+                                    value={this.state.usuario}
+                                    required />
+                            </div>
+                            {/* Note Content */}
+                            <div className="form-group">
+                                <input
+                                    type="password"
+                                    className="form-control"
+                                    placeholder="Password"
+                                    autocomplete="off"
+                                    name="contraseña"
+                                    onChange={this.onInputChange}
+                                    value={this.state.contraseña}
+                                    required />
+                            </div>
+
+                            <button className="btn btn-primary btn-block">
+                                Login
+                            </button>
+
+                        </form>
+
+
                     </div>
                 </div>
-                
+
             </div>
         )
     }

@@ -9,5 +9,6 @@ for(var n = 0; n < 3; n++){
     n)
     parqueo.push(espacio);
 }
+
 console.log(parqueo)
 
