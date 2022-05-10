@@ -9,6 +9,9 @@ for(var n = 0; n < 3; n++){
     n)
     parqueo.push(espacio);
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 32d1ffb8a22d41fd99428f1ca799ddbdc55bc3fb
 console.log(parqueo)
 

@@ -1,5 +1,7 @@
-import Creador from './Creador.js';
-import Principal from './Principal.js';
+const Creador = require('./Creador.js');
+const Principal = require('./Principal.js');
+
+
 class CreadorPrincipal extends Creador{
     constructor(){
         super();

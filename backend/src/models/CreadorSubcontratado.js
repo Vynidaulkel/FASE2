@@ -1,5 +1,5 @@
-import Creador from './Creador.js';
-import Subcontratado from './Subcontratado.js';
+const Creador = require('./Creador.js');
+const Subcontratado = require('./Subcontratado.js');
 class CreadorSubcontratado extends Creador{
     constructor(){
         super();

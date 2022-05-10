@@ -1,4 +1,5 @@
-import Espacio from './Espacio.js';
+const Espacio = require('./Espacio.js');
+
 class Subcontratado extends Espacio{
     constructor(ubicacion, acceso, horaApertura, horaCierre, contacto){
         super(ubicacion, acceso, horaApertura, horaCierre, contacto);

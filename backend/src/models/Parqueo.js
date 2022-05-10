@@ -3,7 +3,10 @@ const { Schema, model } = require('mongoose');
 const parkSchema = new Schema(
     {
         tipo: {
-            type: Array,
+            type: String,
+        },
+        Espacios: {
+            type: Array
         }
 
     }, {

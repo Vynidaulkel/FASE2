@@ -1,4 +1,4 @@
-import Espacio from './Espacio.js';
+const Espacio = require('./Espacio.js');
 class Principal extends Espacio{
     constructor(ubicacion, acceso, horaApertura, horaCierre, jefaturaPerteneciente){
         super(ubicacion, acceso, horaApertura, horaCierre, jefaturaPerteneciente);

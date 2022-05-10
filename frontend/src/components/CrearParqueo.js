@@ -1,13 +1,12 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import swal from 'sweetalert'
 
 
 
 export default class CrearParqueos extends Component {
 
     state = {
-        tipo: '',
+        tipo: 'Principal',
         ubicacion: '',
         acceso: '',
         hora_apertura: '',
@@ -22,7 +21,7 @@ export default class CrearParqueos extends Component {
 
     async componentDidMount() {
         this.getParqueos();
-        
+
     }
 
     getParqueos = async () => {
@@ -30,11 +29,11 @@ export default class CrearParqueos extends Component {
         this.setState({
             parqueo: res.data
         });
-       console.log(this.state.parqueo);
+        console.log(this.state.parqueo);
     }
 
     exit = async () => {
-        this.getParqueos();
+        window.location.href = '/menu/admin';
     }
 
     onInputChange = (e) => {
@@ -47,38 +46,40 @@ export default class CrearParqueos extends Component {
     onSubmit = async (e) => {
 
         e.preventDefault();
-        
+
         console.log("Se preciono");
-            
-        
+
+
         await axios.post('http://localhost:4000/api/parqueos', {
+            g: this.state.tipo,
             ubicacion: this.state.ubicacion,
-            acceso:  this.state.acceso,
+            acceso: this.state.acceso,
             hora_apertura: this.state.hora_apertura,
             hora_cierre: this.state.hora_cierre,
             Contact_Id_Jefatura: this.state.Contact_Id_Jefatura,
             cantidadDeEspacios: this.state.cantidadDeEspacios,
             CantidadDiscapacitados: this.state.CantidadDiscapacitados,
             espaciosReservados: this.state.espaciosReservados,
-            EspaciosVisitantes:this.state.EspaciosVisitantes
-         });
+            EspaciosVisitantes: this.state.EspaciosVisitantes
+        });
+        console.log(this.state.tipo);
+        window.location.href = '/modificarParqueo';
+        this.getParqueos()
 
-         this.getParqueos()
-    
     }
 
     actualizar = async (event) => {
         if (event.target.value === "Principal") {
-            this.tipo = "Principal"
-            console.log("Principal");
+            this.state.tipo = "Principal"
+            console.log(this.state.tipo);
         }
 
         if (event.target.value === "Subcontratado") {
-            this.tipo = "Subcontratado"
+            this.state.tipo = "Subcontratado"
         }
 
         if (event.target.value === "Campus") {
-            this.tipo = "Campus"
+            this.state.tipo = "Campus"
         }
     }
 
@@ -166,7 +167,7 @@ export default class CrearParqueos extends Component {
                                     <input
                                         type="text"
                                         className="form-control"
-                                        placeholder="cantidadDeEspacios"
+                                        placeholder="Cantidad De Espacios"
                                         onChange={this.onInputChange}
                                         name="cantidadDeEspacios"
                                         pattern="[0-9]+"
@@ -180,7 +181,7 @@ export default class CrearParqueos extends Component {
                                     <input
                                         type="text"
                                         className="form-control"
-                                        placeholder="CantidadDiscapacitados"
+                                        placeholder="Cantidad Discapacitados"
                                         onChange={this.onInputChange}
                                         name="CantidadDiscapacitados"
                                         pattern="[0-9]+"
@@ -193,7 +194,7 @@ export default class CrearParqueos extends Component {
                                     <input
                                         type="text"
                                         className="form-control"
-                                        placeholder="espaciosReservados"
+                                        placeholder="Espacios Reservados"
                                         onChange={this.onInputChange}
                                         name="espaciosReservados"
                                         pattern="[0-9]+"
@@ -206,7 +207,7 @@ export default class CrearParqueos extends Component {
                                     <input
                                         type="text"
                                         className="form-control"
-                                        placeholder="EspaciosVisitantes"
+                                        placeholder="Espacios Visitantes"
                                         onChange={this.onInputChange}
                                         name="EspaciosVisitantes"
                                         pattern="[0-9]+"
