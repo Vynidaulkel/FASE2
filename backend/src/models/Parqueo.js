@@ -5,6 +5,12 @@ const parkSchema = new Schema(
         tipo: {
             type: String,
         },
+        Lugar: {
+            type: String,
+        },
+        Cantidad: {
+            type: String,
+        },
         Espacios: {
             type: Array
         }

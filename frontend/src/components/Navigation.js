@@ -8,7 +8,6 @@ import logo from './menu.jpeg';
 export default class Navigation extends Component {
     render() {
         if (this.props.match.params.id === 'admin') {
-
             return (
 
                 <div className="container">

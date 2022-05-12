@@ -8,7 +8,7 @@ import NotesList from './components/NotesList'
 import Login from './components/Inicio'
 import CreateUser from './components/CreateUser'
 import './App.css';
-import modificarUsuario from './components/ModificarUsuario'
+import MostrarParqueos from './components/MostrarParqueos'
 import CrearParqueo from './components/CrearParqueo'
 
 function App() {
@@ -20,8 +20,8 @@ function App() {
         <Route path="/menu/:id" exact component={Navigation} />
         <Route path="/edit/:id" component={NotesList} />
         <Route path="/createUser" component={CreateUser} />
-        <Route path="/modificarUsuario/:id" component={modificarUsuario} />
         <Route path="/modificarParqueo" component={CrearParqueo} />
+        <Route path="/parqueos" component={MostrarParqueos} />
 
       </div>
     </Router>

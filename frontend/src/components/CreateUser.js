@@ -49,6 +49,7 @@ export default class CreateUser extends Component {
         });
         swal('Usuario creado con exito')
         this.getUsers();
+        window.location.href = '/createUser';
     }
 
     deleteUser = async (userId) => {
