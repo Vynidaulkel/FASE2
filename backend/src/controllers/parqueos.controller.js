@@ -27,6 +27,9 @@ notessCtrl.createNote = async (req, res) => {
     const { EspaciosVisitantes } = req.body;
 
     console.log(g);
+
+    cont= 0
+
     if (g === 'Campus') {
 
         var parqueo = new Array();
@@ -37,6 +40,21 @@ notessCtrl.createNote = async (req, res) => {
             let espacio = FactoryCampus.createProduct(ubicacion, acceso, hora_apertura, hora_cierre,
                 n)
             parqueo.push(espacio);
+        }
+        
+        for (var n = cont; n < espaciosReservados; n++ ){
+            parqueo[n].reservado = true ;  
+            cont= cont+1;
+        }
+
+        for (var n = cont; n < CantidadDiscapacitados; n++ ){
+            parqueo[n].discapacitado = true ;  
+            cont= cont+1;
+        }
+
+        for (var n = cont; n < EspaciosVisitantes; n++ ){
+            parqueo[n].visitante = true ;  
+            cont= cont+1;
         }
 
         lita_parqueos = []
@@ -75,6 +93,20 @@ notessCtrl.createNote = async (req, res) => {
             parqueo.push(espacio);
         }
 
+        for (var n = cont; n < espaciosReservados; n++ ){
+            parqueo[n].reservado = true ;  
+            cont= cont+1;
+        }
+
+        for (var n = cont; n < CantidadDiscapacitados; n++ ){
+            parqueo[n].discapacitado = true ;  
+            cont= cont+1;
+        }
+
+        for (var n = cont; n < EspaciosVisitantes; n++ ){
+            parqueo[n].visitante = true ;  
+            cont= cont+1;
+        }
         lita_parqueos = []
         lita_final = []
         for (var n = 0; n < parqueo.length; n++) {
@@ -111,6 +143,21 @@ notessCtrl.createNote = async (req, res) => {
             let espacio = FactoryPrincipal.createProduct(ubicacion, acceso, hora_apertura, hora_cierre,
                 Contact_Id_Jefatura)
             parqueo.push(espacio);
+        }
+
+        for (var n = cont; n < espaciosReservados; n++ ){
+            parqueo[n].reservado = true ;  
+            cont= cont+1;
+        }
+
+        for (var n = cont; n < CantidadDiscapacitados; n++ ){
+            parqueo[n].discapacitado = true ;  
+            cont= cont+1;
+        }
+
+        for (var n = cont; n < EspaciosVisitantes; n++ ){
+            parqueo[n].visitante = true ;  
+            cont= cont+1;
         }
 
         lita_parqueos = []
