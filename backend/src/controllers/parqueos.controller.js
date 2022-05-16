@@ -27,65 +27,177 @@ notessCtrl.createNote = async (req, res) => {
     const { EspaciosVisitantes } = req.body;
 
     console.log(g);
+
     cont = 0
 
+    if (g === 'Campus') {
 
+        var parqueo = new Array();
+        console.log('campus')
+        let FactoryCampus = new CreadorCampus();
+        console.log('campus2')
+        for (var n = 0; n < cantidadDeEspacios; n++) {
+            let espacio = FactoryCampus.createProduct(ubicacion, acceso, hora_apertura, hora_cierre,
+                n)
+            parqueo.push(espacio);
+        }
 
-    var parqueo = new Array();
-    let FactoryCampus = new CreadorCampus();
+        for (var n = cont; n < espaciosReservados; n++) {
+            parqueo[n].reservado = true;
+            cont = cont + 1;
+        }
 
-    for (var n = 0; n < cantidadDeEspacios; n++) {
-        let espacio = FactoryCampus.createProduct(ubicacion, acceso, hora_apertura, hora_cierre,
-            n)
-        parqueo.push(espacio);
-    }
+        for (var n = cont; n < CantidadDiscapacitados; n++) {
+            parqueo[n].discapacitado = true;
+            cont = cont + 1;
+        }
 
-    for (var n = cont; n < espaciosReservados; n++) {
-        parqueo[n].reservado = true;
-        cont = cont + 1;
-    }
+        for (var n = cont; n < EspaciosVisitantes; n++) {
+            parqueo[n].visitante = true;
+            cont = cont + 1;
+        }
 
-    for (var n = cont; n < CantidadDiscapacitados; n++) {
-        parqueo[n].discapacitado = true;
-        cont = cont + 1;
-    }
-
-    for (var n = cont; n < EspaciosVisitantes; n++) {
-        parqueo[n].visitante = true;
-        cont = cont + 1;
-    }
-
-    lita_parqueos = []
-    lita_final = []
-    for (var n = 0; n < parqueo.length; n++) {
-        lita_parqueos.push(parqueo[n].ubicacion)
-        lita_parqueos.push(parqueo[n].acceso)
-        lita_parqueos.push(parqueo[n].horaApertura)
-        lita_parqueos.push(parqueo[n].horaCierre)
-        lita_parqueos.push(parqueo[n].reservado)
-        lita_parqueos.push(parqueo[n].discapacitado)
-        lita_parqueos.push(parqueo[n].visitante)
-        lita_parqueos.push(parqueo[n].id)
-        lita_final.push(lita_parqueos)
         lita_parqueos = []
+        lita_final = []
+        for (var n = 0; n < parqueo.length; n++) {
+            lita_parqueos.push(parqueo[n].ubicacion)
+            lita_parqueos.push(parqueo[n].acceso)
+            lita_parqueos.push(parqueo[n].horaApertura)
+            lita_parqueos.push(parqueo[n].horaCierre)
+            lita_parqueos.push(parqueo[n].reservado)
+            lita_parqueos.push(parqueo[n].discapacitado)
+            lita_parqueos.push(parqueo[n].visitante)
+            lita_parqueos.push(parqueo[n].id)
+            lita_final.push(lita_parqueos)
+            lita_parqueos = []
+        }
+        tipo = g
+        Lugar = ubicacion
+        Espacios = lita_final;
+        Cantidad = cantidadDeEspacios
+
+
+        const newNote = new Note({
+            tipo, Lugar, Cantidad,
+            Espacios
+
+        });
+        await newNote.save();
+        res.json('New Note added');
     }
-    tipo = g
-    Lugar = ubicacion
-    Espacios = lita_final;
-    Cantidad = cantidadDeEspacios
+    if (g === 'Principal') {
+        var parqueo = new Array();
+        console.log('campus')
+        let FactoryPrincipal = new CreadorPrincipal();
+        console.log('campus2')
+        for (var n = 0; n < cantidadDeEspacios; n++) {
+            let espacio = FactoryPrincipal.createProduct(ubicacion, acceso, hora_apertura, hora_cierre,
+                Contact_Id_Jefatura)
+            parqueo.push(espacio);
+        }
+
+        for (var n = cont; n < espaciosReservados; n++) {
+            parqueo[n].reservado = true;
+            cont = cont + 1;
+        }
+
+        for (var n = cont; n < CantidadDiscapacitados; n++) {
+            parqueo[n].discapacitado = true;
+            cont = cont + 1;
+        }
+
+        for (var n = cont; n < EspaciosVisitantes; n++) {
+            parqueo[n].visitante = true;
+            cont = cont + 1;
+        }
+        lita_parqueos = []
+        lita_final = []
+        for (var n = 0; n < parqueo.length; n++) {
+            lita_parqueos.push(parqueo[n].ubicacion)
+            lita_parqueos.push(parqueo[n].acceso)
+            lita_parqueos.push(parqueo[n].horaApertura)
+            lita_parqueos.push(parqueo[n].horaCierre)
+            lita_parqueos.push(parqueo[n].reservado)
+            lita_parqueos.push(parqueo[n].discapacitado)
+            lita_parqueos.push(parqueo[n].visitante)
+            lita_parqueos.push(parqueo[n].jefaturaPerteneciente)
+            lita_final.push(lita_parqueos)
+            lita_parqueos = []
+        }
+        tipo = g
+        Lugar = ubicacion
+        Espacios = lita_final;
+        Cantidad = cantidadDeEspacios
 
 
-    const newNote = new Note({
-        tipo, Lugar, Cantidad,
-        Espacios
+        const newNote = new Note({
+            tipo, Lugar, Cantidad,
+            Espacios
 
-    });
-    await newNote.save();
-    res.json('New Note added');
+        });
+        await newNote.save();
+        res.json('New Note added');
 
 
+    }
+    if (g === 'Subcontratado') {
+        var parqueo = new Array();
+        console.log('campus')
+        let FactoryPrincipal = new CreadorSubcontratado();
+        console.log('campus2')
+        for (var n = 0; n < cantidadDeEspacios; n++) {
+            let espacio = FactoryPrincipal.createProduct(ubicacion, acceso, hora_apertura, hora_cierre,
+                Contact_Id_Jefatura)
+            parqueo.push(espacio);
+        }
 
+        for (var n = cont; n < espaciosReservados; n++) {
+            parqueo[n].reservado = true;
+            cont = cont + 1;
+        }
+
+        for (var n = cont; n < CantidadDiscapacitados; n++) {
+            parqueo[n].discapacitado = true;
+            cont = cont + 1;
+        }
+
+        for (var n = cont; n < EspaciosVisitantes; n++) {
+            parqueo[n].visitante = true;
+            cont = cont + 1;
+        }
+
+        lita_parqueos = []
+        lita_final = []
+        for (var n = 0; n < parqueo.length; n++) {
+            lita_parqueos.push(parqueo[n].ubicacion)
+            lita_parqueos.push(parqueo[n].acceso)
+            lita_parqueos.push(parqueo[n].horaApertura)
+            lita_parqueos.push(parqueo[n].horaCierre)
+            lita_parqueos.push(parqueo[n].reservado)
+            lita_parqueos.push(parqueo[n].discapacitado)
+            lita_parqueos.push(parqueo[n].visitante)
+            lita_parqueos.push(parqueo[n].jefaturaPerteneciente)
+            lita_final.push(lita_parqueos)
+            lita_parqueos = []
+        }
+        tipo = g
+        Lugar = ubicacion
+        Espacios = lita_final;
+        Cantidad = cantidadDeEspacios
+
+
+        const newNote = new Note({
+            tipo, Lugar, Cantidad,
+            Espacios
+
+        });
+        await newNote.save();
+        res.json('New Note added');
+
+    }
 };
+
+
 
 notessCtrl.getNote = async (req, res) => {
     const note = await Note.findById(req.params.id);

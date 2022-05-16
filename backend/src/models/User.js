@@ -2,7 +2,9 @@ const { Schema, model } = require('mongoose');
 
 const userSchema = new Schema(
     {
-        
+        Docente: {
+            type: Boolean,
+        },
         username: {
             type: String,
             unique: true,
@@ -22,9 +24,9 @@ const userSchema = new Schema(
         correo: {
             type: String
         }
-        
+
     }, {
-        timestamps: true
-    });
+    timestamps: true
+});
 
 module.exports = model('User', userSchema);

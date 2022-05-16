@@ -83,15 +83,15 @@ export default class CreateUser extends Component {
                                 <h3></h3>
 
                                 <div>
-                                <style>
-                                    
-                                    color: orangered; 
-                                    
-                                </style>
+                                    <style>
+
+                                        color: orangered;
+
+                                    </style>
                                     <input type="checkbox" onChange={this.handleCheckboxChild} />
-                                  
-                           
-                                    <label for="checkbox"><h6>Docente</h6></label> 
+
+
+                                    <label for="checkbox"><h6>Docente</h6></label>
                                 </div>
 
                                 <h3></h3>
