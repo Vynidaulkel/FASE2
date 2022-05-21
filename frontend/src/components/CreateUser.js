@@ -11,6 +11,7 @@ export default class CreateUser extends Component {
         nombre: '',
         numero: '',
         correo: '',
+        placas: [],
         users: []
     }
 

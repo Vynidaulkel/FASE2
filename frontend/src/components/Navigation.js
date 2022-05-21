@@ -6,6 +6,9 @@ import logo from './menu.jpeg';
 
 
 export default class Navigation extends Component {
+   
+   
+
     render() {
         if (this.props.match.params.id === 'admin') {
             return (
@@ -68,6 +71,9 @@ export default class Navigation extends Component {
                                     <Link to="/parqueos" className="nav-link">Parqueos</Link>
                                 </li>
 
+                                <li className="nav-item">
+                                    <Link to={"/AgregarPlaca/" + this.props.match.params.id}  className="nav-link">Agregar Placa</Link>
+                                </li>
 
                                 <li className="nav-item">
                                     <Link to="/" className="nav-link">Salir</Link>
