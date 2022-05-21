@@ -75,11 +75,14 @@ notessCtrl.createNote = async (req, res) => {
         Lugar = ubicacion
         Espacios = lita_final;
         Cantidad = cantidadDeEspacios
-
+        Discapacitados = CantidadDiscapacitados
+        Reservados= espaciosReservados
+        Visitantes = EspaciosVisitantes
 
         const newNote = new Note({
             tipo, Lugar, Cantidad,
-            Espacios
+            Espacios, Discapacitados, 
+            Reservados, Visitantes
 
         });
         await newNote.save();
@@ -128,11 +131,14 @@ notessCtrl.createNote = async (req, res) => {
         Lugar = ubicacion
         Espacios = lita_final;
         Cantidad = cantidadDeEspacios
-
+        Discapacitados = CantidadDiscapacitados
+        Reservados= espaciosReservados
+        Visitantes = EspaciosVisitantes
 
         const newNote = new Note({
             tipo, Lugar, Cantidad,
-            Espacios
+            Espacios, Discapacitados, 
+            Reservados, Visitantes
 
         });
         await newNote.save();
@@ -184,11 +190,14 @@ notessCtrl.createNote = async (req, res) => {
         Lugar = ubicacion
         Espacios = lita_final;
         Cantidad = cantidadDeEspacios
-
+        Discapacitados = CantidadDiscapacitados
+        Reservados= espaciosReservados
+        Visitantes = EspaciosVisitantes
 
         const newNote = new Note({
             tipo, Lugar, Cantidad,
-            Espacios
+            Espacios, Discapacitados, 
+            Reservados, Visitantes
 
         });
         await newNote.save();

@@ -11,6 +11,7 @@ export default class CreateUser extends Component {
         nombre: '',
         numero: '',
         correo: '',
+        identificacion: '',
         placas: [],
         users: []
     }
@@ -46,7 +47,8 @@ export default class CreateUser extends Component {
             password: this.state.password,
             nombre: this.state.nombre,
             numero: this.state.numero,
-            correo: this.state.correo
+            correo: this.state.correo,
+            identificacion: this.state.identificacion
         });
         swal('Usuario creado con exito')
         this.getUsers();
@@ -155,6 +157,18 @@ export default class CreateUser extends Component {
                                         name="password"
                                         autocomplete="off"
                                         value={this.state.password}
+                                        required />
+                                </div>
+
+                                <div className="form-group">
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        placeholder="Identificacion"
+                                        onChange={this.onInputChange}
+                                        name="identificacion"
+                                        autocomplete="off"
+                                        value={this.state.identificacion}
                                         required />
                                 </div>
 

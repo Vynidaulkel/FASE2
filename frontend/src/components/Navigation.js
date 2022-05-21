@@ -30,10 +30,13 @@ export default class Navigation extends Component {
                                     <Link to="/parqueos" className="nav-link">Parqueos</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link to="/modificarParqueo" className="nav-link">Modificar Parqueos</Link>
+                                    <Link to="/modificarParqueo" className="nav-link">Crear Parqueos</Link>
                                 </li>
                                 <li className="nav-item">
                                     <Link to={"/createUser"} className="nav-link">Crear Usuario</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link to={"/Users"} className="nav-link">Consultar Usuarios</Link>
                                 </li>
                                 <li className="nav-item">
                                     <Link to="/" className="nav-link">Salir</Link>

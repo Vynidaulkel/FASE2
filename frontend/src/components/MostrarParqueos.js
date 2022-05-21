@@ -33,20 +33,26 @@ export default class MostrarParqueos extends Component {
 
 
     render() {
+        console.log(this.state.parqueo)
         return (
             <div className="row">
-                <div className="col-md-4 offset-md-4">
+                <div className="offset-md-3">
                     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
 
                         <div className="card card-body">
                             <h3>Parqueos disponibles</h3>
                             <ul className="list-group">
                                 {
+                                    
                                     this.state.parqueo.map(parqueo => (
                                         <li className="list-group-item list-group-item-action" >
                                             {"Tipo:"} {parqueo.tipo} 
                                             {"     Lugar:"} {parqueo.Lugar} 
-                                            {"     Cantidad espacios:"} {parqueo.Cantidad}
+                                            {"     Espacios:"} {parqueo.Cantidad}
+                                            {"     Discapacitados:"} {parqueo.Discapacitados}
+                                            {"     Reservados:"} {parqueo.Reservados}
+                                            {"     Visitantes:"} {parqueo.Visitantes}
+
                                         </li>
                                         
                                     ))

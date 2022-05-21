@@ -13,6 +13,15 @@ const parkSchema = new Schema(
         },
         Espacios: {
             type: Array
+        },
+        Discapacitados: {
+            type: String
+        },
+        Reservados: {
+            type: String
+        },
+        Visitantes: {
+            type: String
         }
 
     }, {

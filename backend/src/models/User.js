@@ -23,6 +23,9 @@ const userSchema = new Schema(
 
         correo: {
             type: String
+        },
+        identificacion: {
+            type: String
         }
 
     }, {

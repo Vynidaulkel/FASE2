@@ -10,6 +10,7 @@ import CreateUser from './components/CreateUser'
 import './App.css';
 import MostrarParqueos from './components/MostrarParqueos'
 import CrearParqueo from './components/CrearParqueo'
+import ConsultarUsuarios from './components/ConsultarUsuarios'
 
 function App() {
   return (
@@ -22,7 +23,7 @@ function App() {
         <Route path="/modificarParqueo" component={CrearParqueo} />
         <Route path="/parqueos" component={MostrarParqueos} />
         <Route path="/AgregarPlaca/:id" component={AgregarPlaca} />
-
+        <Route path="/Users" component={ConsultarUsuarios} />
 
       </div>
     </Router>
