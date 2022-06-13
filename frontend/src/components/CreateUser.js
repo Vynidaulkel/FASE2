@@ -3,7 +3,22 @@ import axios from 'axios'
 import swal from 'sweetalert'
 import TextField from '@material-ui/core/TextField';
 
-let hora = "";
+
+let entradaLunes = "07:30";
+let entradaMartes = "07:30";
+let entradaMiercoles = "07:30";
+let entradaJueves = "07:30";
+let entradaViernes = "07:30";
+let entradaSabado = "07:30";
+let entradaDomingo = "07:30";
+
+let salidaLunes ="20:00";
+let salidaMartes = "20:00";
+let salidaMiercoles = "20:00";
+let salidaJueves = "20:00";
+let salidaViernes = "20:00";
+let salidaSabado = "20:00";
+let salidaDomingo = "20:00";
 
 
 export default class CreateUser extends Component {
@@ -52,7 +67,28 @@ export default class CreateUser extends Component {
             nombre: this.state.nombre,
             numero: this.state.numero,
             correo: this.state.correo,
-            identificacion: this.state.identificacion
+            identificacion: this.state.identificacion,
+            
+            entradaLunes: entradaLunes,
+            salidaLunes: salidaLunes,
+
+            entradaMartes: entradaMartes,
+            salidaMartes: salidaMartes,
+
+            entradaMiercoles: entradaMiercoles,
+            salidaMiercoles: salidaMiercoles,
+
+            entradaJueves: entradaJueves,
+            salidaJueves: salidaJueves,
+
+            entradaViernes: entradaViernes,
+            salidaViernes: salidaViernes,
+
+            entradaSabado: entradaSabado,
+            salidaSabado: salidaSabado,
+
+            entradaDomingo: entradaDomingo,
+            salidaDomingo: salidaDomingo
         });
         swal('Usuario creado con exito')
         this.getUsers();
@@ -77,12 +113,60 @@ export default class CreateUser extends Component {
     }
 
     onTimeChange(e) {
-        
-        console.log(e.target.value)
-        hora = e.target.value
-        console.log(hora)
-      }
+        entradaLunes = e.target.value
+    }
 
+    onTimeChange1(e) {
+        salidaLunes = e.target.value
+    }
+
+    onTimeChange2(e) {
+        entradaMartes = e.target.value
+    }
+
+    onTimeChange3(e) {
+        salidaMartes = e.target.value
+    }
+
+    onTimeChange4(e) {
+        entradaMiercoles = e.target.value
+    }
+
+    onTimeChange5(e) {
+        salidaMiercoles = e.target.value
+    }
+
+    onTimeChange6(e) {
+        entradaJueves = e.target.value
+    }
+
+    onTimeChange7(e) {
+        salidaJueves = e.target.value
+    }
+
+    onTimeChange8(e) {
+        entradaViernes = e.target.value
+    }
+
+    onTimeChange9(e) {
+        salidaJueves = e.target.value
+    }
+
+    onTimeChange10(e) {
+        entradaSabado = e.target.value
+    }
+
+    onTimeChange11(e) {
+        salidaSabado = e.target.value
+    }
+
+    onTimeChange12(e) {
+        entradaDomingo = e.target.value
+    }
+
+    onTimeChange13(e) {
+        salidaDomingo= e.target.value
+    }
     render() {
         return (
             <div className="row">
@@ -191,7 +275,7 @@ export default class CreateUser extends Component {
 
                                 <TextField
                                 id="time"
-                                label="Entrada Lunes"
+                                label="Entrada"
                                 type="time"
                                 fullWidth = {true}
                                 onChange={this.onTimeChange}
@@ -206,10 +290,10 @@ export default class CreateUser extends Component {
                             />
                              <TextField
                                 id="time"
-                                label="Salida Lunes"
+                                label="Salida"
                                 type="time"
                                 fullWidth = {true}
-                                onChange={this.onTimeChange}
+                                onChange={this.onTimeChange1}
                                 className= "form-group"
                                 defaultValue="20:00"
                                 InputLabelProps={{
@@ -223,10 +307,10 @@ export default class CreateUser extends Component {
                             <h6>Martes</h6>
                              <TextField
                                 id="time"
-                                label="Entrada Martes"
+                                label="Entrada"
                                 type="time"
                                 fullWidth = {true}
-                                onChange={this.onTimeChange}
+                                onChange={this.onTimeChange2}
                                 className= "form-group"
                                 defaultValue="07:30"
                                 InputLabelProps={{
@@ -238,10 +322,10 @@ export default class CreateUser extends Component {
                             />
                              <TextField
                                 id="time"
-                                label="Salida Martes"
+                                label="Salida"
                                 type="time"
                                 fullWidth = {true}
-                                onChange={this.onTimeChange}
+                                onChange={this.onTimeChange3}
                                 className= "form-group"
                                 defaultValue="20:00"
                                 InputLabelProps={{
@@ -254,10 +338,10 @@ export default class CreateUser extends Component {
                             <h6>Miercoles</h6>
                              <TextField
                                 id="time"
-                                label="Entrada Miercoles"
+                                label="Entrada"
                                 type="time"
                                 fullWidth = {true}
-                                onChange={this.onTimeChange}
+                                onChange={this.onTimeChange4}
                                 className= "form-group"
                                 defaultValue="07:30"
                                 InputLabelProps={{
@@ -269,10 +353,10 @@ export default class CreateUser extends Component {
                             />
                              <TextField
                                 id="time"
-                                label="Salida Miercoles"
+                                label="Salida"
                                 type="time"
                                 fullWidth = {true}
-                                onChange={this.onTimeChange}
+                                onChange={this.onTimeChange5}
                                 className= "form-group"
                                 defaultValue="20:00"
                                 InputLabelProps={{
@@ -285,10 +369,10 @@ export default class CreateUser extends Component {
                             <h6>Jueves</h6>
                              <TextField
                                 id="time"
-                                label="Entrada Jueves"
+                                label="Entrada"
                                 type="time"
                                 fullWidth = {true}
-                                onChange={this.onTimeChange}
+                                onChange={this.onTimeChange6}
                                 className= "form-group"
                                 defaultValue="07:30"
                                 InputLabelProps={{
@@ -300,9 +384,9 @@ export default class CreateUser extends Component {
                             />
                              <TextField
                                 id="time"
-                                label="Salida Jueves"
+                                label="Salida"
                                 type="time"
-                                onChange={this.onTimeChange}
+                                onChange={this.onTimeChange7}
                                 className= "form-group"
                                 fullWidth = {true}
                                 defaultValue="20:00"
@@ -316,9 +400,9 @@ export default class CreateUser extends Component {
                             <h6>Viernes</h6>
                              <TextField
                                 id="time"
-                                label="Entrada Viernes"
+                                label="Entrada"
                                 type="time"
-                                onChange={this.onTimeChange}
+                                onChange={this.onTimeChange8}
                                 fullWidth = {true}
                                 className= "form-group"
                                 defaultValue="07:30"
@@ -331,9 +415,9 @@ export default class CreateUser extends Component {
                             />
                              <TextField
                                 id="time"
-                                label="Salida Viernes"
+                                label="Salida"
                                 type="time"
-                                onChange={this.onTimeChange}
+                                onChange={this.onTimeChange9}
                                 fullWidth = {true}
                                 className= "form-group"
                                 defaultValue="20:00"
@@ -347,9 +431,9 @@ export default class CreateUser extends Component {
                             <h6>Sabado</h6>
                              <TextField
                                 id="time"
-                                label="Entrada Sabado"
+                                label="Entrada"
                                 type="time"
-                                onChange={this.onTimeChange}
+                                onChange={this.onTimeChange10}
                                 className= "form-group"
                                 fullWidth = {true}
                                 defaultValue="07:30"
@@ -362,10 +446,10 @@ export default class CreateUser extends Component {
                             />
                              <TextField
                                 id="time"
-                                label="Salida Sabado"
+                                label="Salida"
                                 type="time"
                                 fullWidth = {true}
-                                onChange={this.onTimeChange}
+                                onChange={this.onTimeChange11}
                                 className= "form-group"
                                 defaultValue="20:00"
                                 InputLabelProps={{
@@ -380,7 +464,7 @@ export default class CreateUser extends Component {
                                 id="time"
                                 label="Entrada"
                                 type="time"
-                                onChange={this.onTimeChange}
+                                onChange={this.onTimeChange12}
                                 fullWidth = {true}
                                 className= "form-group"
                                 defaultValue="07:30"
@@ -396,7 +480,7 @@ export default class CreateUser extends Component {
                                 id="time"
                                 label="Salida"
                                 type="time"
-                                onChange={this.onTimeChange}
+                                onChange={this.onTimeChange13}
                                 className= "form-group"
                                 defaultValue="20:00"
                                 fullWidth = {true}

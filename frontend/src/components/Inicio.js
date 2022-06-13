@@ -23,8 +23,6 @@ export default class Inicio extends Component {
         console.log(res.data);
     }
 
-
-
     onSubmit = async (e) => {
         e.preventDefault();
         const res = await axios.get('http://localhost:4000/api/users');
@@ -56,9 +54,6 @@ export default class Inicio extends Component {
         }
 
     }
-
-   
-
 
     onInputChange = (e) => {
         this.setState({
