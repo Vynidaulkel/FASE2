@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import 'react-datepicker/dist/react-datepicker.css'
 import swal from 'sweetalert'
 import axios from 'axios'
+import TextField from '@material-ui/core/TextField';
 
 
 export default class Inicio extends Component {
@@ -99,6 +100,21 @@ export default class Inicio extends Component {
                             <button className="btn btn-primary btn-block">
                                 Login
                             </button>
+
+
+                            <TextField
+                                id="time"
+                                label="Alarm clock"
+                                type="time"
+                                defaultValue="07:30"
+                                className= "form-group"
+                                InputLabelProps={{
+                                shrink: true,
+                                }}
+                                inputProps={{
+                                step: 300, // 5 min
+                                }}
+                            />
 
                         </form>
 
