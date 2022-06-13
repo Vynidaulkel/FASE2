@@ -2,12 +2,14 @@ import React, { Component } from 'react'
 import 'react-datepicker/dist/react-datepicker.css'
 import swal from 'sweetalert'
 import axios from 'axios'
-import TextField from '@material-ui/core/TextField';
+
+
 
 
 export default class Inicio extends Component {
 
     state = {
+        time: '12:34',
         usuario: '',
         contraseña: '',
         users: []
@@ -55,6 +57,8 @@ export default class Inicio extends Component {
 
     }
 
+   
+
 
     onInputChange = (e) => {
         this.setState({
@@ -65,7 +69,7 @@ export default class Inicio extends Component {
 
     render() {
         return (
-
+            
             <div className="col-md-4 offset-md-4">
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}>
                     <div className="card card-body">
@@ -101,20 +105,9 @@ export default class Inicio extends Component {
                                 Login
                             </button>
 
+                        
 
-                            <TextField
-                                id="time"
-                                label="Alarm clock"
-                                type="time"
-                                defaultValue="07:30"
-                                className= "form-group"
-                                InputLabelProps={{
-                                shrink: true,
-                                }}
-                                inputProps={{
-                                step: 300, // 5 min
-                                }}
-                            />
+                           
 
                         </form>
 
