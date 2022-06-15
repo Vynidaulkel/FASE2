@@ -36,7 +36,7 @@ export default class Navigation extends Component {
                                     <Link to={"/createUser"} className="nav-link">Crear Usuario</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link to={"/Users"} className="nav-link">Consultar Usuarios</Link>
+                                    <Link to={"/ModificarUsuario"} className="nav-link">Modificar Usuarios</Link>
                                 </li>
                                 <li className="nav-item">
                                     <Link to="/" className="nav-link">Salir</Link>

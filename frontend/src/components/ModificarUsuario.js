@@ -1,21 +1,18 @@
 import React, { Component } from 'react'
-import 'react-datepicker/dist/react-datepicker.css'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
+import { format } from 'timeago.js'
 
-
-export default class ModificarUsuario extends Component {
+export default class ConsultarUsuario extends Component {
 
     state = {
-        username: '',
-        password: '',
-        nombre: '',
-        numero: '',
-        correo: '',
+        IdUser: this.props.match.params.id,
+        identificacion: '',
+        editing: false,
         users: []
     }
 
     async componentDidMount() {
-        console.log(this.props.match.params.id);
         this.getUsers();
     }
 
@@ -24,57 +21,150 @@ export default class ModificarUsuario extends Component {
         this.setState({
             users: res.data
         });
-
     }
 
-    exit = async () => {
-
-        window.location.href = '/menu';
-    }
-
-    onInputChange = (e) => {
+    onChangeUsername = e => {
         this.setState({
-            [e.target.name]: e.target.value
+            identificacion: e.target.value
         })
     }
 
     onSubmit = async (e) => {
         e.preventDefault();
+
+        let list = []
+
         const res = await axios.get('http://localhost:4000/api/users');
         this.setState({
             users: res.data
         });
 
-        this.state.correo = { id: "6275d3f0361a7945cc72aed8" }
-        console.log(this.state.correo);
-        const a = await axios.get('http://localhost:4000/api/users' + this.correo);
-        console.log(a.data);
+        if (this.state.identificacion === "") {
+            return
+        }
+        for (var i = 0; i < this.state.users.length; i++) {
+            console.log(this.state.users[i]);
+
+            if (this.state.users[i].identificacion === this.state.identificacion) {
+                list.push(this.state.users[i])
+            }
+        }
+        this.state.users = list
+        this.setState({
+
+        })
+
     }
 
-
+    deleteUser = async (userId) => {
+        const response = window.confirm('are you sure you want to delete it?');
+        if (response) {
+            await axios.delete('http://localhost:4000/api/users/' + userId);
+            this.getUsers();
+        }
+    }
 
     render() {
         return (
+
             <div className="row">
-                <div className="col-md-4 offset-md-4">
-                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}>
+
+                <div>
+                    <h1 style={{ textAlign: "center" }}>Modificar Usuarios</h1>
+
+
+                    <div className="col-md-12 ">
+
 
                         <div className="card card-body">
-                            <h3>Modify User</h3>
+                            <h3>Buscar Usuario</h3>
                             <form onSubmit={this.onSubmit}>
-
-
-
-                                <button type="submit" className="btn btn-success btn-block">
-                                    Save
+                                <div className="form-group">
+                                    <input
+                                        className="form-control"
+                                        value={this.state.identificacion}
+                                        type="text"
+                                        onChange={this.onChangeUsername}
+                                    />
+                                </div>
+                                <button type="submit" className="btn btn-primary">
+                                    Consultar
                                 </button>
                             </form>
-                            <h4></h4>
 
-                            <button className="btn btn-danger " onClick={this.exit} height={50}>
-                                Regresar
-                            </button>
                         </div>
+                    </div>
+                    <div className="col-md-12">
+                        <ul className="list-group">
+                            {
+                                this.state.users.map(users => (
+                                    <div className="col-md-16" key={users._id}>
+                                        <div className="card">
+                                            <div className="card-header d-flex justify-content-between">
+                                                <h5>{users.title}</h5>
+                                                <Link to={"/edit/" + users._id} className="btn btn-secondary">
+                                                    <i className="material-icons">
+                                                        border_color</i>
+                                                </Link>
+                                            </div>
+                                            <div className="card-body">
+                                                <p>
+                                                    {users.content}
+                                                </p>
+                                                <p>
+                                                    Nombre: {users.nombre} 
+                                                </p>
+                                                
+                                                <p>
+                                                    Correo: {users.correo} | Identificacion: {users.identificacion}
+                                                </p>
+                                                
+                                                <p>
+                                                    Username: {users.username} | Contraseña: {users.password}
+                                                </p>
+                                                <p>
+                                                ------------------Horario------------------
+                                                </p>
+                                                <p>
+                                                    Lunes._______|{users.entradaLunes} -> {users.salidaLunes}|
+                                                </p>
+
+                                                <p>
+                                                    Martes.______|{users.entradaMartes} -> {users.salidaMartes}|
+                                                </p>
+
+                                                <p>
+                                                    Miercoles.___|{users.entradaMiercoles} -> {users.salidaMiercoles}|
+                                                </p>
+
+                                                <p>
+                                                    Jueves.______|{users.entradaJueves} -> {users.salidaJueves}|
+                                                </p>
+
+                                                <p>
+                                                    Viernes._____|{users.entradaViernes} -> {users.salidaViernes}|
+                                                </p>
+
+                                                <p>
+                                                    Sabado._____|{users.entradaSabado} -> {users.salidaSabado}|
+                                                </p>
+
+                                                <p>
+                                                    Domingo.___|{users.entradaDomingo} -> {users.salidaDomingo}|
+                                                </p>
+
+
+                                            </div>
+                                            <div className="card-footer">
+                                                <button className="btn btn-danger" onClick={() => this.deleteUser(users._id)}>
+                                                    Delete
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))
+                            }
+                        </ul>
                     </div>
                 </div>
 

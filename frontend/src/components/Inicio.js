@@ -4,8 +4,6 @@ import swal from 'sweetalert'
 import axios from 'axios'
 
 
-
-
 export default class Inicio extends Component {
 
     state = {
@@ -64,7 +62,7 @@ export default class Inicio extends Component {
 
     render() {
         return (
-            
+
             <div className="col-md-4 offset-md-4">
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}>
                     <div className="card card-body">
@@ -100,9 +98,6 @@ export default class Inicio extends Component {
                                 Login
                             </button>
 
-                        
-
-                           
 
                         </form>
 

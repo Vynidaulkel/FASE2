@@ -15,6 +15,26 @@ userCtrl.getUsers = async (req, res) => {
     }
 };
 
+userCtrl.getUser = async (req, res) => {
+    const user = await User.findById(req.params.id);
+    res.json(user);
+}
+
+
+userCtrl.updateUser = async (req, res) => {
+    const { Docente, username, password, nombre, numero, correo, identificacion, entradaLunes, salidaLunes, entradaMartes
+        , salidaMartes, entradaMiercoles, salidaMiercoles, entradaJueves, salidaJueves, entradaViernes, salidaViernes
+        , entradaSabado, salidaSabado, entradaDomingo, salidaDomingo } = req.body;
+
+    await User.findByIdAndUpdate(req.params.id, {
+
+        Docente, username, password, nombre, numero, correo, identificacion, entradaLunes, salidaLunes, entradaMartes
+        , salidaMartes, entradaMiercoles, salidaMiercoles, entradaJueves, salidaJueves, entradaViernes, salidaViernes
+        , entradaSabado, salidaSabado, entradaDomingo, salidaDomingo
+    });
+    res.json('Note Updated');
+}
+
 userCtrl.createUser = async (req, res) => {
     try {
         console.log(req.body);
@@ -28,27 +48,24 @@ userCtrl.createUser = async (req, res) => {
 
         const { entradaLunes } = req.body;
         const { salidaLunes } = req.body;
-
         const { entradaMartes } = req.body;
         const { salidaMartes } = req.body;
-
         const { entradaMiercoles } = req.body;
         const { salidaMiercoles } = req.body;
-
         const { entradaJueves } = req.body;
         const { salidaJueves } = req.body;
-
         const { entradaViernes } = req.body;
         const { salidaViernes } = req.body;
-
         const { entradaSabado } = req.body;
         const { salidaSabado } = req.body;
-
         const { entradaDomingo } = req.body;
         const { salidaDomingo } = req.body;
-        const newUser = new User({ Docente, username, password, nombre, numero, correo, identificacion, entradaLunes, salidaLunes, entradaMartes
-        ,salidaMartes, entradaMiercoles, salidaMiercoles, entradaJueves, salidaJueves, entradaViernes, salidaViernes
-    , entradaSabado, salidaSabado, entradaDomingo, salidaDomingo});
+
+        const newUser = new User({
+            Docente, username, password, nombre, numero, correo, identificacion, entradaLunes, salidaLunes, entradaMartes
+            , salidaMartes, entradaMiercoles, salidaMiercoles, entradaJueves, salidaJueves, entradaViernes, salidaViernes
+            , entradaSabado, salidaSabado, entradaDomingo, salidaDomingo
+        });
         await newUser.save();
         res.json('User created');
     } catch (e) {

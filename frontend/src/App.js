@@ -11,6 +11,7 @@ import './App.css';
 import MostrarParqueos from './components/MostrarParqueos'
 import CrearParqueo from './components/CrearParqueo'
 import ConsultarUsuarios from './components/ConsultarUsuarios'
+import ModificarUsuario from './components/ModificarUsuario'
 
 function App() {
   return (
@@ -18,12 +19,14 @@ function App() {
     <Router>
       <div className="container p-4">
         <Route path="/" exact component={Login} />
+        <Route path="/edit/:id" component={CreateUser} />
         <Route path="/menu/:id" exact component={Navigation} />
         <Route path="/createUser" component={CreateUser} />
         <Route path="/modificarParqueo" component={CrearParqueo} />
         <Route path="/parqueos" component={MostrarParqueos} />
         <Route path="/AgregarPlaca/:id" component={AgregarPlaca} />
-        <Route path="/Users" component={ConsultarUsuarios} />
+        <Route path="/ModificarUsuario" component={ModificarUsuario} />
+
 
       </div>
     </Router>
