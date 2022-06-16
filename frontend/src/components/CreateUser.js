@@ -24,7 +24,9 @@ let salidaDomingo = "20:00";
 export default class CreateUser extends Component {
 
     state = {
+
         Docente: false,
+        Discapacitado: false,
         username: '',
         password: '',
         nombre: '',
@@ -34,6 +36,7 @@ export default class CreateUser extends Component {
         editing: false,
         placas: [],
         users: []
+    
     }
 
     async componentDidMount() {
@@ -46,20 +49,20 @@ export default class CreateUser extends Component {
             })
         }
 
-
-
-
-
         if (this.props.match.params.id) {
             const res = await axios.get('http://localhost:4000/api/users/' + this.props.match.params.id);
-            console.log(res.data)
+            
+     
+            
             this.setState({
+                 
                 username: res.data.username,
                 password: res.data.password,
                 nombre: res.data.nombre,
                 correo: res.data.correo,
                 identificacion: res.data.identificacion,
                 numero: res.data.numero,
+               
 
                 entradaLunes: res.data.entradaLunes,
                 entradaMartes: res.data.entradaMartes,
@@ -79,8 +82,6 @@ export default class CreateUser extends Component {
 
 
                 _id: res.data._id,
-
-
 
                 editing: true
             });
@@ -109,8 +110,9 @@ export default class CreateUser extends Component {
 
         if (this.state.editing) {
 
-            const updatedNote = {
+            const updatedUser= {
                 Docente: this.state.Docente,
+                Discapacitado : this.state.Discapacitado,
                 username: this.state.username,
                 password: this.state.password,
                 nombre: this.state.nombre,
@@ -140,11 +142,12 @@ export default class CreateUser extends Component {
                 salidaDomingo: salidaDomingo
 
             };
-            await axios.put('http://localhost:4000/api/users/' + this.state._id, updatedNote);
+            await axios.put('http://localhost:4000/api/users/' + this.state._id, updatedUser);
         }
         else {
             await axios.post('http://localhost:4000/api/users', {
                 Docente: this.state.Docente,
+                Discapacitado : this.state.Discapacitado,
                 username: this.state.username,
                 password: this.state.password,
                 nombre: this.state.nombre,
@@ -193,6 +196,15 @@ export default class CreateUser extends Component {
         }
         else {
             this.state.Docente = false
+        }
+    }
+
+    handleCheckboxChild2 = async (userId) => {
+        if (this.state.Discapacitado === false) {
+            this.state.Discapacitado = true
+        }
+        else {
+            this.state.Discapacitado = false
         }
     }
 
@@ -251,11 +263,12 @@ export default class CreateUser extends Component {
     onTimeChange13(e) {
         salidaDomingo = e.target.value
     }
+
     render() {
         return (
             <div className="row">
                 <div className="col-md-4 offset-md-4">
-                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '160vh' }}>
+                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '180vh' }}>
 
                         <div className="card card-body">
                             <h3>Create New User</h3>
@@ -269,12 +282,24 @@ export default class CreateUser extends Component {
                                         color: orangered;
 
                                     </style>
+                           
+                                        
+                                    {console.log(this.state.Docente, 1)}
                                     <input type="checkbox" onChange={this.handleCheckboxChild} />
 
-
                                     <label for="checkbox"><h6>Docente</h6></label>
+
                                 </div>
 
+                                <div>
+
+
+                                    <input type="checkbox" onChange={this.handleCheckboxChild2} />
+
+                                    <label for="checkbox"><h6>Discapacitado</h6></label>
+
+                                </div>
+                               
                                 <h3></h3>
 
                                 <div className="form-group">

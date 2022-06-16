@@ -5,6 +5,11 @@ const userSchema = new Schema(
         Docente: {
             type: Boolean,
         },
+
+        Discapacitado: {
+            type: Boolean,
+        },
+
         username: {
             type: String,
             unique: true,

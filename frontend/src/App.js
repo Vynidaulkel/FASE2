@@ -20,6 +20,7 @@ function App() {
       <div className="container p-4">
         <Route path="/" exact component={Login} />
         <Route path="/edit/:id" component={CreateUser} />
+        <Route path="/editParqueo/:id" component={CrearParqueo} />
         <Route path="/menu/:id" exact component={Navigation} />
         <Route path="/createUser" component={CreateUser} />
         <Route path="/modificarParqueo" component={CrearParqueo} />

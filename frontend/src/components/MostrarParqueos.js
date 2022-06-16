@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 
 
@@ -22,6 +23,14 @@ export default class MostrarParqueos extends Component {
         console.log(this.state.parqueo);
     }
 
+    deleteUser = async (userId) => {
+        const response = window.confirm('are you sure you want to delete it?');
+        if (response) {
+            await axios.delete('http://localhost:4000/api/parqueos/' + userId);
+            this.getParqueos();
+        }
+    }
+
     exit = async () => {
         window.location.href = '/';
     }
@@ -36,31 +45,42 @@ export default class MostrarParqueos extends Component {
         console.log(this.state.parqueo)
         return (
             <div className="row">
-                <div className="offset-md-3">
-                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+                <div className="col-md-12">
+                    <ul className="list-group">
+                        {
+                            this.state.parqueo.map(users => (
+                                <div className="col-md-16" key={users._id}>
+                                    <div className="card">
+                                        <div className="card-header d-flex justify-content-between">
+                                            <h5>{users.title}</h5>
+                                            <Link to={"/editParqueo/" + users._id} className="btn btn-secondary">
+                                                <i className="material-icons">
+                                                    border_color</i>
+                                            </Link>
+                                        </div>
+                                        <div className="card-body">
+                                            <p>
+                                                {users.content}
+                                            </p>
+                                            <p>
+                                                Tipo: {users.tipo} | Lugar: {users.Lugar}
+                                            </p>
+                                            <p>
+                                                Cantidad: {users.Cantidad} => Discapacitados: {users.Discapacitados} | Reservados: {users.Reservados} | Visitantes: {users.Visitantes}
+                                            </p>
 
-                        <div className="card card-body">
-                            <h3>Parqueos disponibles</h3>
-                            <ul className="list-group">
-                                {
-                                    
-                                    this.state.parqueo.map(parqueo => (
-                                        <li className="list-group-item list-group-item-action" >
-                                            {"Tipo:"} {parqueo.tipo} 
-                                            {"     Lugar:"} {parqueo.Lugar} 
-                                            {"     Espacios:"} {parqueo.Cantidad}
-                                            {"     Discapacitados:"} {parqueo.Discapacitados}
-                                            {"     Reservados:"} {parqueo.Reservados}
-                                            {"     Visitantes:"} {parqueo.Visitantes}
 
-                                        </li>
-                                        
-                                    ))
-                                }
-                            </ul>
-                        </div>
-
-                    </div>
+                                        </div>
+                                        <div className="card-footer">
+                                            <button className="btn btn-danger" onClick={() => this.deleteUser(users._id)}>
+                                                Delete
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))
+                        }
+                    </ul>
                 </div>
 
             </div>

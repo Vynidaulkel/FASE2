@@ -16,6 +16,7 @@ notessCtrl.getNotes = async (req, res) => {
 notessCtrl.createNote = async (req, res) => {
     console.log(req.body);
     const { g } = req.body;
+    const { lcampus } = req.body;
     const { ubicacion } = req.body;
     const { acceso } = req.body;
     const { hora_apertura } = req.body;
@@ -72,6 +73,7 @@ notessCtrl.createNote = async (req, res) => {
             lita_parqueos = []
         }
         tipo = g
+        campus = lcampus
         Lugar = ubicacion
         Espacios = lita_final;
         Cantidad = cantidadDeEspacios
@@ -80,7 +82,7 @@ notessCtrl.createNote = async (req, res) => {
         Visitantes = EspaciosVisitantes
 
         const newNote = new Note({
-            tipo, Lugar, Cantidad,
+            tipo, campus, Lugar, Cantidad,
             Espacios, Discapacitados, 
             Reservados, Visitantes
 
@@ -128,6 +130,7 @@ notessCtrl.createNote = async (req, res) => {
             lita_parqueos = []
         }
         tipo = g
+        campus = lcampus
         Lugar = ubicacion
         Espacios = lita_final;
         Cantidad = cantidadDeEspacios
@@ -136,7 +139,7 @@ notessCtrl.createNote = async (req, res) => {
         Visitantes = EspaciosVisitantes
 
         const newNote = new Note({
-            tipo, Lugar, Cantidad,
+            tipo, campus, Lugar, Cantidad,
             Espacios, Discapacitados, 
             Reservados, Visitantes
 
@@ -187,6 +190,7 @@ notessCtrl.createNote = async (req, res) => {
             lita_parqueos = []
         }
         tipo = g
+        campus = lcampus
         Lugar = ubicacion
         Espacios = lita_final;
         Cantidad = cantidadDeEspacios
@@ -195,7 +199,7 @@ notessCtrl.createNote = async (req, res) => {
         Visitantes = EspaciosVisitantes
 
         const newNote = new Note({
-            tipo, Lugar, Cantidad,
+            tipo, campus, Lugar, Cantidad,
             Espacios, Discapacitados, 
             Reservados, Visitantes
 
@@ -213,10 +217,13 @@ notessCtrl.getNote = async (req, res) => {
     res.json(note);
 }
 
-notessCtrl.deleteNote = async (req, res) => {
-    await Note.findByIdAndDelete(req.params.id)
-    res.json('Note Deleted');
+
+notessCtrl.deletParqueo = async (req, res) => {
+    const { id } = req.params;
+    await Note.findByIdAndDelete(id);
+    res.json('User deleted');
 }
+
 
 
 

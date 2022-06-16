@@ -5,6 +5,9 @@ const parkSchema = new Schema(
         tipo: {
             type: String,
         },
+        campus: {
+            type: String,
+        },
         Lugar: {
             type: String,
         },

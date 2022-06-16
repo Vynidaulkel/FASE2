@@ -112,18 +112,18 @@ export default class ConsultarUsuario extends Component {
                                                     {users.content}
                                                 </p>
                                                 <p>
-                                                    Nombre: {users.nombre} 
+                                                    Nombre: {users.nombre}
                                                 </p>
-                                                
+
                                                 <p>
                                                     Correo: {users.correo} | Identificacion: {users.identificacion}
                                                 </p>
-                                                
+
                                                 <p>
                                                     Username: {users.username} | Contraseña: {users.password}
                                                 </p>
                                                 <p>
-                                                ------------------Horario------------------
+                                                    ------------------Horario------------------
                                                 </p>
                                                 <p>
                                                     Lunes._______|{users.entradaLunes} -> {users.salidaLunes}|
@@ -156,9 +156,18 @@ export default class ConsultarUsuario extends Component {
 
                                             </div>
                                             <div className="card-footer">
+
+                                                
+                                                
+                                                <Link to={"/AgregarPlaca/" + users._id} className="btn btn-secondary">
+                                                        Ver Placas
+                                                </Link>
+
                                                 <button className="btn btn-danger" onClick={() => this.deleteUser(users._id)}>
                                                     Delete
                                                 </button>
+
+                                                
                                             </div>
                                         </div>
                                     </div>

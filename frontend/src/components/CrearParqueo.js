@@ -7,6 +7,7 @@ export default class CrearParqueos extends Component {
 
     state = {
         tipo: 'Principal',
+        campus: 'Cartago',
         ubicacion: '',
         acceso: '',
         hora_apertura: '',
@@ -52,6 +53,7 @@ export default class CrearParqueos extends Component {
 
         await axios.post('http://localhost:4000/api/parqueos', {
             g: this.state.tipo,
+            lcampus: this.state.campus,
             ubicacion: this.state.ubicacion,
             acceso: this.state.acceso,
             hora_apertura: this.state.hora_apertura,
@@ -84,6 +86,11 @@ export default class CrearParqueos extends Component {
     }
 
 
+    actualizar2 = async (event) => {
+        this.state.campus = event.target.value 
+    }
+
+
     render() {
         return (
             <div className="row">
@@ -99,6 +106,15 @@ export default class CrearParqueos extends Component {
                                     <option value="Subcontratado">Subcontratado</option>
                                     <option value="Campus">Campus</option>
                                 </select>
+
+                                <select id="lang" onChange={this.actualizar2} value={this.state.value} >
+                                    <option value="Cartago">Cartago</option>
+                                    <option value="San Carlos">San Carlos</option>
+                                    <option value="San Jose">San Jose</option>
+                                    <option value="Alajuela">Alajuela</option>
+                                    <option value="Limon">Limon</option>
+                                </select>
+
                                 <p></p>
                                 <p>{this.state.value}</p>
 
