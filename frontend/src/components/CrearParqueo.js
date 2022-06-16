@@ -17,12 +17,35 @@ export default class CrearParqueos extends Component {
         CantidadDiscapacitados: '',
         espaciosReservados: '',
         EspaciosVisitantes: '',
+        editing: false,
         parqueo: []
+
     }
 
     async componentDidMount() {
-        this.getParqueos();
+        const res = await axios.get('http://localhost:4000/api/parqueos');
 
+        if (this.props.match.params.id) {
+            const res = await axios.get('http://localhost:4000/api/parqueos/' + this.props.match.params.id);
+
+            this.setState({
+
+
+                tipo: res.data.tipo,
+                campus: res.data.campus,
+                ubicacion: res.data.Lugar,
+
+                acceso: res.data.Acceso,
+                hora_apertura: res.data.HoraApertura,
+                hora_cierre: res.data.HoraCierre,
+                cantidadDeEspacios: res.data.Cantidad,
+                CantidadDiscapacitados: res.data.Discapacitados,
+                espaciosReservados: res.data.Reservados,
+                EspaciosVisitantes: res.data.Visitantes,
+                _id: res.data._id,
+                editing: true
+            });
+        }
     }
 
     getParqueos = async () => {
@@ -46,24 +69,46 @@ export default class CrearParqueos extends Component {
 
     onSubmit = async (e) => {
 
-        e.preventDefault();
+        if (this.state.editing) {
 
-        console.log("Se preciono");
+            const updateNote = {
+
+                g: this.state.tipo,
+                lcampus: this.state.campus,
+                ubicacion: this.state.ubicacion,
+                acceso: this.state.acceso,
+                hora_apertura: this.state.hora_apertura,
+                hora_cierre: this.state.hora_cierre,
+                cantidadDeEspacios: this.state.cantidadDeEspacios,
+                CantidadDiscapacitados: this.state.CantidadDiscapacitados,
+                espaciosReservados: this.state.espaciosReservados,
+                EspaciosVisitantes: this.state.EspaciosVisitantes
+
+            };
+            await axios.put('http://localhost:4000/api/parqueos/' + this.state._id, updateNote);
+        }
+        else {
+
+            e.preventDefault();
+
+            console.log("Se preciono");
 
 
-        await axios.post('http://localhost:4000/api/parqueos', {
-            g: this.state.tipo,
-            lcampus: this.state.campus,
-            ubicacion: this.state.ubicacion,
-            acceso: this.state.acceso,
-            hora_apertura: this.state.hora_apertura,
-            hora_cierre: this.state.hora_cierre,
-            Contact_Id_Jefatura: this.state.Contact_Id_Jefatura,
-            cantidadDeEspacios: this.state.cantidadDeEspacios,
-            CantidadDiscapacitados: this.state.CantidadDiscapacitados,
-            espaciosReservados: this.state.espaciosReservados,
-            EspaciosVisitantes: this.state.EspaciosVisitantes
-        });
+            await axios.post('http://localhost:4000/api/parqueos', {
+                g: this.state.tipo,
+                lcampus: this.state.campus,
+                ubicacion: this.state.ubicacion,
+                acceso: this.state.acceso,
+                hora_apertura: this.state.hora_apertura,
+                hora_cierre: this.state.hora_cierre,
+                Contact_Id_Jefatura: this.state.Contact_Id_Jefatura,
+                cantidadDeEspacios: this.state.cantidadDeEspacios,
+                CantidadDiscapacitados: this.state.CantidadDiscapacitados,
+                espaciosReservados: this.state.espaciosReservados,
+                EspaciosVisitantes: this.state.EspaciosVisitantes
+            });
+
+        }
         console.log(this.state.tipo);
         window.location.href = '/modificarParqueo';
         this.getParqueos()
@@ -87,7 +132,7 @@ export default class CrearParqueos extends Component {
 
 
     actualizar2 = async (event) => {
-        this.state.campus = event.target.value 
+        this.state.campus = event.target.value
     }
 
 
@@ -101,13 +146,13 @@ export default class CrearParqueos extends Component {
                             <h3>Crear Parqueo</h3>
                             <form onSubmit={this.onSubmit}>
 
-                                <select id="lang" onChange={this.actualizar} value={this.state.value} >
+                                <select id="lang" onChange={this.actualizar} >
                                     <option value="Principal">Principal</option>
                                     <option value="Subcontratado">Subcontratado</option>
                                     <option value="Campus">Campus</option>
                                 </select>
 
-                                <select id="lang" onChange={this.actualizar2} value={this.state.value} >
+                                <select id="lang" onChange={this.actualizar2}>
                                     <option value="Cartago">Cartago</option>
                                     <option value="San Carlos">San Carlos</option>
                                     <option value="San Jose">San Jose</option>

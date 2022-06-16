@@ -11,6 +11,15 @@ const parkSchema = new Schema(
         Lugar: {
             type: String,
         },
+        Acceso: {
+            type: String,
+        },
+        HoraApertura: {
+            type: String,
+        },
+        HoraCierre: {
+            type: String,
+        },
         Cantidad: {
             type: String,
         },

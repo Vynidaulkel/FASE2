@@ -51,19 +51,14 @@ export default class CreateUser extends Component {
 
         if (this.props.match.params.id) {
             const res = await axios.get('http://localhost:4000/api/users/' + this.props.match.params.id);
-            
-     
-            
-            this.setState({
-                 
+
+            this.setState({ 
                 username: res.data.username,
                 password: res.data.password,
                 nombre: res.data.nombre,
                 correo: res.data.correo,
                 identificacion: res.data.identificacion,
                 numero: res.data.numero,
-               
-
                 entradaLunes: res.data.entradaLunes,
                 entradaMartes: res.data.entradaMartes,
                 entradaMiercoles: res.data.entradaMiercoles,
@@ -71,7 +66,6 @@ export default class CreateUser extends Component {
                 entradaViernes: res.data.entradaViernes,
                 entradaSabado: res.data.entradaSabado,
                 entradaDomingo: res.data.entradaDomingo,
-
                 salidaLunes: res.data.salidaLunes,
                 salidaMartes: res.data.salidaMartes,
                 salidaMiercoles: res.data.salidaMiercoles,
@@ -79,10 +73,7 @@ export default class CreateUser extends Component {
                 salidaViernes: res.data.salidaViernes,
                 salidaSabado: res.data.salidaSabado,
                 salidaDomingo: res.data.salidaDomingo,
-
-
                 _id: res.data._id,
-
                 editing: true
             });
         }

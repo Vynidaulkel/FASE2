@@ -63,7 +63,7 @@ export default class MostrarParqueos extends Component {
                                                 {users.content}
                                             </p>
                                             <p>
-                                                Tipo: {users.tipo} | Lugar: {users.Lugar}
+                                                campus: {users.campus} | Tipo: {users.tipo} | Lugar: {users.Lugar}  
                                             </p>
                                             <p>
                                                 Cantidad: {users.Cantidad} => Discapacitados: {users.Discapacitados} | Reservados: {users.Reservados} | Visitantes: {users.Visitantes}
