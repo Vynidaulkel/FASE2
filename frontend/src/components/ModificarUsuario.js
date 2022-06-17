@@ -108,11 +108,17 @@ export default class ConsultarUsuario extends Component {
                                                 </Link>
                                             </div>
                                             <div className="card-body">
+                                                
+                                            
                                                 <p>
                                                     {users.content}
                                                 </p>
                                                 <p>
-                                                    Nombre: {users.nombre}
+                                                    Nombre: {users.nombre}   
+                                                </p>
+
+                                                <p>
+                                                    Docente: {users.Docente.toString()} | Discapacitado: {users.Discapacitado.toString()}
                                                 </p>
 
                                                 <p>

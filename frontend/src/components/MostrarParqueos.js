@@ -63,10 +63,13 @@ export default class MostrarParqueos extends Component {
                                                 {users.content}
                                             </p>
                                             <p>
-                                                campus: {users.campus} | Tipo: {users.tipo} | Lugar: {users.Lugar}  
+                                                Campus: {users.campus} | Tipo: {users.tipo} | Lugar: {users.Lugar}   
                                             </p>
                                             <p>
-                                                Cantidad: {users.Cantidad} => Discapacitados: {users.Discapacitados} | Reservados: {users.Reservados} | Visitantes: {users.Visitantes}
+                                                Horario =>   Hora apertura: {users.HoraApertura} | Hora cierre: {users.HoraCierre}
+                                            </p>
+                                            <p>
+                                                Espacios disponibles: {users.Cantidad} => Discapacitados: {users.Discapacitados} | Reservados: {users.Reservados} | Visitantes: {users.Visitantes}
                                             </p>
 
 

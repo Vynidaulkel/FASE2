@@ -59,8 +59,6 @@ export default class Navigation extends Component {
                 <div className="container">
 
                     <nav className="navbar navbar-expand-lg navbar-dark bg-dark p-3">
-
-
                         <Link className="navbar-brand" to="/menu">
                             <i className="material-icons">
                                 directions_car </i> Parqueo TEC
@@ -71,7 +69,7 @@ export default class Navigation extends Component {
                         <div className="collapse navbar-collapse" id="navbarNav">
                             <ul className="navbar-nav ml-auto">
                                 <li className="nav-item active">
-                                    <Link to="/parqueos" className="nav-link">Parqueos</Link>
+                                    <Link to="/reservar" className="nav-link">Reservar</Link>
                                 </li>
 
                                 <li className="nav-item">
@@ -83,8 +81,6 @@ export default class Navigation extends Component {
                                 </li>
                             </ul>
                         </div>
-
-
                     </nav>
                     <img src={logo} />
                 </div>

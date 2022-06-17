@@ -12,10 +12,11 @@ import MostrarParqueos from './components/MostrarParqueos'
 import CrearParqueo from './components/CrearParqueo'
 import ConsultarUsuarios from './components/ConsultarUsuarios'
 import ModificarUsuario from './components/ModificarUsuario'
+import sedes from './components/Sedes'
+import Reservas from './components/Reservas'
 
 function App() {
   return (
-
     <Router>
       <div className="container p-4">
         <Route path="/" exact component={Login} />
@@ -27,8 +28,8 @@ function App() {
         <Route path="/parqueos" component={MostrarParqueos} />
         <Route path="/AgregarPlaca/:id" component={AgregarPlaca} />
         <Route path="/ModificarUsuario" component={ModificarUsuario} />
-
-
+        <Route path="/reservar" component={sedes} />
+        <Route path="/reservas/:id" component={Reservas} />
       </div>
     </Router>
   );
