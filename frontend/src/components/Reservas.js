@@ -11,14 +11,16 @@ let salidaLunes = "07:30";
 export default class CreateUser extends Component {
 
     state = {
-        parqueo: []
+        parqueo: [],
+        parqueosSede: [],
+        reservados: 0,
+        discapacitado: 0,
+        visitante: 0,
+        espacios: 0
     }
 
     async componentDidMount() {
         this.getParqueos();
-    
-        
-
     }
 
     getParqueos = async () => {
@@ -28,25 +30,41 @@ export default class CreateUser extends Component {
         });
 
         let HaySede = false
-       
-        for (var i = 0; i < this.state.parqueo.length; i++) {
-            if (this.state.parqueo[i].campus === this.props.match.params.sede) 
-            {
-                HaySede = true
-            }
-        } 
 
-        if (HaySede){
+        for (var i = 0; i < this.state.parqueo.length; i++) {
+            if (this.state.parqueo[i].campus === this.props.match.params.sede) {
+                HaySede = true
+                this.state.parqueosSede.push(this.state.parqueo[i]);
+
+                for(var e = 0; e < this.state.parqueo[i].Espacios.length; e++){
+                    if (this.state.parqueo[i].Espacios[e][4]) {
+                        this.state.discapacitado = this.state.discapacitado+1
+                      } else if (this.state.parqueo[i].Espacios[e][5]) {
+                        this.state.reservados = this.state.reservados+1
+                      }  else if (this.state.parqueo[i].Espacios[e][6]) {
+                        this.state.visitante = this.state.visitante+1
+                      }else {
+                        this.state.espacios = this.state.espacios+1
+                      }
+                }
+                console.log("!" + this.state.discapacitado);
+                console.log("!" + this.state.reservados);
+                console.log("!" + this.state.visitante);
+                console.log("!" + this.state.espacios);
+            }
+        }
+
+        if (HaySede) {
             console.log("Siiiii");
         }
         else {
             swal('No hay parqueos disponibles en esta sede')
-            
+
             window.history.go(-1);
             console.log("NOOOOOO");
         }
 
-       
+
     }
 
 
@@ -70,23 +88,23 @@ export default class CreateUser extends Component {
         window.history.go(-1);
     }
 
-     
+
 
     onFechaChange(e) {
         console.log(e.target.value);
         let current = new Date(e.target.value);
-        let today = current.toLocaleDateString('es-ES',{weekday: 'long'});
+        let today = current.toLocaleDateString('es-ES', { weekday: 'long' });
         console.log(today);
     }
 
 
-    
+
 
     render() {
         return (
             <div className="row">
                 <div className="col-md-4 offset-md-4">
-                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'  }}>
+                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
 
                         <div className="card card-body">
 
@@ -107,13 +125,13 @@ export default class CreateUser extends Component {
                                     step: 300, min: 0, style: { textAlign: 'center' },// 5 min
                                 }}
                             />
-                            
+
                             <TextField
                                 id="date"
                                 label="Fecha"
                                 onChange={this.onFechaChange}
                                 type="date"
-                                inputFormat = "'Week of' MMM d"
+                                inputFormat="'Week of' MMM d"
                                 InputLabelProps={{
                                     shrink: true,
                                 }}
@@ -134,7 +152,7 @@ export default class CreateUser extends Component {
 
 
 
-            
+
 
             </div >
         )

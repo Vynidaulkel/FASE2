@@ -15,9 +15,6 @@ notessCtrl.getNotes = async (req, res) => {
 
 notessCtrl.createNote = async (req, res) => {
 
-    
-
-
     console.log(req.body);
     const { g } = req.body;
     const { lcampus } = req.body;
@@ -30,16 +27,20 @@ notessCtrl.createNote = async (req, res) => {
     const { CantidadDiscapacitados } = req.body;
     const { espaciosReservados } = req.body;
     const { EspaciosVisitantes } = req.body;
+    const { EspaciosVehiculos } = req.body;
 
     console.log(g);
 
     cont = 0
 
-    let total = CantidadDiscapacitados+CantidadDiscapacitados+EspaciosVisitantes
+    let total = CantidadDiscapacitados+CantidadDiscapacitados+EspaciosVisitantes+EspaciosVehiculos
 
     let reservados = espaciosReservados
     let Discapacitado = CantidadDiscapacitados
     let visitant = EspaciosVisitantes
+    let vehiculo = EspaciosVehiculos
+
+    console.log(vehiculo+ "safbsahjbfhsjdabf");
 
 
     if (g === 'Campus') {
@@ -61,23 +62,27 @@ notessCtrl.createNote = async (req, res) => {
                 cont = cont + 1;
                 reservados = reservados-1
             }
-            else{
-                if (Discapacitado>0)  {
-                    parqueo[n].discapacitado = true;
+            else if (Discapacitado>0)  {
+                parqueo[n].discapacitado = true;
+                cont = cont + 1;
+                Discapacitado = Discapacitado-1
+            } 
+            else if (visitant>0)  {
+                    parqueo[n].visitante = true;
                     cont = cont + 1;
-                    Discapacitado = Discapacitado-1
-                } 
-                else{
-                    if (visitant>0)  {
-                        parqueo[n].visitante = true;
-                        cont = cont + 1;
-                        visitant= visitant-1
-                    }    
-                }
-            }
+                    visitant= visitant-1
+                }    
+            else if (vehiculo>0)  {
+                console.log(parqueo[n].vehiculo + "sdjkashfjksabgfjhgbasjhfbsahjbf");
+                parqueo[n].vehiculo = true;
+                cont = cont + 1;
+                vehiculo= vehiculo-1
+            }  
+            
         }
         lita_parqueos = []
         lita_final = []
+       
         for (var n = 0; n < parqueo.length; n++) {
             lita_parqueos.push(parqueo[n].ubicacion)
             lita_parqueos.push(parqueo[n].acceso)
@@ -86,6 +91,8 @@ notessCtrl.createNote = async (req, res) => {
             lita_parqueos.push(parqueo[n].reservado)
             lita_parqueos.push(parqueo[n].discapacitado)
             lita_parqueos.push(parqueo[n].visitante)
+            lita_parqueos.push(parqueo[n].vehiculo)
+            lita_parqueos.push(parqueo[n].estado)
             lita_parqueos.push(parqueo[n].id)
             lita_final.push(lita_parqueos)
             lita_parqueos = []
@@ -128,20 +135,22 @@ notessCtrl.createNote = async (req, res) => {
                 cont = cont + 1;
                 reservados = reservados-1
             }
-            else{
-                if (Discapacitado>0)  {
-                    parqueo[n].discapacitado = true;
+            else if (Discapacitado>0)  {
+                parqueo[n].discapacitado = true;
+                cont = cont + 1;
+                Discapacitado = Discapacitado-1
+            } 
+            
+            else if (visitant>0)  {
+                    parqueo[n].visitante = true;
                     cont = cont + 1;
-                    Discapacitado = Discapacitado-1
-                } 
-                else{
-                    if (visitant>0)  {
-                        parqueo[n].visitante = true;
-                        cont = cont + 1;
-                        visitant= visitant-1
-                    }    
-                }
-            }
+                    visitant= visitant-1
+                }    
+            else if (vehiculo>0)  {
+                parqueo[n].vehiculo = true;
+                cont = cont + 1;
+                vehiculo= vehiculo-1
+            }  
         }
         lita_parqueos = []
         lita_final = []
@@ -153,6 +162,8 @@ notessCtrl.createNote = async (req, res) => {
             lita_parqueos.push(parqueo[n].reservado)
             lita_parqueos.push(parqueo[n].discapacitado)
             lita_parqueos.push(parqueo[n].visitante)
+            lita_parqueos.push(parqueo[n].vehiculo)
+            lita_parqueos.push(parqueo[n].estado)
             lita_parqueos.push(parqueo[n].jefaturaPerteneciente)
             lita_final.push(lita_parqueos)
             lita_parqueos = []
@@ -192,25 +203,27 @@ notessCtrl.createNote = async (req, res) => {
 
         for (var n = cont; n < total; n++) {
 
-        if (reservados>0){
-            parqueo[n].reservado = true;
-            cont = cont + 1;
-            reservados = reservados-1
-        }
-        else{
-            if (Discapacitado>0)  {
+            if (reservados>0){
+                parqueo[n].reservado = true;
+                cont = cont + 1;
+                reservados = reservados-1
+            }
+            else if (Discapacitado>0)  {
                 parqueo[n].discapacitado = true;
                 cont = cont + 1;
                 Discapacitado = Discapacitado-1
             } 
-            else{
-                if (visitant>0)  {
+            
+            else if (visitant>0)  {
                     parqueo[n].visitante = true;
                     cont = cont + 1;
                     visitant= visitant-1
                 }    
-            }
-        }
+            else if (vehiculo>0)  {
+                parqueo[n].vehiculo = true;
+                cont = cont + 1;
+                vehiculo= vehiculo-1
+            }  
     }
 
         lita_parqueos = []
@@ -223,6 +236,8 @@ notessCtrl.createNote = async (req, res) => {
             lita_parqueos.push(parqueo[n].reservado)
             lita_parqueos.push(parqueo[n].discapacitado)
             lita_parqueos.push(parqueo[n].visitante)
+            lita_parqueos.push(parqueo[n].vehiculo)
+            lita_parqueos.push(parqueo[n].estado)
             lita_parqueos.push(parqueo[n].jefaturaPerteneciente)
             lita_final.push(lita_parqueos)
             lita_parqueos = []
@@ -264,6 +279,7 @@ notessCtrl.updateNote  = async (req, res) => {
     const { CantidadDiscapacitados } = req.body;
     const { espaciosReservados } = req.body;
     const { EspaciosVisitantes } = req.body;
+    const { EspaciosVehiculos } = req.body;
 
     console.log(g);
 
@@ -279,11 +295,13 @@ notessCtrl.updateNote  = async (req, res) => {
         parqueo.push(espacio);
     }
 
-    let total = CantidadDiscapacitados+CantidadDiscapacitados+EspaciosVisitantes
+    let total = CantidadDiscapacitados+CantidadDiscapacitados+EspaciosVisitantes+EspaciosVehiculos
 
     let reservados = espaciosReservados
     let Discapacitado = CantidadDiscapacitados
     let visitant = EspaciosVisitantes
+    let vehiculo = EspaciosVehiculos
+ 
 
     for (var n = cont; n < total; n++) {
 
@@ -292,20 +310,22 @@ notessCtrl.updateNote  = async (req, res) => {
             cont = cont + 1;
             reservados = reservados-1
         }
-        else{
-            if (Discapacitado>0)  {
-                parqueo[n].discapacitado = true;
+        else if (Discapacitado>0)  {
+            parqueo[n].discapacitado = true;
+            cont = cont + 1;
+            Discapacitado = Discapacitado-1
+        } 
+        
+        else if (visitant>0)  {
+                parqueo[n].visitante = true;
                 cont = cont + 1;
-                Discapacitado = Discapacitado-1
-            } 
-            else{
-                if (visitant>0)  {
-                    parqueo[n].visitante = true;
-                    cont = cont + 1;
-                    visitant= visitant-1
-                }    
-            }
-        }
+                visitant= visitant-1
+            }    
+        else if (vehiculo>0)  {
+            parqueo[n].vehiculo = true;
+            cont = cont + 1;
+            vehiculo= vehiculo-1
+        } 
     }
 
      
@@ -320,6 +340,8 @@ notessCtrl.updateNote  = async (req, res) => {
         lita_parqueos.push(parqueo[n].reservado)
         lita_parqueos.push(parqueo[n].discapacitado)
         lita_parqueos.push(parqueo[n].visitante)
+        lita_parqueos.push(parqueo[n].vehiculo)
+        lita_parqueos.push(parqueo[n].estado)
         lita_parqueos.push(parqueo[n].id)
         lita_final.push(lita_parqueos)
         lita_parqueos = []
@@ -335,6 +357,7 @@ notessCtrl.updateNote  = async (req, res) => {
     Discapacitados = CantidadDiscapacitados
     Reservados= espaciosReservados
     Visitantes = EspaciosVisitantes
+ 
 
     await Note.findByIdAndUpdate(req.params.id, {
         tipo, campus, Lugar,  Acceso, HoraApertura, HoraCierre, Cantidad,

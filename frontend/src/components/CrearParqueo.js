@@ -17,9 +17,9 @@ export default class CrearParqueos extends Component {
         CantidadDiscapacitados: '',
         espaciosReservados: '',
         EspaciosVisitantes: '',
+        EspaciosVehiculos: '',
         editing: false,
         parqueo: []
-
     }
 
     async componentDidMount() {
@@ -32,7 +32,6 @@ export default class CrearParqueos extends Component {
                 tipo: res.data.tipo,
                 campus: res.data.campus,
                 ubicacion: res.data.Lugar,
-
                 acceso: res.data.Acceso,
                 hora_apertura: res.data.HoraApertura,
                 hora_cierre: res.data.HoraCierre,
@@ -40,6 +39,7 @@ export default class CrearParqueos extends Component {
                 CantidadDiscapacitados: res.data.Discapacitados,
                 espaciosReservados: res.data.Reservados,
                 EspaciosVisitantes: res.data.Visitantes,
+                EspaciosVehiculos: res.data.EspaciosVehiculos,
                 _id: res.data._id,
                 editing: true
             });
@@ -80,7 +80,8 @@ export default class CrearParqueos extends Component {
                 cantidadDeEspacios: this.state.cantidadDeEspacios,
                 CantidadDiscapacitados: this.state.CantidadDiscapacitados,
                 espaciosReservados: this.state.espaciosReservados,
-                EspaciosVisitantes: this.state.EspaciosVisitantes
+                EspaciosVisitantes: this.state.EspaciosVisitantes,
+                EspaciosVehiculos: this.state.EspaciosVehiculos
 
             };
             await axios.put('http://localhost:4000/api/parqueos/' + this.state._id, updateNote);
@@ -103,7 +104,8 @@ export default class CrearParqueos extends Component {
                 cantidadDeEspacios: this.state.cantidadDeEspacios,
                 CantidadDiscapacitados: this.state.CantidadDiscapacitados,
                 espaciosReservados: this.state.espaciosReservados,
-                EspaciosVisitantes: this.state.EspaciosVisitantes
+                EspaciosVisitantes: this.state.EspaciosVisitantes,
+                EspaciosVehiculos: this.state.EspaciosVehiculos
             });
 
         }
@@ -272,6 +274,19 @@ export default class CrearParqueos extends Component {
                                         pattern="[0-9]+"
                                         autocomplete="off"
                                         value={this.state.EspaciosVisitantes}
+                                        required />
+                                </div>
+
+                                <div className="form-group">
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        placeholder="Espacios Vehiculos"
+                                        onChange={this.onInputChange}
+                                        name="EspaciosVehiculos"
+                                        pattern="[0-9]+"
+                                        autocomplete="off"
+                                        value={this.state.EspaciosVehiculos}
                                         required />
                                 </div>
 

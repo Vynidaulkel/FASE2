@@ -34,6 +34,9 @@ const parkSchema = new Schema(
         },
         Visitantes: {
             type: String
+        },
+        Vehiculos: {
+            type: String
         }
 
     }, {

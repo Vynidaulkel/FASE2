@@ -7,6 +7,14 @@ class Espacio{
         this.reservado = false;
         this.discapacitado = false;
         this.visitante = false;
+        this.estado = false;
+        this.vehiculo = false;
+    }
+    get getUbicacion() {
+        return this.vehiculo;
+    }
+    set setVehiculos(pVehiculos) {
+        this.vehiculo = pVehiculos;
     }
     get getUbicacion() {
         return this.ubicacion;
@@ -31,6 +39,12 @@ class Espacio{
     }
     set setDiscapactiado(pDiscapacitado) {
         this.discapacitado = pDiscapacitado;
+    }
+    get getEstado() {
+        return this.pEstado;
+    }
+    set setEstado(pEstado) {
+        this.pEstado = pEstado;
     }
     get getVisitante() {
         return this.visitante;
