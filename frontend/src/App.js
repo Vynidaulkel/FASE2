@@ -28,8 +28,8 @@ function App() {
         <Route path="/parqueos" component={MostrarParqueos} />
         <Route path="/AgregarPlaca/:id" component={AgregarPlaca} />
         <Route path="/ModificarUsuario" component={ModificarUsuario} />
-        <Route path="/reservar" component={sedes} />
-        <Route path="/reservas/:id" component={Reservas} />
+        <Route path="/reservar/:id" component={sedes} />
+        <Route path="/reservas/:sede/:id" component={Reservas} />
       </div>
     </Router>
   );

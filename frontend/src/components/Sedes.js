@@ -32,23 +32,23 @@ export default class Reservas extends Component {
                         <h1 style={{ textAlign: "center" }}>Sedes desponibles para reserva</h1>
 
 
-                        <Link className="list-group-item" to="/reservas/cartago">
+                        <Link className="list-group-item" to={"/reservas/Cartago/" +this.props.match.params.id}>
                              Compus Tecnológico Central Cartago
                         </Link>
 
-                        <Link className="list-group-item" to="/menu">
+                        <Link className="list-group-item" to={"/reservas/San Jose/" +this.props.match.params.id}>
                             Compus Tecnológico Local San Jose
                         </Link>
 
-                        <Link className="list-group-item" to="/menu">
+                        <Link className="list-group-item" to={"/reservas/San Carlos/" +this.props.match.params.id}>
                             Compus Tecnológico Local San Carlos
                         </Link>
 
-                        <Link className="list-group-item" to="/menu">
+                        <Link className="list-group-item" to={"/reservas/Alajuela/" +this.props.match.params.id}>
                             Centro Académico De Alajuela
                         </Link>
 
-                        <Link className="list-group-item" to="/menu">
+                        <Link className="list-group-item" to={"/reservas/Limon/" +this.props.match.params.id}>
                             Centro Académico De Limon
                         </Link>
 

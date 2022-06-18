@@ -35,6 +35,13 @@ notessCtrl.createNote = async (req, res) => {
 
     cont = 0
 
+    let total = CantidadDiscapacitados+CantidadDiscapacitados+EspaciosVisitantes
+
+    let reservados = espaciosReservados
+    let Discapacitado = CantidadDiscapacitados
+    let visitant = EspaciosVisitantes
+
+
     if (g === 'Campus') {
 
         var parqueo = new Array();
@@ -47,21 +54,28 @@ notessCtrl.createNote = async (req, res) => {
             parqueo.push(espacio);
         }
 
-        for (var n = cont; n < espaciosReservados; n++) {
-            parqueo[n].reservado = true;
-            cont = cont + 1;
-        }
+        for (var n = cont; n < total; n++) {
 
-        for (var n = cont; n < CantidadDiscapacitados; n++) {
-            parqueo[n].discapacitado = true;
-            cont = cont + 1;
+            if (reservados>0){
+                parqueo[n].reservado = true;
+                cont = cont + 1;
+                reservados = reservados-1
+            }
+            else{
+                if (Discapacitado>0)  {
+                    parqueo[n].discapacitado = true;
+                    cont = cont + 1;
+                    Discapacitado = Discapacitado-1
+                } 
+                else{
+                    if (visitant>0)  {
+                        parqueo[n].visitante = true;
+                        cont = cont + 1;
+                        visitant= visitant-1
+                    }    
+                }
+            }
         }
-
-        for (var n = cont; n < EspaciosVisitantes; n++) {
-            parqueo[n].visitante = true;
-            cont = cont + 1;
-        }
-
         lita_parqueos = []
         lita_final = []
         for (var n = 0; n < parqueo.length; n++) {
@@ -107,19 +121,27 @@ notessCtrl.createNote = async (req, res) => {
             parqueo.push(espacio);
         }
 
-        for (var n = cont; n < espaciosReservados; n++) {
-            parqueo[n].reservado = true;
-            cont = cont + 1;
-        }
+        for (var n = cont; n < total; n++) {
 
-        for (var n = cont; n < CantidadDiscapacitados; n++) {
-            parqueo[n].discapacitado = true;
-            cont = cont + 1;
-        }
-
-        for (var n = cont; n < EspaciosVisitantes; n++) {
-            parqueo[n].visitante = true;
-            cont = cont + 1;
+            if (reservados>0){
+                parqueo[n].reservado = true;
+                cont = cont + 1;
+                reservados = reservados-1
+            }
+            else{
+                if (Discapacitado>0)  {
+                    parqueo[n].discapacitado = true;
+                    cont = cont + 1;
+                    Discapacitado = Discapacitado-1
+                } 
+                else{
+                    if (visitant>0)  {
+                        parqueo[n].visitante = true;
+                        cont = cont + 1;
+                        visitant= visitant-1
+                    }    
+                }
+            }
         }
         lita_parqueos = []
         lita_final = []
@@ -168,20 +190,28 @@ notessCtrl.createNote = async (req, res) => {
             parqueo.push(espacio);
         }
 
-        for (var n = cont; n < espaciosReservados; n++) {
+        for (var n = cont; n < total; n++) {
+
+        if (reservados>0){
             parqueo[n].reservado = true;
             cont = cont + 1;
+            reservados = reservados-1
         }
-
-        for (var n = cont; n < CantidadDiscapacitados; n++) {
-            parqueo[n].discapacitado = true;
-            cont = cont + 1;
+        else{
+            if (Discapacitado>0)  {
+                parqueo[n].discapacitado = true;
+                cont = cont + 1;
+                Discapacitado = Discapacitado-1
+            } 
+            else{
+                if (visitant>0)  {
+                    parqueo[n].visitante = true;
+                    cont = cont + 1;
+                    visitant= visitant-1
+                }    
+            }
         }
-
-        for (var n = cont; n < EspaciosVisitantes; n++) {
-            parqueo[n].visitante = true;
-            cont = cont + 1;
-        }
+    }
 
         lita_parqueos = []
         lita_final = []
@@ -249,20 +279,36 @@ notessCtrl.updateNote  = async (req, res) => {
         parqueo.push(espacio);
     }
 
-    for (var n = cont; n < espaciosReservados; n++) {
-        parqueo[n].reservado = true;
-        cont = cont + 1;
+    let total = CantidadDiscapacitados+CantidadDiscapacitados+EspaciosVisitantes
+
+    let reservados = espaciosReservados
+    let Discapacitado = CantidadDiscapacitados
+    let visitant = EspaciosVisitantes
+
+    for (var n = cont; n < total; n++) {
+
+        if (reservados>0){
+            parqueo[n].reservado = true;
+            cont = cont + 1;
+            reservados = reservados-1
+        }
+        else{
+            if (Discapacitado>0)  {
+                parqueo[n].discapacitado = true;
+                cont = cont + 1;
+                Discapacitado = Discapacitado-1
+            } 
+            else{
+                if (visitant>0)  {
+                    parqueo[n].visitante = true;
+                    cont = cont + 1;
+                    visitant= visitant-1
+                }    
+            }
+        }
     }
 
-    for (var n = cont; n < CantidadDiscapacitados; n++) {
-        parqueo[n].discapacitado = true;
-        cont = cont + 1;
-    }
-
-    for (var n = cont; n < EspaciosVisitantes; n++) {
-        parqueo[n].visitante = true;
-        cont = cont + 1;
-    }
+     
 
     lita_parqueos = []
     lita_final = []

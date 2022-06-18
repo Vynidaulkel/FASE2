@@ -69,7 +69,7 @@ export default class Navigation extends Component {
                         <div className="collapse navbar-collapse" id="navbarNav">
                             <ul className="navbar-nav ml-auto">
                                 <li className="nav-item active">
-                                    <Link to="/reservar" className="nav-link">Reservar</Link>
+                                    <Link to={"/reservar/"+ this.props.match.params.id} className="nav-link">Reservar</Link>
                                 </li>
 
                                 <li className="nav-item">

@@ -29,8 +29,6 @@ export default class CrearParqueos extends Component {
             const res = await axios.get('http://localhost:4000/api/parqueos/' + this.props.match.params.id);
 
             this.setState({
-
-
                 tipo: res.data.tipo,
                 campus: res.data.campus,
                 ubicacion: res.data.Lugar,

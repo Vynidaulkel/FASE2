@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import TextField from '@material-ui/core/TextField';
-
+import axios from 'axios'
+import swal from 'sweetalert'
 
 let entradaLunes = "07:30";
 let salidaLunes = "07:30";
@@ -10,13 +11,44 @@ let salidaLunes = "07:30";
 export default class CreateUser extends Component {
 
     state = {
-
+        parqueo: []
     }
 
     async componentDidMount() {
-        console.log(this.props.match.params.id)
+        this.getParqueos();
+    
+        
 
     }
+
+    getParqueos = async () => {
+        const res = await axios.get('http://localhost:4000/api/parqueos');
+        this.setState({
+            parqueo: res.data
+        });
+
+        let HaySede = false
+       
+        for (var i = 0; i < this.state.parqueo.length; i++) {
+            if (this.state.parqueo[i].campus === this.props.match.params.sede) 
+            {
+                HaySede = true
+            }
+        } 
+
+        if (HaySede){
+            console.log("Siiiii");
+        }
+        else {
+            swal('No hay parqueos disponibles en esta sede')
+            
+            window.history.go(-1);
+            console.log("NOOOOOO");
+        }
+
+       
+    }
+
 
 
     onInputChange = (e) => {
@@ -34,17 +66,17 @@ export default class CreateUser extends Component {
         entradaLunes = e.target.value
     }
 
+    exit(e) {
+        window.history.go(-1);
+    }
+
      
 
     onFechaChange(e) {
         console.log(e.target.value);
-
-
         let current = new Date(e.target.value);
         let today = current.toLocaleDateString('es-ES',{weekday: 'long'});
         console.log(today);
-        
- 
     }
 
 
@@ -54,7 +86,7 @@ export default class CreateUser extends Component {
         return (
             <div className="row">
                 <div className="col-md-4 offset-md-4">
-                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '180vh' }}>
+                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'  }}>
 
                         <div className="card card-body">
 
@@ -87,7 +119,7 @@ export default class CreateUser extends Component {
                                 }}
                             />
 
-                            <button type="submit" className="btn btn-success btn-block">
+                            <button type="submit" onClick={this.reservar} className="btn btn-success btn-block">
                                 Reservar
                             </button>
 
@@ -99,6 +131,11 @@ export default class CreateUser extends Component {
                         </div>
                     </div>
                 </div>
+
+
+
+            
+
             </div >
         )
     }
