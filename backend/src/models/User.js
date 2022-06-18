@@ -2,8 +2,8 @@ const { Schema, model } = require('mongoose');
 
 const userSchema = new Schema(
     {
-        Docente: {
-            type: Boolean,
+        Tipo: {
+            type: String,
         },
 
         Discapacitado: {
@@ -29,7 +29,13 @@ const userSchema = new Schema(
         correo: {
             type: String
         },
-        
+        correoAlterno: {
+            type: String
+        },
+
+        departamento: {
+            type: String
+        },
     
         identificacion: {
             type: String

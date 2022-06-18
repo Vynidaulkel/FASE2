@@ -40,8 +40,6 @@ notessCtrl.createNote = async (req, res) => {
     let visitant = EspaciosVisitantes
     let vehiculo = EspaciosVehiculos
 
-    console.log(vehiculo+ "safbsahjbfhsjdabf");
-
 
     if (g === 'Campus') {
 

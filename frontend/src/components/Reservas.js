@@ -16,6 +16,8 @@ export default class CreateUser extends Component {
         reservados: 0,
         discapacitado: 0,
         visitante: 0,
+        vehiculos: 0,
+        ocupados: 0,
         espacios: 0
     }
 
@@ -25,6 +27,10 @@ export default class CreateUser extends Component {
 
     getParqueos = async () => {
         const res = await axios.get('http://localhost:4000/api/parqueos');
+
+        const user = await axios.get('http://localhost:4000/api/users/' + this.props.match.params.id);
+
+
         this.setState({
             parqueo: res.data
         });
@@ -36,35 +42,61 @@ export default class CreateUser extends Component {
                 HaySede = true
                 this.state.parqueosSede.push(this.state.parqueo[i]);
 
-                for(var e = 0; e < this.state.parqueo[i].Espacios.length; e++){
+                for (var e = 0; e < this.state.parqueo[i].Espacios.length; e++) {
                     if (this.state.parqueo[i].Espacios[e][4]) {
-                        this.state.discapacitado = this.state.discapacitado+1
-                      } else if (this.state.parqueo[i].Espacios[e][5]) {
-                        this.state.reservados = this.state.reservados+1
-                      }  else if (this.state.parqueo[i].Espacios[e][6]) {
-                        this.state.visitante = this.state.visitante+1
-                      }else {
-                        this.state.espacios = this.state.espacios+1
-                      }
+                        this.state.discapacitado = this.state.discapacitado + 1
+                    } else if (this.state.parqueo[i].Espacios[e][5]) {
+                        this.state.reservados = this.state.reservados + 1
+                    } else if (this.state.parqueo[i].Espacios[e][6]) {
+                        this.state.visitante = this.state.visitante + 1
+                    } else if (this.state.parqueo[i].Espacios[e][7]) {
+                        this.state.vehiculos = this.state.vehiculos + 1
+                    } else if (this.state.parqueo[i].Espacios[e][8]) {
+                        this.state.ocupados = this.state.ocupados + 1
+                    } else {
+                        this.state.espacios = this.state.espacios + 1
+                    }
                 }
                 console.log("!" + this.state.discapacitado);
                 console.log("!" + this.state.reservados);
                 console.log("!" + this.state.visitante);
+                console.log("!" + this.state.vehiculos);
+                console.log("!" + this.state.ocupados);
                 console.log("!" + this.state.espacios);
             }
         }
+       
 
         if (HaySede) {
-            console.log("Siiiii");
+
+            if (user.data.Tipo === "Jefe") {
+                if (this.state.reservados === 0 && this.state.espacios === 0 && !user.data.Discapacitado) {
+                    swal('Actualmente no hay espacios disponibles en la sede :(')
+                    window.history.go(-1);
+                }
+                else if (user.data.Discapacitado) {
+                    if (this.state.Discapacitado === 0 && this.state.espacios === 0) {
+                        swal('Actualmente no hay espacios disponibles en la sede :(')
+                        window.history.go(-1);
+                    }
+
+                }
+            }
+            else if (user.data.Discapacitado) {
+                if (this.state.Discapacitado === 0) {
+                    swal('Actualmente no hay espacios disponibles en la sede :(')
+                    window.history.go(-1);
+                }
+            }
+            else if (this.state.espacios === 0) {
+                swal('Actualmente no hay espacios disponibles en la sede :(')
+                window.history.go(-1);
+            }
         }
         else {
             swal('No hay parqueos disponibles en esta sede')
-
             window.history.go(-1);
-            console.log("NOOOOOO");
         }
-
-
     }
 
 

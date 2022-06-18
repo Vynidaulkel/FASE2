@@ -25,18 +25,20 @@ export default class CreateUser extends Component {
 
     state = {
 
-        Docente: false,
+        Tipo: 'Funcionario',
         Discapacitado: false,
         username: '',
         password: '',
         nombre: '',
         numero: '',
         correo: '',
+        correoAlterno: '',
+        departamento: '',
         identificacion: '',
         editing: false,
         placas: [],
         users: []
-    
+
     }
 
     async componentDidMount() {
@@ -53,12 +55,16 @@ export default class CreateUser extends Component {
             const res = await axios.get('http://localhost:4000/api/users/' + this.props.match.params.id);
 
             this.setState({
-                Docente: res.data.Docente,
-                Discapacitado: res.data.Discapacitado, 
+                Tipo: res.data.Tipo,
+                Discapacitado: res.data.Discapacitado,
                 username: res.data.username,
                 password: res.data.password,
                 nombre: res.data.nombre,
                 correo: res.data.correo,
+
+                correoAlterno: res.data.correoAlterno,
+                departamento: res.data.departamento,
+
                 identificacion: res.data.identificacion,
                 numero: res.data.numero,
                 entradaLunes: res.data.entradaLunes,
@@ -103,14 +109,16 @@ export default class CreateUser extends Component {
 
         if (this.state.editing) {
 
-            const updatedUser= {
-                Docente: this.state.Docente,
-                Discapacitado : this.state.Discapacitado,
+            const updatedUser = {
+                Tipo: this.state.Tipo,
+                Discapacitado: this.state.Discapacitado,
                 username: this.state.username,
                 password: this.state.password,
                 nombre: this.state.nombre,
                 numero: this.state.numero,
                 correo: this.state.correo,
+                correoAlterno: this.state.correoAlterno,
+                departamento: this.state.departamento,
                 identificacion: this.state.identificacion,
 
                 entradaLunes: entradaLunes,
@@ -139,13 +147,15 @@ export default class CreateUser extends Component {
         }
         else {
             await axios.post('http://localhost:4000/api/users', {
-                Docente: this.state.Docente,
-                Discapacitado : this.state.Discapacitado,
+                Tipo: this.state.Tipo,
+                Discapacitado: this.state.Discapacitado,
                 username: this.state.username,
                 password: this.state.password,
                 nombre: this.state.nombre,
                 numero: this.state.numero,
                 correo: this.state.correo,
+                correoAlterno: this.state.correoAlterno,
+                departamento: this.state.departamento,
                 identificacion: this.state.identificacion,
 
                 entradaLunes: entradaLunes,
@@ -172,7 +182,7 @@ export default class CreateUser extends Component {
             swal('Usuario creado con exito')
             this.getUsers();
         }
-        window.location.href = '/ModificarUsuario'
+        window.location.href = '/createUser'
     }
 
     deleteUser = async (userId) => {
@@ -257,6 +267,10 @@ export default class CreateUser extends Component {
         salidaDomingo = e.target.value
     }
 
+    actualizar = async (event) => {
+        this.state.Tipo = event.target.value
+    }
+
     render() {
         return (
             <div className="row">
@@ -275,24 +289,25 @@ export default class CreateUser extends Component {
                                         color: orangered;
 
                                     </style>
-                           
-                                        
-                                    {console.log(this.state.Docente, 1)}
-                                    <input checked={this.state.Docente} type="checkbox" onChange={this.handleCheckboxChild} />
 
-                                    <label for="checkbox"><h6>Docente</h6></label>
+                                    <select id="lang" onChange={this.actualizar} >
+                                        <option value="Funcionario">Funcionario</option>
+                                        <option value="Administrativo">Administrativo</option>
+                                        <option value="Docente">Docente</option>
+                                        <option value="Jefe">Jefe</option>
+                                    </select>
 
                                 </div>
 
                                 <div>
 
 
-                                    <input checked={this.state.Discapacitado} type="checkbox" onChange={this.handleCheckboxChild2} />
+                                    <input  type="checkbox" onChange={this.handleCheckboxChild2} />
 
                                     <label for="checkbox"><h6>Discapacitado</h6></label>
 
                                 </div>
-                               
+
                                 <h3></h3>
 
                                 <div className="form-group">
@@ -316,6 +331,31 @@ export default class CreateUser extends Component {
                                         name="correo"
                                         autocomplete="off"
                                         value={this.state.correo}
+                                        required />
+                                </div>
+
+
+                                <div className="form-group">
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        placeholder="Correo Alterno"
+                                        onChange={this.onInputChange}
+                                        name="correoAlterno"
+                                        autocomplete="off"
+                                        value={this.state.correoAlterno}
+                                        required />
+                                </div>
+
+                                <div className="form-group">
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        placeholder="Departamento"
+                                        onChange={this.onInputChange}
+                                        name="departamento"
+                                        autocomplete="off"
+                                        value={this.state.departamento}
                                         required />
                                 </div>
 

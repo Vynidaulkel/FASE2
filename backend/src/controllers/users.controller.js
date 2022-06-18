@@ -22,13 +22,13 @@ userCtrl.getUser = async (req, res) => {
 
 
 userCtrl.updateUser = async (req, res) => {
-    const { Docente,Discapacitado, username, password, nombre, numero, correo, identificacion, entradaLunes, salidaLunes, entradaMartes
+    const { Tipo,Discapacitado, username, password, nombre, numero, correo,correoAlterno, departamento, identificacion, entradaLunes, salidaLunes, entradaMartes
         , salidaMartes, entradaMiercoles, salidaMiercoles, entradaJueves, salidaJueves, entradaViernes, salidaViernes
         , entradaSabado, salidaSabado, entradaDomingo, salidaDomingo } = req.body;
 
     await User.findByIdAndUpdate(req.params.id, {
 
-        Docente,Discapacitado, username, password, nombre, numero, correo, identificacion, entradaLunes, salidaLunes, entradaMartes
+        Tipo,Discapacitado, username, password, nombre, numero, correo,correoAlterno,departamento, identificacion, entradaLunes, salidaLunes, entradaMartes
         , salidaMartes, entradaMiercoles, salidaMiercoles, entradaJueves, salidaJueves, entradaViernes, salidaViernes
         , entradaSabado, salidaSabado, entradaDomingo, salidaDomingo
     });
@@ -38,13 +38,17 @@ userCtrl.updateUser = async (req, res) => {
 userCtrl.createUser = async (req, res) => {
     try {
         console.log(req.body);
-        const { Docente } = req.body;
+        const { Tipo } = req.body;
         const { Discapacitado } = req.body;
         const { username } = req.body;
         const { password } = req.body;
         const { nombre } = req.body;
         const { numero } = req.body;
         const { correo } = req.body;
+
+        const { correoAlterno } = req.body;
+        const { departamento } = req.body;
+
         const { identificacion } = req.body;
 
         const { entradaLunes } = req.body;
@@ -63,7 +67,7 @@ userCtrl.createUser = async (req, res) => {
         const { salidaDomingo } = req.body;
 
         const newUser = new User({
-            Docente,Discapacitado, username, password, nombre, numero, correo, identificacion, entradaLunes, salidaLunes, entradaMartes
+            Tipo,Discapacitado, username, password, nombre, numero, correo,correoAlterno, departamento, identificacion, entradaLunes, salidaLunes, entradaMartes
             , salidaMartes, entradaMiercoles, salidaMiercoles, entradaJueves, salidaJueves, entradaViernes, salidaViernes
             , entradaSabado, salidaSabado, entradaDomingo, salidaDomingo
         });
