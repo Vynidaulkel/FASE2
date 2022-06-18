@@ -366,6 +366,15 @@ notessCtrl.updateNote  = async (req, res) => {
 }
 
 
+notessCtrl.updateParqueo = async (req, res) => {
+    const { Espacios } = req.body;
+    await Note.findByIdAndUpdate(req.params.id, {
+
+        Espacios
+    });
+    res.json('Note Updated');
+}
+
 notessCtrl.getNote = async (req, res) => {
     const note = await Note.findById(req.params.id);
     res.json(note);

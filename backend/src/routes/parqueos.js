@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const router = Router();
 
-const { getNotes, createNote, getNote, deletParqueo, updateNote} = require('../controllers/parqueos.controller');
+const { getNotes, createNote, getNote, deletParqueo,updateParqueo, updateNote} = require('../controllers/parqueos.controller');
 
 router.route('/')
     .get(getNotes)
@@ -10,6 +10,7 @@ router.route('/')
 router.route('/:id')
     .get(getNote)
     .delete(deletParqueo)
+    .put(updateParqueo)
     .put(updateNote);
     
 

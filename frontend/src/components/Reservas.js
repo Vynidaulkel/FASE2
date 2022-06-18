@@ -27,9 +27,7 @@ export default class CreateUser extends Component {
 
     getParqueos = async () => {
         const res = await axios.get('http://localhost:4000/api/parqueos');
-
         const user = await axios.get('http://localhost:4000/api/users/' + this.props.match.params.id);
-
 
         this.setState({
             parqueo: res.data
@@ -65,7 +63,7 @@ export default class CreateUser extends Component {
                 console.log("!" + this.state.espacios);
             }
         }
-       
+
 
         if (HaySede) {
 
@@ -99,6 +97,32 @@ export default class CreateUser extends Component {
         }
     }
 
+    reservar = async (e) => {
+
+
+
+        for (var e = 0; e < this.state.parqueosSede.length; e++) {
+            console.log(this.state.parqueosSede[e]);
+            for (var i = 0; i < this.state.parqueosSede[e].Espacios.length; i++) {
+                
+                if (!this.state.parqueosSede[e].Espacios[i][4] && !this.state.parqueosSede[e].Espacios[i][5] && 
+                    !this.state.parqueosSede[e].Espacios[i][6] && !this.state.parqueosSede[e].Espacios[i][7] && !this.state.parqueosSede[e].Espacios[i][8] ){
+                        console.log("kdjsakjjfdksafksajhjfkhsakjfhsajkfh")
+
+                        this.state.parqueosSede[e].Espacios[i][8]= true
+
+                        console.log(this.state.parqueosSede[e].Espacios )
+                        const updateParqueo = {
+                            Espacios: this.state.parqueosSede[e].Espacios 
+                        };
+                        await axios.put('http://localhost:4000/api/parqueos/' + this.state.parqueosSede[e]._id, updateParqueo);
+
+                     
+
+                }
+            }
+        }
+    }
 
 
     onInputChange = (e) => {
