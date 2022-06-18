@@ -14,6 +14,7 @@ import ConsultarUsuarios from './components/ConsultarUsuarios'
 import ModificarUsuario from './components/ModificarUsuario'
 import sedes from './components/Sedes'
 import Reservas from './components/Reservas'
+import verPerfil from './components/verPerfil'
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
         <Route path="/ModificarUsuario" component={ModificarUsuario} />
         <Route path="/reservar/:id" component={sedes} />
         <Route path="/reservas/:sede/:id" component={Reservas} />
+        <Route path="/verPerfil/:id" component={verPerfil} />
       </div>
     </Router>
   );

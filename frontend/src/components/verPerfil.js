@@ -3,7 +3,6 @@ import axios from 'axios'
 import swal from 'sweetalert'
 import TextField from '@material-ui/core/TextField';
 
-
 let entradaLunes = "07:30";
 let entradaMartes = "07:30";
 let entradaMiercoles = "07:30";
@@ -20,8 +19,7 @@ let salidaViernes = "20:00";
 let salidaSabado = "20:00";
 let salidaDomingo = "20:00";
 
-
-export default class CreateUser extends Component {
+export default class VerPerfil extends Component {
 
     state = {
 
@@ -39,22 +37,14 @@ export default class CreateUser extends Component {
     
     }
 
+    //Carga de datos
     async componentDidMount() {
-
-        const res = await axios.get('http://localhost:4000/api/users');
-        if (res.data.length > 0) {
-            this.setState({
-                users: res.data.map(user => user.username),
-                userSelected: res.data[0].username
-            })
-        }
-
         if (this.props.match.params.id) {
             const res = await axios.get('http://localhost:4000/api/users/' + this.props.match.params.id);
 
             this.setState({
-                Docente: res.data.Docente,
-                Discapacitado: res.data.Discapacitado, 
+                Docente: this.state.Docente,
+                Discapacitado : this.state.Discapacitado, 
                 username: res.data.username,
                 password: res.data.password,
                 nombre: res.data.nombre,
@@ -89,7 +79,7 @@ export default class CreateUser extends Component {
     }
 
     exit = async () => {
-        window.location.href = '/menu/admin';
+        window.location.href = '/menu/'+ this.props.match.params.id;
     }
 
     onInputChange = (e) => {
@@ -133,54 +123,10 @@ export default class CreateUser extends Component {
 
                 entradaDomingo: entradaDomingo,
                 salidaDomingo: salidaDomingo
-
             };
             await axios.put('http://localhost:4000/api/users/' + this.state._id, updatedUser);
         }
-        else {
-            await axios.post('http://localhost:4000/api/users', {
-                Docente: this.state.Docente,
-                Discapacitado : this.state.Discapacitado,
-                username: this.state.username,
-                password: this.state.password,
-                nombre: this.state.nombre,
-                numero: this.state.numero,
-                correo: this.state.correo,
-                identificacion: this.state.identificacion,
-
-                entradaLunes: entradaLunes,
-                salidaLunes: salidaLunes,
-
-                entradaMartes: entradaMartes,
-                salidaMartes: salidaMartes,
-
-                entradaMiercoles: entradaMiercoles,
-                salidaMiercoles: salidaMiercoles,
-
-                entradaJueves: entradaJueves,
-                salidaJueves: salidaJueves,
-
-                entradaViernes: entradaViernes,
-                salidaViernes: salidaViernes,
-
-                entradaSabado: entradaSabado,
-                salidaSabado: salidaSabado,
-
-                entradaDomingo: entradaDomingo,
-                salidaDomingo: salidaDomingo
-            });
-            swal('Usuario creado con exito')
-            this.getUsers();
-        }
-        window.location.href = '/ModificarUsuario'
-    }
-
-    deleteUser = async (userId) => {
-        const response = window.confirm('are you sure you want to delete it?');
-        if (response) {
-            await axios.delete('http://localhost:4000/api/users/' + userId);
-            this.getUsers();
-        }
+        window.location.href = '/menu/' + this.props.match.params.id;
     }
 
     handleCheckboxChild = async (userId) => {
@@ -201,63 +147,17 @@ export default class CreateUser extends Component {
         }
     }
 
-    onTimeChange(e) {
-        entradaLunes = e.target.value
-    }
-
-    onTimeChange1(e) {
-        salidaLunes = e.target.value
-    }
-
-    onTimeChange2(e) {
-        entradaMartes = e.target.value
-    }
-
-    onTimeChange3(e) {
-        salidaMartes = e.target.value
-    }
-
-    onTimeChange4(e) {
-        entradaMiercoles = e.target.value
-    }
-
-    onTimeChange5(e) {
-        salidaMiercoles = e.target.value
-    }
-
-    onTimeChange6(e) {
-        entradaJueves = e.target.value
-    }
-
-    onTimeChange7(e) {
-        salidaJueves = e.target.value
-    }
-
-    onTimeChange8(e) {
-        entradaViernes = e.target.value
-    }
-
-    onTimeChange9(e) {
-        salidaJueves = e.target.value
-    }
-
-    onTimeChange10(e) {
-        entradaSabado = e.target.value
-    }
-
-    onTimeChange11(e) {
-        salidaSabado = e.target.value
-    }
-
-    onTimeChange12(e) {
-        entradaDomingo = e.target.value
-    }
-
-    onTimeChange13(e) {
-        salidaDomingo = e.target.value
-    }
-
     render() {
+        let docenteInput = <input disabled checked="false" type="checkbox"/>;
+        if (this.state.Docente) {
+            docenteInput = <input disabled checked="true" type="checkbox"/>;
+        }
+
+        let discapacitadoInput = <input disabled checked="false" type="checkbox"/>;
+        if (this.state.Discapacitado) {
+            discapacitadoInput = <input disabled checked="true" type="checkbox"/>;
+        }
+        
         return (
             <div className="row">
                 <div className="col-md-4 offset-md-4">
@@ -271,26 +171,15 @@ export default class CreateUser extends Component {
 
                                 <div>
                                     <style>
-
                                         color: orangered;
-
                                     </style>
-                           
-                                        
-                                    {console.log(this.state.Docente, 1)}
-                                    <input checked={this.state.Docente} type="checkbox" onChange={this.handleCheckboxChild} />
-
+                                    { docenteInput }
                                     <label for="checkbox"><h6>Docente</h6></label>
-
                                 </div>
 
-                                <div>
-
-
-                                    <input checked={this.state.Discapacitado} type="checkbox" onChange={this.handleCheckboxChild2} />
-
+                                <div> 
+                                    { discapacitadoInput }
                                     <label for="checkbox"><h6>Discapacitado</h6></label>
-
                                 </div>
                                
                                 <h3></h3>
@@ -368,21 +257,17 @@ export default class CreateUser extends Component {
                                         required />
                                 </div>
 
-
                                 <h3>Horarios Funcionarios</h3>
-
-
-
                                 <h6>Lunes</h6>
 
                                 <TextField
+                                    disabled
                                     id="time"
                                     label="Entrada"
                                     type="time"
                                     fullWidth={true}
-                                    onChange={this.onTimeChange}
                                     className="form-group"
-                                    defaultValue={entradaLunes}
+                                    value={this.state.entradaLunes}
                                     InputLabelProps={{
                                         shrink: true,
                                     }}
@@ -391,13 +276,13 @@ export default class CreateUser extends Component {
                                     }}
                                 />
                                 <TextField
+                                    disabled
                                     id="time"
                                     label="Salida"
                                     type="time"
                                     fullWidth={true}
-                                    onChange={this.onTimeChange1}
                                     className="form-group"
-                                    defaultValue={salidaLunes}
+                                    value={this.state.salidaLunes}
                                     InputLabelProps={{
                                         shrink: true,
                                     }}
@@ -408,13 +293,13 @@ export default class CreateUser extends Component {
 
                                 <h6>Martes</h6>
                                 <TextField
+                                    disabled
                                     id="time"
                                     label="Entrada"
                                     type="time"
                                     fullWidth={true}
-                                    onChange={this.onTimeChange2}
                                     className="form-group"
-                                    defaultValue={entradaMartes}
+                                    value={this.state.entradaMartes}
                                     InputLabelProps={{
                                         shrink: true,
                                     }}
@@ -423,13 +308,13 @@ export default class CreateUser extends Component {
                                     }}
                                 />
                                 <TextField
+                                    disabled
                                     id="time"
                                     label="Salida"
                                     type="time"
                                     fullWidth={true}
-                                    onChange={this.onTimeChange3}
                                     className="form-group"
-                                    defaultValue={salidaMartes}
+                                    value={this.state.salidaMartes}
                                     InputLabelProps={{
                                         shrink: true,
                                     }}
@@ -439,13 +324,13 @@ export default class CreateUser extends Component {
                                 />
                                 <h6>Miercoles</h6>
                                 <TextField
+                                    disabled
                                     id="time"
                                     label="Entrada"
                                     type="time"
                                     fullWidth={true}
-                                    onChange={this.onTimeChange4}
                                     className="form-group"
-                                    defaultValue={entradaMiercoles}
+                                    value={this.state.entradaMiercoles}
                                     InputLabelProps={{
                                         shrink: true,
                                     }}
@@ -454,13 +339,13 @@ export default class CreateUser extends Component {
                                     }}
                                 />
                                 <TextField
+                                    disabled
                                     id="time"
                                     label="Salida"
                                     type="time"
                                     fullWidth={true}
-                                    onChange={this.onTimeChange5}
                                     className="form-group"
-                                    defaultValue={salidaMiercoles}
+                                    value={this.state.salidaMiercoles}
                                     InputLabelProps={{
                                         shrink: true,
                                     }}
@@ -470,13 +355,13 @@ export default class CreateUser extends Component {
                                 />
                                 <h6>Jueves</h6>
                                 <TextField
+                                    disabled
                                     id="time"
                                     label="Entrada"
                                     type="time"
                                     fullWidth={true}
-                                    onChange={this.onTimeChange6}
                                     className="form-group"
-                                    defaultValue={entradaJueves}
+                                    value={this.state.entradaJueves}
                                     InputLabelProps={{
                                         shrink: true,
                                     }}
@@ -485,13 +370,13 @@ export default class CreateUser extends Component {
                                     }}
                                 />
                                 <TextField
+                                    disabled
                                     id="time"
                                     label="Salida"
                                     type="time"
-                                    onChange={this.onTimeChange7}
                                     className="form-group"
                                     fullWidth={true}
-                                    defaultValue={salidaJueves}
+                                    value={this.state.salidaJueves}
                                     InputLabelProps={{
                                         shrink: true,
                                     }}
@@ -501,13 +386,13 @@ export default class CreateUser extends Component {
                                 />
                                 <h6>Viernes</h6>
                                 <TextField
+                                    disabled
                                     id="time"
                                     label="Entrada"
                                     type="time"
-                                    onChange={this.onTimeChange8}
                                     fullWidth={true}
                                     className="form-group"
-                                    defaultValue={entradaViernes}
+                                    value={this.state.entradaViernes}
                                     InputLabelProps={{
                                         shrink: true,
                                     }}
@@ -516,13 +401,13 @@ export default class CreateUser extends Component {
                                     }}
                                 />
                                 <TextField
+                                    disabled
                                     id="time"
                                     label="Salida"
                                     type="time"
-                                    onChange={this.onTimeChange9}
                                     fullWidth={true}
                                     className="form-group"
-                                    defaultValue={salidaViernes}
+                                    value={this.state.salidaViernes}
                                     InputLabelProps={{
                                         shrink: true,
                                     }}
@@ -532,13 +417,13 @@ export default class CreateUser extends Component {
                                 />
                                 <h6>Sabado</h6>
                                 <TextField
+                                    disabled
                                     id="time"
                                     label="Entrada"
                                     type="time"
-                                    onChange={this.onTimeChange10}
                                     className="form-group"
                                     fullWidth={true}
-                                    defaultValue={entradaSabado}
+                                    value={this.state.entradaSabado}
                                     InputLabelProps={{
                                         shrink: true,
                                     }}
@@ -547,13 +432,13 @@ export default class CreateUser extends Component {
                                     }}
                                 />
                                 <TextField
+                                    disabled
                                     id="time"
                                     label="Salida"
                                     type="time"
                                     fullWidth={true}
-                                    onChange={this.onTimeChange11}
                                     className="form-group"
-                                    defaultValue={salidaSabado}
+                                    value={this.state.salidaSabado}
                                     InputLabelProps={{
                                         shrink: true,
                                     }}
@@ -563,13 +448,13 @@ export default class CreateUser extends Component {
                                 />
                                 <h6>Domingo</h6>
                                 <TextField
+                                    disabled
                                     id="time"
                                     label="Entrada"
                                     type="time"
-                                    onChange={this.onTimeChange12}
                                     fullWidth={true}
                                     className="form-group"
-                                    defaultValue={entradaDomingo}
+                                    value={this.state.entradaDomingo}
                                     InputLabelProps={{
                                         shrink: true,
                                     }}
@@ -578,13 +463,12 @@ export default class CreateUser extends Component {
                                     }}
                                 />
                                 <TextField
-
+                                    disabled
                                     id="time"
                                     label="Salida"
                                     type="time"
-                                    onChange={this.onTimeChange13}
                                     className="form-group"
-                                    defaultValue={salidaDomingo}
+                                    value={this.state.salidaDomingo}
                                     fullWidth={true}
                                     InputLabelProps={{
                                         shrink: true,

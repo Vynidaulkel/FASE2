@@ -118,47 +118,8 @@ export default class ConsultarUsuario extends Component {
                                                 </p>
 
                                                 <p>
-                                                    Docente: {users.Docente.toString()} | Discapacitado: {users.Discapacitado.toString()}
+                                                Identificacion: {users.identificacion}
                                                 </p>
-
-                                                <p>
-                                                    Correo: {users.correo} | Identificacion: {users.identificacion}
-                                                </p>
-
-                                                <p>
-                                                    Username: {users.username} | Contraseña: {users.password}
-                                                </p>
-                                                <p>
-                                                    ------------------Horario------------------
-                                                </p>
-                                                <p>
-                                                    Lunes._______|{users.entradaLunes} -> {users.salidaLunes}|
-                                                </p>
-
-                                                <p>
-                                                    Martes.______|{users.entradaMartes} -> {users.salidaMartes}|
-                                                </p>
-
-                                                <p>
-                                                    Miercoles.___|{users.entradaMiercoles} -> {users.salidaMiercoles}|
-                                                </p>
-
-                                                <p>
-                                                    Jueves.______|{users.entradaJueves} -> {users.salidaJueves}|
-                                                </p>
-
-                                                <p>
-                                                    Viernes._____|{users.entradaViernes} -> {users.salidaViernes}|
-                                                </p>
-
-                                                <p>
-                                                    Sabado._____|{users.entradaSabado} -> {users.salidaSabado}|
-                                                </p>
-
-                                                <p>
-                                                    Domingo.___|{users.entradaDomingo} -> {users.salidaDomingo}|
-                                                </p>
-
 
                                             </div>
                                             <div className="card-footer">
