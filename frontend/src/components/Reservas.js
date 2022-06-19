@@ -58,68 +58,154 @@ export default class CreateUser extends Component {
 
         console.log(dia, diaNumero, mes);
 
-        let haydia = false;
+        
         for (var i = 0; i < this.state.parqueosSede.length; i++) {
             console.log(this.state.parqueosSede[i]);
 
+            let haydia = false;
+
             for (var e = 0; e < this.state.campos.length; e++) {
 
-                console.log(this.state.campos[e]);
-                console.log(this.state.campos[e].dia, dia, this.state.campos[e].dia === dia);
-                console.log(this.state.campos[e].fecha, diaNumero, this.state.campos[e].fecha === diaNumero);
-                console.log(this.state.campos[e].mes, mes, this.state.campos[e].mes === mes);
                 if (this.state.campos[e].dia === dia && this.state.campos[e].fecha === diaNumero && this.state.campos[e].mes === mes &&
-                    this.state.campos[e].IdParqueo  === this.state.parqueosSede[i]._id) {
+                    this.state.campos[e].IdParqueo === this.state.parqueosSede[i]._id) {
+
                     haydia = true
-                    if (this.state.campos[e].espaciosTotales === "0"){
-                        swal('No hay espacios disponibles en ese dia')
-                        return
+
+                    if (this.state.usuario.Discapacitado) {
+                        if (this.state.campos[e].discapacitados != "0") {
+
+                            const updateCampo = {
+
+                                fecha: diaNumero,
+                                dia: dia,
+                                mes: mes,
+                                IdParqueo: this.state.parqueosSede[i]._id,
+                                espaciosTotales: this.state.campos[e].espaciosTotales,
+                                carros: this.state.campos[i].carros,
+                                discapacitados: parseInt(this.state.campos[i].discapacitados) - 1,
+                                reservados: this.state.campos[i].reservados,
+                                visitante: this.state.campos[i].visitante
+
+                            };
+                            await axios.put('http://localhost:4000/api/campos/' + this.state.campos[e]._id, updateCampo);
+                            swal('Espacio reservado')
+                            window.history.go(-1);
+                            return
+                        }
                     }
-                    else{
-                         
+
+                    if (this.state.usuario.Tipo === "Jefe") {
+
+                        if (this.state.campos[e].reservados != "0") {
+
+                            const updateCampo = {
+
+                                fecha: diaNumero,
+                                dia: dia,
+                                mes: mes,
+                                IdParqueo: this.state.parqueosSede[i]._id,
+                                espaciosTotales: this.state.campos[e].espaciosTotales,
+                                carros: this.state.campos[i].carros,
+                                discapacitados: this.state.campos[i].discapacitados,
+                                reservados: parseInt(this.state.campos[i].reservados) - 1,
+                                visitante: this.state.campos[i].visitante
+
+                            };
+                            await axios.put('http://localhost:4000/api/campos/' + this.state.campos[e]._id, updateCampo);
+                            swal('Espacio reservado')
+                            window.history.go(-1);
+                            return
+                        }
+                    }
+                    
+                    if (this.state.campos[e].espaciosTotales === "0") {
+                        swal('No hay espacios disponibles en ese dia')
+                      
+                    }
+                    else {
+
                         const updateCampo = {
 
                             fecha: diaNumero,
                             dia: dia,
                             mes: mes,
                             IdParqueo: this.state.parqueosSede[i]._id,
-                            espaciosTotales: parseInt(this.state.campos[e].espaciosTotales)-1,
-                            carros: this.state.parqueosSede[i].Vehiculos,
-                            discapacitados:this.state.parqueosSede[i].Discapacitados, 
-                            reservados: this.state.parqueosSede[i].Reservados,
-                            visitante: this.state.parqueosSede[i].Visitantes
+                            espaciosTotales: parseInt(this.state.campos[e].espaciosTotales) - 1,
+                            carros: this.state.campos[i].carros,
+                            discapacitados: this.state.campos[i].discapacitados,
+                            reservados: this.state.campos[i].reservados,
+                            visitante: this.state.campos[i].visitante
 
                         };
                         await axios.put('http://localhost:4000/api/campos/' + this.state.campos[e]._id, updateCampo);
                         swal('Espacio reservado')
                         window.history.go(-1);
+                        return
                     }
                 }
             }
             if (haydia === false) {
-                console.log(haydia, "dhashdbsahjdbg");
 
-                let total =  parseInt(this.state.parqueosSede[i].Cantidad)  - parseInt(this.state.parqueosSede[i].Vehiculos)  
-                - parseInt(this.state.parqueosSede[i].Discapacitados) - parseInt(this.state.parqueosSede[i].Reservados)- 
-                parseInt(this.state.parqueosSede[i].Visitantes) -1
-              
+                let total = parseInt(this.state.parqueosSede[i].Cantidad) - parseInt(this.state.parqueosSede[i].Vehiculos)
+                    - parseInt(this.state.parqueosSede[i].Discapacitados) - parseInt(this.state.parqueosSede[i].Reservados) -
+                    parseInt(this.state.parqueosSede[i].Visitantes)
+
+
+                if (this.state.usuario.Discapacitado) {
+                    await axios.post('http://localhost:4000/api/campos', {
+
+                        fecha: diaNumero,
+                        dia: dia,
+                        mes: mes,
+                        IdParqueo: this.state.parqueosSede[i]._id,
+                        espaciosTotales: total,
+                        carros: this.state.parqueosSede[i].Vehiculos,
+                        discapacitados: parseInt(this.state.parqueosSede[i].Discapacitados) - 1,
+                        reservados: this.state.parqueosSede[i].Reservados,
+                        visitante: this.state.parqueosSede[i].Visitantes
+
+                    })
+                    swal('Espacio reservado')
+                    window.history.go(-1);
+                    return
+                }
+
+                if (this.state.usuario.Tipo === "Jefe") {
+
+                    await axios.post('http://localhost:4000/api/campos', {
+
+                        fecha: diaNumero,
+                        dia: dia,
+                        mes: mes,
+                        IdParqueo: this.state.parqueosSede[i]._id,
+                        espaciosTotales: total,
+                        carros: this.state.parqueosSede[i].Vehiculos,
+                        discapacitados: this.state.parqueosSede[i].Discapacitados,
+                        reservados: parseInt(this.state.parqueosSede[i].Reservados) - 1,
+                        visitante: this.state.parqueosSede[i].Visitantes
+                    })
+                    swal('Espacio reservado')
+                    window.history.go(-1);
+                    return
+                }
+
 
                 await axios.post('http://localhost:4000/api/campos', {
 
                     fecha: diaNumero,
                     dia: dia,
                     mes: mes,
-                    IdParqueo: this.state.parqueosSede[i]._id,  
-                    espaciosTotales: total ,
+                    IdParqueo: this.state.parqueosSede[i]._id,
+                    espaciosTotales: total - 1,
                     carros: this.state.parqueosSede[i].Vehiculos,
                     discapacitados: this.state.parqueosSede[i].Discapacitados,
                     reservados: this.state.parqueosSede[i].Reservados,
                     visitante: this.state.parqueosSede[i].Visitantes
 
                 })
-                swal('Espacio reservado')        
+                swal('Espacio reservado')
                 window.history.go(-1);
-                
+                return
             }
         }
     }
