@@ -58,6 +58,49 @@ export default class CreateUser extends Component {
 
         console.log(dia, diaNumero, mes);
 
+        if (dia === "lunes"){
+            if (entradaLunes < this.state.usuario.entradaLunes || entradaLunes> this.state.usuario.salidaLunes)
+            swal('No puede reservar fuera de su franja horaria')
+            return 
+        }
+
+        if (dia === "martes"){
+            if (entradaLunes < this.state.usuario.entradaMartes || entradaLunes> this.state.usuario.salidaMartes)
+            swal('No puede reservar fuera de su franja horaria')
+            return 
+        }
+
+        if (dia === "miercoles"){
+            if (entradaLunes < this.state.usuario.entradaMiercoles || entradaLunes> this.state.usuario.salidaMiercoles)
+            swal('No puede reservar fuera de su franja horaria')
+            return 
+        }
+
+        if (dia ==="jueves"){
+            if (entradaLunes < this.state.usuario.entradaJueves || entradaLunes> this.state.usuario.salidaJueves)
+            swal('No puede reservar fuera de su franja horaria')
+            return 
+        }
+
+        if (dia === "viernes"){
+            if (entradaLunes < this.state.usuario.entradaViernes || entradaLunes> this.state.usuario.salidaViernes)
+            swal('No puede reservar fuera de su franja horaria')
+            return 
+        }
+
+        if (dia === "sabado"){
+            if (entradaLunes < this.state.usuario.entradaSabado || entradaLunes> this.state.usuario.salidaSabado)
+            swal('No puede reservar fuera de su franja horaria')
+            return 
+        }
+
+        if (dia === "domingo" ){
+            if (entradaLunes < this.state.usuario.entradaDomingo || entradaLunes> this.state.usuario.salidaDomingo)
+            swal('No puede reservar fuera de su franja horaria')
+            return 
+        }
+
+
         
         for (var i = 0; i < this.state.parqueosSede.length; i++) {
             console.log(this.state.parqueosSede[i]);
@@ -220,6 +263,7 @@ export default class CreateUser extends Component {
 
     onTimeChange(e) {
         entradaLunes = e.target.value
+         
     }
 
     exit(e) {
