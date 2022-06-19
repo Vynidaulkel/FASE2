@@ -4,11 +4,11 @@ class Espacio{
         this.acceso = acceso;
         this.horaApertura = horaApertura;
         this.horaCierre = horaCierre;
-        this.reservado = false;
         this.discapacitado = false;
+        this.reservado = false;
         this.visitante = false;
-        this.estado = false;
         this.vehiculo = false;
+        this.estado = [false,false,false,false,false,false,false];
     }
     get getUbicacion() {
         return this.vehiculo;
@@ -28,18 +28,20 @@ class Espacio{
     set setAcceso(pAcceso) {
         this.acceso = pAcceso;
     }
-    get getReservado() {
-        return this.reservado;
-    }
-    set setReservado(pReservado) {
-        this.reservado = pReservado;
-    }
     get getDiscapacitado() {
         return this.discapacitado;
     }
     set setDiscapactiado(pDiscapacitado) {
         this.discapacitado = pDiscapacitado;
     }
+    
+    get getReservado() {
+        return this.reservado;
+    }
+    set setReservado(pReservado) {
+        this.reservado = pReservado;
+    }
+    
     get getEstado() {
         return this.pEstado;
     }

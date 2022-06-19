@@ -14,5 +14,6 @@ app.use(express.json());
 app.use('/api/users', require('./routes/users'));
 app.use('/api/parqueos', require('./routes/parqueos'));
 app.use('/api/placas', require('./routes/placas'));
+app.use('/api/campos', require('./routes/campos'));
 
 module.exports = app;

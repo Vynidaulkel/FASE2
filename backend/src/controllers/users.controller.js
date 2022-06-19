@@ -45,12 +45,9 @@ userCtrl.createUser = async (req, res) => {
         const { nombre } = req.body;
         const { numero } = req.body;
         const { correo } = req.body;
-
         const { correoAlterno } = req.body;
         const { departamento } = req.body;
-
         const { identificacion } = req.body;
-
         const { entradaLunes } = req.body;
         const { salidaLunes } = req.body;
         const { entradaMartes } = req.body;

@@ -4,7 +4,9 @@ import axios from 'axios'
 import swal from 'sweetalert'
 
 let entradaLunes = "07:30";
-let salidaLunes = "07:30";
+let dia = "";
+let diaNumero = "";
+let mes = "";
 
 
 
@@ -12,12 +14,14 @@ export default class CreateUser extends Component {
 
     state = {
         parqueo: [],
+        campos: [],
         parqueosSede: [],
         reservados: 0,
         discapacitado: 0,
         visitante: 0,
         vehiculos: 0,
         ocupados: 0,
+        usuario: [],
         espacios: 0
     }
 
@@ -28,9 +32,12 @@ export default class CreateUser extends Component {
     getParqueos = async () => {
         const res = await axios.get('http://localhost:4000/api/parqueos');
         const user = await axios.get('http://localhost:4000/api/users/' + this.props.match.params.id);
+        const campos = await axios.get('http://localhost:4000/api/campos');
 
         this.setState({
-            parqueo: res.data
+            parqueo: res.data,
+            usuario: user.data,
+            campos: campos.data
         });
 
         let HaySede = false
@@ -39,59 +46,9 @@ export default class CreateUser extends Component {
             if (this.state.parqueo[i].campus === this.props.match.params.sede) {
                 HaySede = true
                 this.state.parqueosSede.push(this.state.parqueo[i]);
-
-                for (var e = 0; e < this.state.parqueo[i].Espacios.length; e++) {
-                    if (this.state.parqueo[i].Espacios[e][4]) {
-                        this.state.discapacitado = this.state.discapacitado + 1
-                    } else if (this.state.parqueo[i].Espacios[e][5]) {
-                        this.state.reservados = this.state.reservados + 1
-                    } else if (this.state.parqueo[i].Espacios[e][6]) {
-                        this.state.visitante = this.state.visitante + 1
-                    } else if (this.state.parqueo[i].Espacios[e][7]) {
-                        this.state.vehiculos = this.state.vehiculos + 1
-                    } else if (this.state.parqueo[i].Espacios[e][8]) {
-                        this.state.ocupados = this.state.ocupados + 1
-                    } else {
-                        this.state.espacios = this.state.espacios + 1
-                    }
-                }
-                console.log("!" + this.state.discapacitado);
-                console.log("!" + this.state.reservados);
-                console.log("!" + this.state.visitante);
-                console.log("!" + this.state.vehiculos);
-                console.log("!" + this.state.ocupados);
-                console.log("!" + this.state.espacios);
             }
         }
-
-
-        if (HaySede) {
-
-            if (user.data.Tipo === "Jefe") {
-                if (this.state.reservados === 0 && this.state.espacios === 0 && !user.data.Discapacitado) {
-                    swal('Actualmente no hay espacios disponibles en la sede :(')
-                    window.history.go(-1);
-                }
-                else if (user.data.Discapacitado) {
-                    if (this.state.Discapacitado === 0 && this.state.espacios === 0) {
-                        swal('Actualmente no hay espacios disponibles en la sede :(')
-                        window.history.go(-1);
-                    }
-
-                }
-            }
-            else if (user.data.Discapacitado) {
-                if (this.state.Discapacitado === 0) {
-                    swal('Actualmente no hay espacios disponibles en la sede :(')
-                    window.history.go(-1);
-                }
-            }
-            else if (this.state.espacios === 0) {
-                swal('Actualmente no hay espacios disponibles en la sede :(')
-                window.history.go(-1);
-            }
-        }
-        else {
+        if (!HaySede) {
             swal('No hay parqueos disponibles en esta sede')
             window.history.go(-1);
         }
@@ -99,27 +56,70 @@ export default class CreateUser extends Component {
 
     reservar = async (e) => {
 
+        console.log(dia, diaNumero, mes);
 
+        let haydia = false;
+        for (var i = 0; i < this.state.parqueosSede.length; i++) {
+            console.log(this.state.parqueosSede[i]);
 
-        for (var e = 0; e < this.state.parqueosSede.length; e++) {
-            console.log(this.state.parqueosSede[e]);
-            for (var i = 0; i < this.state.parqueosSede[e].Espacios.length; i++) {
-                
-                if (!this.state.parqueosSede[e].Espacios[i][4] && !this.state.parqueosSede[e].Espacios[i][5] && 
-                    !this.state.parqueosSede[e].Espacios[i][6] && !this.state.parqueosSede[e].Espacios[i][7] && !this.state.parqueosSede[e].Espacios[i][8] ){
-                        console.log("kdjsakjjfdksafksajhjfkhsakjfhsajkfh")
+            for (var e = 0; e < this.state.campos.length; e++) {
 
-                        this.state.parqueosSede[e].Espacios[i][8]= true
+                console.log(this.state.campos[e]);
+                console.log(this.state.campos[e].dia, dia, this.state.campos[e].dia === dia);
+                console.log(this.state.campos[e].fecha, diaNumero, this.state.campos[e].fecha === diaNumero);
+                console.log(this.state.campos[e].mes, mes, this.state.campos[e].mes === mes);
+                if (this.state.campos[e].dia === dia && this.state.campos[e].fecha === diaNumero && this.state.campos[e].mes === mes &&
+                    this.state.campos[e].IdParqueo  === this.state.parqueosSede[i]._id) {
+                    haydia = true
+                    if (this.state.campos[e].espaciosTotales === "0"){
+                        swal('No hay espacios disponibles en ese dia')
+                        return
+                    }
+                    else{
+                         
+                        const updateCampo = {
 
-                        console.log(this.state.parqueosSede[e].Espacios )
-                        const updateParqueo = {
-                            Espacios: this.state.parqueosSede[e].Espacios 
+                            fecha: diaNumero,
+                            dia: dia,
+                            mes: mes,
+                            IdParqueo: this.state.parqueosSede[i]._id,
+                            espaciosTotales: parseInt(this.state.campos[e].espaciosTotales)-1,
+                            carros: this.state.parqueosSede[i].Vehiculos,
+                            discapacitados:this.state.parqueosSede[i].Discapacitados, 
+                            reservados: this.state.parqueosSede[i].Reservados,
+                            visitante: this.state.parqueosSede[i].Visitantes
+
                         };
-                        await axios.put('http://localhost:4000/api/parqueos/' + this.state.parqueosSede[e]._id, updateParqueo);
-
-                     
-
+                        await axios.put('http://localhost:4000/api/campos/' + this.state.campos[e]._id, updateCampo);
+                        swal('Espacio reservado')
+                        window.history.go(-1);
+                    }
                 }
+            }
+            if (haydia === false) {
+                console.log(haydia, "dhashdbsahjdbg");
+
+                let total =  parseInt(this.state.parqueosSede[i].Cantidad)  - parseInt(this.state.parqueosSede[i].Vehiculos)  
+                - parseInt(this.state.parqueosSede[i].Discapacitados) - parseInt(this.state.parqueosSede[i].Reservados)- 
+                parseInt(this.state.parqueosSede[i].Visitantes) -1
+              
+
+                await axios.post('http://localhost:4000/api/campos', {
+
+                    fecha: diaNumero,
+                    dia: dia,
+                    mes: mes,
+                    IdParqueo: this.state.parqueosSede[i]._id,  
+                    espaciosTotales: total ,
+                    carros: this.state.parqueosSede[i].Vehiculos,
+                    discapacitados: this.state.parqueosSede[i].Discapacitados,
+                    reservados: this.state.parqueosSede[i].Reservados,
+                    visitante: this.state.parqueosSede[i].Visitantes
+
+                })
+                swal('Espacio reservado')        
+                window.history.go(-1);
+                
             }
         }
     }
@@ -131,10 +131,6 @@ export default class CreateUser extends Component {
         })
     }
 
-    onSubmit = async (e) => {
-
-    }
-
 
     onTimeChange(e) {
         entradaLunes = e.target.value
@@ -144,16 +140,13 @@ export default class CreateUser extends Component {
         window.history.go(-1);
     }
 
-
-
     onFechaChange(e) {
-        console.log(e.target.value);
         let current = new Date(e.target.value);
-        let today = current.toLocaleDateString('es-ES', { weekday: 'long' });
-        console.log(today);
+        current.setDate(current.getDate() + 1);
+        diaNumero = current.toLocaleDateString('es-ES', { day: '2-digit' });
+        dia = current.toLocaleDateString('es-ES', { weekday: 'long' });
+        mes = current.toLocaleDateString('es-ES', { month: '2-digit' });
     }
-
-
 
 
     render() {

@@ -55,27 +55,28 @@ notessCtrl.createNote = async (req, res) => {
 
         for (var n = cont; n < total; n++) {
 
-            if (reservados>0){
-                parqueo[n].reservado = true;
-                cont = cont + 1;
-                reservados = reservados-1
-            }
-            else if (Discapacitado>0)  {
+            if (Discapacitado>0)  {
                 parqueo[n].discapacitado = true;
                 cont = cont + 1;
                 Discapacitado = Discapacitado-1
             } 
+
+            else if (reservados>0){
+                parqueo[n].reservado = true;
+                cont = cont + 1;
+                reservados = reservados-1
+            }
+             
             else if (visitant>0)  {
                     parqueo[n].visitante = true;
                     cont = cont + 1;
                     visitant= visitant-1
                 }    
             else if (vehiculo>0)  {
-                console.log(parqueo[n].vehiculo + "sdjkashfjksabgfjhgbasjhfbsahjbf");
                 parqueo[n].vehiculo = true;
                 cont = cont + 1;
                 vehiculo= vehiculo-1
-            }  
+            }   
             
         }
         lita_parqueos = []
@@ -106,11 +107,12 @@ notessCtrl.createNote = async (req, res) => {
         Discapacitados = CantidadDiscapacitados
         Reservados= espaciosReservados
         Visitantes = EspaciosVisitantes
+        Vehiculos = EspaciosVehiculos
 
         const newNote = new Note({
             tipo, campus, Lugar,  Acceso, HoraApertura, HoraCierre, Cantidad,
             Espacios, Discapacitados, 
-            Reservados, Visitantes
+            Reservados, Visitantes, Vehiculos
         });
         await newNote.save();
         res.json('New Note added');
@@ -128,17 +130,18 @@ notessCtrl.createNote = async (req, res) => {
 
         for (var n = cont; n < total; n++) {
 
-            if (reservados>0){
-                parqueo[n].reservado = true;
-                cont = cont + 1;
-                reservados = reservados-1
-            }
-            else if (Discapacitado>0)  {
+            if (Discapacitado>0)  {
                 parqueo[n].discapacitado = true;
                 cont = cont + 1;
                 Discapacitado = Discapacitado-1
             } 
-            
+
+            else if (reservados>0){
+                parqueo[n].reservado = true;
+                cont = cont + 1;
+                reservados = reservados-1
+            }
+             
             else if (visitant>0)  {
                     parqueo[n].visitante = true;
                     cont = cont + 1;
@@ -177,11 +180,12 @@ notessCtrl.createNote = async (req, res) => {
         Discapacitados = CantidadDiscapacitados
         Reservados= espaciosReservados
         Visitantes = EspaciosVisitantes
+        Vehiculos = EspaciosVehiculos
 
         const newNote = new Note({
             tipo, campus, Lugar,  Acceso, HoraApertura, HoraCierre, Cantidad,
             Espacios, Discapacitados, 
-            Reservados, Visitantes
+            Reservados, Visitantes, Vehiculos
         });
         await newNote.save();
         res.json('New Note added');
@@ -201,17 +205,18 @@ notessCtrl.createNote = async (req, res) => {
 
         for (var n = cont; n < total; n++) {
 
-            if (reservados>0){
-                parqueo[n].reservado = true;
-                cont = cont + 1;
-                reservados = reservados-1
-            }
-            else if (Discapacitado>0)  {
+            if (Discapacitado>0)  {
                 parqueo[n].discapacitado = true;
                 cont = cont + 1;
                 Discapacitado = Discapacitado-1
             } 
-            
+
+            else if (reservados>0){
+                parqueo[n].reservado = true;
+                cont = cont + 1;
+                reservados = reservados-1
+            }
+             
             else if (visitant>0)  {
                     parqueo[n].visitante = true;
                     cont = cont + 1;
@@ -251,11 +256,12 @@ notessCtrl.createNote = async (req, res) => {
         Discapacitados = CantidadDiscapacitados
         Reservados= espaciosReservados
         Visitantes = EspaciosVisitantes
+        Vehiculos = EspaciosVehiculos
 
         const newNote = new Note({
             tipo, campus, Lugar,  Acceso, HoraApertura, HoraCierre, Cantidad,
             Espacios, Discapacitados, 
-            Reservados, Visitantes
+            Reservados, Visitantes, Vehiculos
         });
         await newNote.save();
         res.json('New Note added');
@@ -293,27 +299,30 @@ notessCtrl.updateNote  = async (req, res) => {
         parqueo.push(espacio);
     }
 
-    let total = CantidadDiscapacitados+CantidadDiscapacitados+EspaciosVisitantes+EspaciosVehiculos
+    let total = CantidadDiscapacitados+EspaciosVisitantes+EspaciosVehiculos+espaciosReservados
 
     let reservados = espaciosReservados
     let Discapacitado = CantidadDiscapacitados
     let visitant = EspaciosVisitantes
     let vehiculo = EspaciosVehiculos
+
+    console.log(total);
  
 
     for (var n = cont; n < total; n++) {
 
-        if (reservados>0){
-            parqueo[n].reservado = true;
-            cont = cont + 1;
-            reservados = reservados-1
-        }
-        else if (Discapacitado>0)  {
+        if (Discapacitado>0)  {
             parqueo[n].discapacitado = true;
             cont = cont + 1;
             Discapacitado = Discapacitado-1
         } 
-        
+
+        else if (reservados>0){
+            parqueo[n].reservado = true;
+            cont = cont + 1;
+            reservados = reservados-1
+        }
+         
         else if (visitant>0)  {
                 parqueo[n].visitante = true;
                 cont = cont + 1;
@@ -323,7 +332,7 @@ notessCtrl.updateNote  = async (req, res) => {
             parqueo[n].vehiculo = true;
             cont = cont + 1;
             vehiculo= vehiculo-1
-        } 
+        }  
     }
 
      
@@ -344,6 +353,7 @@ notessCtrl.updateNote  = async (req, res) => {
         lita_final.push(lita_parqueos)
         lita_parqueos = []
     }
+    
     tipo = g
     campus = lcampus
     Lugar = ubicacion
@@ -355,25 +365,19 @@ notessCtrl.updateNote  = async (req, res) => {
     Discapacitados = CantidadDiscapacitados
     Reservados= espaciosReservados
     Visitantes = EspaciosVisitantes
+    Vehiculos = EspaciosVehiculos
  
 
     await Note.findByIdAndUpdate(req.params.id, {
-        tipo, campus, Lugar,  Acceso, HoraApertura, HoraCierre, Cantidad,
-        Espacios, Discapacitados, 
-        Reservados, Visitantes
+        tipo, campus, Lugar,  Acceso, HoraApertura, HoraCierre, Espacios ,Cantidad
+        , Discapacitados, 
+        Reservados, Visitantes, Vehiculos
     });
     res.json('Note Updated');
 }
 
 
-notessCtrl.updateParqueo = async (req, res) => {
-    const { Espacios } = req.body;
-    await Note.findByIdAndUpdate(req.params.id, {
 
-        Espacios
-    });
-    res.json('Note Updated');
-}
 
 notessCtrl.getNote = async (req, res) => {
     const note = await Note.findById(req.params.id);
