@@ -295,6 +295,7 @@ export default class CreateUser extends Component {
                                         <option value="Administrativo">Administrativo</option>
                                         <option value="Docente">Docente</option>
                                         <option value="Jefe">Jefe</option>
+                                        <option value= "Operador">Operador</option>
                                     </select>
 
                                 </div>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 
-
+let test = []
 
 export default class CrearParqueos extends Component {
 
@@ -18,12 +18,32 @@ export default class CrearParqueos extends Component {
         espaciosReservados: '',
         EspaciosVisitantes: '',
         EspaciosVehiculos: '',
+        usuariosOperadores : [],
+        operador: '',
         editing: false,
         parqueo: []
     }
 
     async componentDidMount() {
+        this.getdata();
+    }
+    getdata  = async () => {
         const res = await axios.get('http://localhost:4000/api/parqueos');
+        const us = await axios.get('http://localhost:4000/api/users');
+        let op = [];
+
+        for (var i = 0; i < us.data.length; i++) {
+            if(us.data[i].Tipo === 'Operador'){
+                op.push(us.data[i].username)
+            }
+        }
+        test = op; 
+        
+        
+        
+       
+        
+
 
         if (this.props.match.params.id) {
             const res = await axios.get('http://localhost:4000/api/parqueos/' + this.props.match.params.id);
@@ -40,11 +60,11 @@ export default class CrearParqueos extends Component {
                 CantidadDiscapacitados: res.data.Discapacitados,
                 espaciosReservados: res.data.Reservados,
                 EspaciosVisitantes: res.data.Visitantes,
+                usuariosOperadores: us.data,
                 _id: res.data._id,
                 editing: true
             });
-        }
-    }
+        }}
 
     getParqueos = async () => {
         const res = await axios.get('http://localhost:4000/api/parqueos');
@@ -132,6 +152,10 @@ export default class CrearParqueos extends Component {
         this.state.campus = event.target.value
     }
 
+    actualizar3 = async (event) => {
+        this.state.operador = event.target.value
+    }
+
 
     render() {
         return (
@@ -157,7 +181,14 @@ export default class CrearParqueos extends Component {
                                     <option value="Limon">Limon</option>
                                 </select>
 
-                                <p></p>
+                                
+                                <select id="lang" onChange={this.actualizar3}>
+                                    {test.map((option) => (
+                                        <option value={option}>{option}</option>
+                                    ))}
+                                </select>
+
+                                <h6>{this.state.usuariosOperadores[0]}asdasdasdasd</h6>
                                 <p>{this.state.value}</p>
 
 

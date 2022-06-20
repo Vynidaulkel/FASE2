@@ -37,6 +37,9 @@ const parkSchema = new Schema(
         },
         Vehiculos: {
             type: String
+        },
+        Operador: {
+            type: String
         }
 
     }, {

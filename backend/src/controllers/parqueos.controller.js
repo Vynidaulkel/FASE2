@@ -28,6 +28,7 @@ notessCtrl.createNote = async (req, res) => {
     const { espaciosReservados } = req.body;
     const { EspaciosVisitantes } = req.body;
     const { EspaciosVehiculos } = req.body;
+    const { Encargado } = req.body;
 
     console.log(g);
 
@@ -108,11 +109,12 @@ notessCtrl.createNote = async (req, res) => {
         Reservados= espaciosReservados
         Visitantes = EspaciosVisitantes
         Vehiculos = EspaciosVehiculos
+        Operador = Encargado
 
         const newNote = new Note({
             tipo, campus, Lugar,  Acceso, HoraApertura, HoraCierre, Cantidad,
             Espacios, Discapacitados, 
-            Reservados, Visitantes, Vehiculos
+            Reservados, Visitantes, Vehiculos, Operador
         });
         await newNote.save();
         res.json('New Note added');
@@ -181,11 +183,12 @@ notessCtrl.createNote = async (req, res) => {
         Reservados= espaciosReservados
         Visitantes = EspaciosVisitantes
         Vehiculos = EspaciosVehiculos
+        Operador = Encargado
 
         const newNote = new Note({
             tipo, campus, Lugar,  Acceso, HoraApertura, HoraCierre, Cantidad,
             Espacios, Discapacitados, 
-            Reservados, Visitantes, Vehiculos
+            Reservados, Visitantes, Vehiculos, Operador
         });
         await newNote.save();
         res.json('New Note added');
@@ -257,11 +260,12 @@ notessCtrl.createNote = async (req, res) => {
         Reservados= espaciosReservados
         Visitantes = EspaciosVisitantes
         Vehiculos = EspaciosVehiculos
+        Operador = Encargado
 
         const newNote = new Note({
             tipo, campus, Lugar,  Acceso, HoraApertura, HoraCierre, Cantidad,
             Espacios, Discapacitados, 
-            Reservados, Visitantes, Vehiculos
+            Reservados, Visitantes, Vehiculos, Operador
         });
         await newNote.save();
         res.json('New Note added');
@@ -284,6 +288,7 @@ notessCtrl.updateNote  = async (req, res) => {
     const { espaciosReservados } = req.body;
     const { EspaciosVisitantes } = req.body;
     const { EspaciosVehiculos } = req.body;
+    const { Encargado } = req.body;
 
     console.log(g);
 
@@ -366,12 +371,13 @@ notessCtrl.updateNote  = async (req, res) => {
     Reservados= espaciosReservados
     Visitantes = EspaciosVisitantes
     Vehiculos = EspaciosVehiculos
+    Operador = Encargado
  
 
     await Note.findByIdAndUpdate(req.params.id, {
         tipo, campus, Lugar,  Acceso, HoraApertura, HoraCierre, Espacios ,Cantidad
         , Discapacitados, 
-        Reservados, Visitantes, Vehiculos
+        Reservados, Visitantes, Vehiculos, Operador
     });
     res.json('Note Updated');
 }
