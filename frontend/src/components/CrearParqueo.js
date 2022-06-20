@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 
-let test = []
 
 export default class CrearParqueos extends Component {
 
@@ -28,19 +27,21 @@ export default class CrearParqueos extends Component {
         this.getdata();
     }
     getdata  = async () => {
+        let op = [];
         const res = await axios.get('http://localhost:4000/api/parqueos');
         const us = await axios.get('http://localhost:4000/api/users');
-        let op = [];
-
+        
         for (var i = 0; i < us.data.length; i++) {
             if(us.data[i].Tipo === 'Operador'){
                 op.push(us.data[i].username)
             }
         }
-        test = op; 
+        this.setState({
+            usuariosOperadores: op
+        });
         
         
-        
+        console.log(this.state.usuariosOperadores);
        
         
 
@@ -149,10 +150,12 @@ export default class CrearParqueos extends Component {
 
 
     actualizar2 = async (event) => {
+        console.log('kuchau2');
         this.state.campus = event.target.value
     }
 
     actualizar3 = async (event) => {
+        console.log('kuchau');
         this.state.operador = event.target.value
     }
 
@@ -181,9 +184,10 @@ export default class CrearParqueos extends Component {
                                     <option value="Limon">Limon</option>
                                 </select>
 
+                                <h6>{this.state.usuariosOperadores[0]}asdasdasdasd</h6>
                                 
                                 <select id="lang" onChange={this.actualizar3}>
-                                    {test.map((option) => (
+                                    {this.state.usuariosOperadores.map((option) => (
                                         <option value={option}>{option}</option>
                                     ))}
                                 </select>
