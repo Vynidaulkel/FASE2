@@ -4,6 +4,7 @@ import axios from 'axios'
 import swal from 'sweetalert'
 
 let entradaLunes = "07:30";
+let salida = "07:30";
 let dia = "";
 let diaNumero = "";
 let mes = "";
@@ -14,6 +15,7 @@ export default class CreateUser extends Component {
 
     state = {
         parqueo: [],
+        reservas: [],
         campos: [],
         parqueosSede: [],
         reservados: 0,
@@ -33,11 +35,13 @@ export default class CreateUser extends Component {
         const res = await axios.get('http://localhost:4000/api/parqueos');
         const user = await axios.get('http://localhost:4000/api/users/' + this.props.match.params.id);
         const campos = await axios.get('http://localhost:4000/api/campos');
+        const reservas = await axios.get('http://localhost:4000/api/reservas');
 
         this.setState({
             parqueo: res.data,
             usuario: user.data,
-            campos: campos.data
+            campos: campos.data,
+            reservas: reservas.data
         });
 
         let HaySede = false
@@ -56,48 +60,73 @@ export default class CreateUser extends Component {
 
     reservar = async (e) => {
 
+        for (var i = 0; i < this.state.reservas.length; i++) {
+            if (this.state.reservas[i].IdUsuario === this.state.usuario._id &&
+                this.state.reservas[i].fecha === diaNumero &&
+                this.state.reservas[i].dia === dia &&
+                this.state.reservas[i].mes === mes) {
+                swal('Ya tienes una reserva para este dia')
+                return
+            }
+        }
+
         console.log(dia, diaNumero, mes);
 
         if (dia === "lunes") {
-            if (entradaLunes < this.state.usuario.entradaLunes || entradaLunes > this.state.usuario.salidaLunes){
+
+            if (entradaLunes < this.state.usuario.entradaLunes || entradaLunes > this.state.usuario.salidaLunes) {
                 swal('No puede reservar fuera de su franja horaria')
-            return}
+                return
+            }
+            salida = this.state.usuario.salidaLunes
         }
 
         if (dia === "martes") {
-            if (entradaLunes < this.state.usuario.entradaMartes || entradaLunes > this.state.usuario.salidaMartes){
+            if (entradaLunes < this.state.usuario.entradaMartes || entradaLunes > this.state.usuario.salidaMartes) {
                 swal('No puede reservar fuera de su franja horaria')
-            return}
+                return
+            }
+            salida = this.state.usuario.salidaMartes
         }
 
         if (dia === "miercoles") {
-            if (entradaLunes < this.state.usuario.entradaMiercoles || entradaLunes > this.state.usuario.salidaMiercoles){
+            if (entradaLunes < this.state.usuario.entradaMiercoles || entradaLunes > this.state.usuario.salidaMiercoles) {
                 swal('No puede reservar fuera de su franja horaria')
-            return}
+                return
+            }
+            salida = this.state.usuario.salidaMiercoles
         }
 
         if (dia === "jueves") {
-            if (entradaLunes < this.state.usuario.entradaJueves || entradaLunes > this.state.usuario.salidaJueves){
+            if (entradaLunes < this.state.usuario.entradaJueves || entradaLunes > this.state.usuario.salidaJueves) {
                 swal('No puede reservar fuera de su franja horaria')
-            return}
+                return
+            }
+            salida = this.state.usuario.salidaJueves
         }
 
         if (dia === "viernes") {
-            if (entradaLunes < this.state.usuario.entradaViernes || entradaLunes > this.state.usuario.salidaViernes){
+            if (entradaLunes < this.state.usuario.entradaViernes || entradaLunes > this.state.usuario.salidaViernes) {
                 swal('No puede reservar fuera de su franja horaria')
-            return}
+                return
+            }
+            salida = this.state.usuario.salidaViernes
         }
 
         if (dia === "sabado") {
-            if (entradaLunes < this.state.usuario.entradaSabado || entradaLunes > this.state.usuario.salidaSabado){
+            if (entradaLunes < this.state.usuario.entradaSabado || entradaLunes > this.state.usuario.salidaSabado) {
                 swal('No puede reservar fuera de su franja horaria')
-            return}
+                return
+            }
+            salida = this.state.usuario.salidaSabado
         }
 
         if (dia === "domingo") {
-            if (entradaLunes < this.state.usuario.entradaDomingo || entradaLunes > this.state.usuario.salidaDomingo){
+            if (entradaLunes < this.state.usuario.entradaDomingo || entradaLunes > this.state.usuario.salidaDomingo) {
                 swal('No puede reservar fuera de su franja horaria')
-            return}
+                return
+            }
+            salida = this.state.usuario.salidaDomingo
         }
 
 
@@ -108,7 +137,7 @@ export default class CreateUser extends Component {
             let haydia = false;
 
             for (var e = 0; e < this.state.campos.length; e++) {
-                console.log("asdasd");
+
 
                 if (this.state.campos[e].dia === dia && this.state.campos[e].fecha === diaNumero && this.state.campos[e].mes === mes &&
                     this.state.campos[e].IdParqueo === this.state.parqueosSede[i]._id) {
@@ -117,6 +146,18 @@ export default class CreateUser extends Component {
 
                     if (this.state.usuario.Discapacitado) {
                         if (this.state.campos[e].discapacitados != "0") {
+
+                            await axios.post('http://localhost:4000/api/reservas', {
+
+                                fecha: diaNumero,
+                                dia: dia,
+                                mes: mes,
+                                IdParqueo: this.state.parqueosSede[i]._id,
+                                IdUsuario: this.state.usuario._id,
+                                HoraEntrada: entradaLunes,
+                                HoraSalida: salida,
+                                Tipo: "Discapacitado"
+                            })
 
                             const updateCampo = {
 
@@ -140,7 +181,21 @@ export default class CreateUser extends Component {
 
                     if (this.state.usuario.Tipo === "Jefe") {
 
+
                         if (this.state.campos[e].reservados != "0") {
+
+                            await axios.post('http://localhost:4000/api/reservas', {
+
+                                fecha: diaNumero,
+                                dia: dia,
+                                mes: mes,
+                                IdParqueo: this.state.parqueosSede[i]._id,
+                                IdUsuario: this.state.usuario._id,
+                                HoraEntrada: entradaLunes,
+                                HoraSalida: salida,
+                                Tipo: "Reservado"
+                            })
+
 
                             const updateCampo = {
 
@@ -167,7 +222,19 @@ export default class CreateUser extends Component {
 
                     }
                     else {
-                        console.log("asdasd");
+
+                        await axios.post('http://localhost:4000/api/reservas', {
+
+                            fecha: diaNumero,
+                            dia: dia,
+                            mes: mes,
+                            IdParqueo: this.state.parqueosSede[i]._id,
+                            IdUsuario: this.state.usuario._id,
+                            HoraEntrada: entradaLunes,
+                            HoraSalida: salida,
+                            Tipo: "Normal"
+                        })
+
 
                         const updateCampo = {
 
@@ -197,6 +264,19 @@ export default class CreateUser extends Component {
 
 
                 if (this.state.usuario.Discapacitado) {
+
+                    await axios.post('http://localhost:4000/api/reservas', {
+
+                        fecha: diaNumero,
+                        dia: dia,
+                        mes: mes,
+                        IdParqueo: this.state.parqueosSede[i]._id,
+                        IdUsuario: this.state.usuario._id,
+                        HoraEntrada: entradaLunes,
+                        HoraSalida: salida,
+                        Tipo: "Discapacitado"
+                    })
+
                     await axios.post('http://localhost:4000/api/campos', {
 
                         fecha: diaNumero,
@@ -217,6 +297,18 @@ export default class CreateUser extends Component {
 
                 if (this.state.usuario.Tipo === "Jefe") {
 
+                    await axios.post('http://localhost:4000/api/reservas', {
+
+                        fecha: diaNumero,
+                        dia: dia,
+                        mes: mes,
+                        IdParqueo: this.state.parqueosSede[i]._id,
+                        IdUsuario: this.state.usuario._id,
+                        HoraEntrada: entradaLunes,
+                        HoraSalida: salida,
+                        Tipo: "Reservado"
+                    })
+
                     await axios.post('http://localhost:4000/api/campos', {
 
                         fecha: diaNumero,
@@ -234,8 +326,28 @@ export default class CreateUser extends Component {
                     return
                 }
 
+                if (total === 0) {
+                    swal('No hay espacios disponibles en ese dia')
+                    return
+                }
+
+                await axios.post('http://localhost:4000/api/reservas', {
+
+                        fecha: diaNumero,
+                        dia: dia,
+                        mes: mes,
+                        IdParqueo: this.state.parqueosSede[i]._id,
+                        IdUsuario: this.state.usuario._id,
+                        HoraEntrada: entradaLunes,
+                        HoraSalida: salida,
+                        Tipo: "Normal"
+                    })
+
+
+
 
                 await axios.post('http://localhost:4000/api/campos', {
+
 
                     fecha: diaNumero,
                     dia: dia,

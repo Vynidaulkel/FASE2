@@ -15,5 +15,6 @@ app.use('/api/users', require('./routes/users'));
 app.use('/api/parqueos', require('./routes/parqueos'));
 app.use('/api/placas', require('./routes/placas'));
 app.use('/api/campos', require('./routes/campos'));
+app.use('/api/reservas', require('./routes/reservas'));
 
 module.exports = app;
