@@ -23,13 +23,15 @@ export default class VerPerfil extends Component {
 
     state = {
 
-        Docente: false,
+        Tipo: '',
         Discapacitado: false,
         username: '',
         password: '',
         nombre: '',
         numero: '',
         correo: '',
+        correoAlterno: '',
+        departamento: '',
         identificacion: '',
         editing: false,
         placas: [],
@@ -43,12 +45,14 @@ export default class VerPerfil extends Component {
             const res = await axios.get('http://localhost:4000/api/users/' + this.props.match.params.id);
 
             this.setState({
-                Docente: this.state.Docente,
+                Tipo: res.data.Tipo,
                 Discapacitado : this.state.Discapacitado, 
                 username: res.data.username,
                 password: res.data.password,
                 nombre: res.data.nombre,
-                correo: res.data.correo,
+                correo: res.data.correo,                
+                correoAlterno: res.data.correoAlterno,
+                departamento: res.data.departamento,
                 identificacion: res.data.identificacion,
                 numero: res.data.numero,
                 entradaLunes: res.data.entradaLunes,
@@ -94,13 +98,15 @@ export default class VerPerfil extends Component {
         if (this.state.editing) {
 
             const updatedUser= {
-                Docente: this.state.Docente,
+                Tipo: this.state.Tipo,
                 Discapacitado : this.state.Discapacitado,
                 username: this.state.username,
                 password: this.state.password,
                 nombre: this.state.nombre,
                 numero: this.state.numero,
                 correo: this.state.correo,
+                correoAlterno: this.state.correoAlterno,
+                departamento: this.state.departamento,
                 identificacion: this.state.identificacion,
 
                 entradaLunes: entradaLunes,
@@ -129,15 +135,6 @@ export default class VerPerfil extends Component {
         window.location.href = '/menu/' + this.props.match.params.id;
     }
 
-    handleCheckboxChild = async (userId) => {
-        if (this.state.Docente === false) {
-            this.state.Docente = true
-        }
-        else {
-            this.state.Docente = false
-        }
-    }
-
     handleCheckboxChild2 = async (userId) => {
         if (this.state.Discapacitado === false) {
             this.state.Discapacitado = true
@@ -148,10 +145,8 @@ export default class VerPerfil extends Component {
     }
 
     render() {
-        let docenteInput = <input disabled checked="false" type="checkbox"/>;
-        if (this.state.Docente) {
-            docenteInput = <input disabled checked="true" type="checkbox"/>;
-        }
+
+        let tipoInput = <option value= {this.state.Tipo} disabled>{this.state.Tipo}</option>                 
 
         let discapacitadoInput = <input disabled checked="false" type="checkbox"/>;
         if (this.state.Discapacitado) {
@@ -164,17 +159,16 @@ export default class VerPerfil extends Component {
                     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '180vh' }}>
 
                         <div className="card card-body">
-                            <h3>Create New User</h3>
+                            <h3>Crear Nuevo Usuario</h3>
                             <form onSubmit={this.onSubmit}>
 
                                 <h3></h3>
 
+
                                 <div>
-                                    <style>
-                                        color: orangered;
-                                    </style>
-                                    { docenteInput }
-                                    <label for="checkbox"><h6>Docente</h6></label>
+
+            	                { tipoInput }
+
                                 </div>
 
                                 <div> 
@@ -205,6 +199,30 @@ export default class VerPerfil extends Component {
                                         name="correo"
                                         autocomplete="off"
                                         value={this.state.correo}
+                                        required />
+                                </div>
+
+                                <div className="form-group">
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        placeholder="Correo Alterno"
+                                        onChange={this.onInputChange}
+                                        name="correoAlterno"
+                                        autocomplete="off"
+                                        value={this.state.correoAlterno}
+                                        required />
+                                </div>
+
+                                <div className="form-group">
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        placeholder="Departamento"
+                                        onChange={this.onInputChange}
+                                        name="departamento"
+                                        autocomplete="off"
+                                        value={this.state.departamento}
                                         required />
                                 </div>
 
