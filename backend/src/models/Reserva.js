@@ -25,6 +25,9 @@ const reservasSchema = new Schema(
         },
         Tipo: {
             type: String,
+        } ,
+        Placa: {
+            type: String,
         } 
 
     }, {

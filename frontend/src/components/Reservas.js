@@ -8,13 +8,13 @@ let salida = "07:30";
 let dia = "";
 let diaNumero = "";
 let mes = "";
-
-
+let PlacaCarro = "";
 
 export default class CreateUser extends Component {
 
     state = {
         parqueo: [],
+        placas: [],
         reservas: [],
         campos: [],
         parqueosSede: [],
@@ -29,7 +29,30 @@ export default class CreateUser extends Component {
 
     async componentDidMount() {
         this.getParqueos();
+        this.getPlacas();
     }
+
+    getPlacas = async () => {
+        let list = []
+        let placa = []
+        const res = await axios.get('http://localhost:4000/api/placas/');
+        this.setState({
+            placa: res.data
+        });
+
+        for (var i = 0; i < this.state.placa.length; i++) {
+            console.log(this.props.match.params.id);
+            if (this.state.placa[i].IdUser === this.props.match.params.id) {
+                list.push(this.state.placa[i].NunPlaca)
+
+            }
+        }
+        this.state.placas = list
+        if (this.state.placas.length > 0) {
+            PlacaCarro = this.state.placas[0]
+        }
+    }
+
 
     getParqueos = async () => {
         const res = await axios.get('http://localhost:4000/api/parqueos');
@@ -60,6 +83,13 @@ export default class CreateUser extends Component {
 
     reservar = async (e) => {
 
+        console.log(PlacaCarro);
+
+        if (PlacaCarro === "") {
+            swal('Seleccione la placa del carro')
+            return
+        }
+
         for (var i = 0; i < this.state.reservas.length; i++) {
             if (this.state.reservas[i].IdUsuario === this.state.usuario._id &&
                 this.state.reservas[i].fecha === diaNumero &&
@@ -72,7 +102,7 @@ export default class CreateUser extends Component {
 
         console.log(dia, diaNumero, mes);
 
-        if (dia === "lunes"  && !this.state.usuario.Tipo === "Jefe") {
+        if (dia === "lunes" && !this.state.usuario.Tipo != "Jefe") {
 
             if (entradaLunes < this.state.usuario.entradaLunes || entradaLunes > this.state.usuario.salidaLunes) {
                 swal('No puede reservar fuera de su franja horaria')
@@ -81,7 +111,7 @@ export default class CreateUser extends Component {
             salida = this.state.usuario.salidaLunes
         }
 
-        if (dia === "martes" && !this.state.usuario.Tipo === "Jefe") {
+        if (dia === "martes" && this.state.usuario.Tipo != "Jefe") {
             if (entradaLunes < this.state.usuario.entradaMartes || entradaLunes > this.state.usuario.salidaMartes) {
                 swal('No puede reservar fuera de su franja horaria')
                 return
@@ -89,7 +119,7 @@ export default class CreateUser extends Component {
             salida = this.state.usuario.salidaMartes
         }
 
-        if (dia === "miercoles" && !this.state.usuario.Tipo === "Jefe") {
+        if (dia === "miercoles" && this.state.usuario.Tipo != "Jefe") {
             if (entradaLunes < this.state.usuario.entradaMiercoles || entradaLunes > this.state.usuario.salidaMiercoles) {
                 swal('No puede reservar fuera de su franja horaria')
                 return
@@ -97,7 +127,7 @@ export default class CreateUser extends Component {
             salida = this.state.usuario.salidaMiercoles
         }
 
-        if (dia === "jueves"  && !this.state.usuario.Tipo === "Jefe" ) {
+        if (dia === "jueves" && !this.state.usuario.Tipo != "Jefe") {
             if (entradaLunes < this.state.usuario.entradaJueves || entradaLunes > this.state.usuario.salidaJueves) {
                 swal('No puede reservar fuera de su franja horaria')
                 return
@@ -105,7 +135,7 @@ export default class CreateUser extends Component {
             salida = this.state.usuario.salidaJueves
         }
 
-        if (dia === "viernes" && !this.state.usuario.Tipo === "Jefe") {
+        if (dia === "viernes" && !this.state.usuario.Tipo != "Jefe") {
             if (entradaLunes < this.state.usuario.entradaViernes || entradaLunes > this.state.usuario.salidaViernes) {
                 swal('No puede reservar fuera de su franja horaria')
                 return
@@ -113,7 +143,7 @@ export default class CreateUser extends Component {
             salida = this.state.usuario.salidaViernes
         }
 
-        if (dia === "sabado"  && !this.state.usuario.Tipo === "Jefe") {
+        if (dia === "sabado" && !this.state.usuario.Tipo != "Jefe") {
             if (entradaLunes < this.state.usuario.entradaSabado || entradaLunes > this.state.usuario.salidaSabado) {
                 swal('No puede reservar fuera de su franja horaria')
                 return
@@ -121,7 +151,7 @@ export default class CreateUser extends Component {
             salida = this.state.usuario.salidaSabado
         }
 
-        if (dia === "domingo" && !this.state.usuario.Tipo === "Jefe") {
+        if (dia === "domingo" && !this.state.usuario.Tipo != "Jefe") {
             if (entradaLunes < this.state.usuario.entradaDomingo || entradaLunes > this.state.usuario.salidaDomingo) {
                 swal('No puede reservar fuera de su franja horaria')
                 return
@@ -156,7 +186,8 @@ export default class CreateUser extends Component {
                                 IdUsuario: this.state.usuario._id,
                                 HoraEntrada: entradaLunes,
                                 HoraSalida: salida,
-                                Tipo: "Discapacitado"
+                                Tipo: "Discapacitado",
+                                Placa: PlacaCarro
                             })
 
                             const updateCampo = {
@@ -193,7 +224,8 @@ export default class CreateUser extends Component {
                                 IdUsuario: this.state.usuario._id,
                                 HoraEntrada: entradaLunes,
                                 HoraSalida: salida,
-                                Tipo: "Reservado"
+                                Tipo: "Reservado",
+                                Placa: PlacaCarro
                             })
 
 
@@ -232,7 +264,8 @@ export default class CreateUser extends Component {
                             IdUsuario: this.state.usuario._id,
                             HoraEntrada: entradaLunes,
                             HoraSalida: salida,
-                            Tipo: "Normal"
+                            Tipo: "Normal",
+                            Placa: PlacaCarro
                         })
 
 
@@ -274,7 +307,8 @@ export default class CreateUser extends Component {
                         IdUsuario: this.state.usuario._id,
                         HoraEntrada: entradaLunes,
                         HoraSalida: salida,
-                        Tipo: "Discapacitado"
+                        Tipo: "Discapacitado",
+                        Placa: PlacaCarro
                     })
 
                     await axios.post('http://localhost:4000/api/campos', {
@@ -306,7 +340,8 @@ export default class CreateUser extends Component {
                         IdUsuario: this.state.usuario._id,
                         HoraEntrada: entradaLunes,
                         HoraSalida: salida,
-                        Tipo: "Reservado"
+                        Tipo: "Reservado",
+                        Placa: PlacaCarro
                     })
 
                     await axios.post('http://localhost:4000/api/campos', {
@@ -340,7 +375,8 @@ export default class CreateUser extends Component {
                     IdUsuario: this.state.usuario._id,
                     HoraEntrada: entradaLunes,
                     HoraSalida: salida,
-                    Tipo: "Normal"
+                    Tipo: "Normal",
+                    Placa: PlacaCarro
                 })
 
 
@@ -379,6 +415,10 @@ export default class CreateUser extends Component {
 
     exit(e) {
         window.history.go(-1);
+    }
+
+    actualizar2 = async (event) => {
+        PlacaCarro = event.target.value
     }
 
     onFechaChange(e) {
@@ -426,6 +466,12 @@ export default class CreateUser extends Component {
                                     shrink: true,
                                 }}
                             />
+                            <h6>Placa</h6>
+                            <select id="lang" onChange={this.actualizar2}>
+                                {this.state.placas.map((option) => (
+                                    <option value={option}>{option}</option>
+                                ))}
+                            </select>
 
                             <button type="submit" onClick={this.reservar} className="btn btn-success btn-block">
                                 Reservar

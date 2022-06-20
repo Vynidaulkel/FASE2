@@ -29,8 +29,10 @@ reservaCtrl.createReserva = async (req, res) => {
         const { HoraEntrada } = req.body;
         const { HoraSalida } = req.body;
         const { Tipo } = req.body;
+        const { Placa } = req.body;
+        
  
-        const newCampo = new Reserva({ fecha, dia,mes, IdParqueo,IdUsuario,HoraEntrada,HoraSalida,Tipo });
+        const newCampo = new Reserva({ fecha, dia,mes, IdParqueo,IdUsuario,HoraEntrada,HoraSalida,Tipo,Placa });
         await newCampo.save();
         res.json('Campo created')
     } catch (e) {
