@@ -8,11 +8,11 @@ import TextField from '@material-ui/core/TextField';
 
 export default class Navigation extends Component {
 
-  
 
-    state = {infoUsuario:[]}
-    
-    
+
+    state = { infoUsuario: [] }
+
+
 
     async componentDidMount() {
         if (this.props.match.params.id !== "admin") {
@@ -55,10 +55,10 @@ export default class Navigation extends Component {
                                             className: "DatePicker",
                                             style: { color: "#ffff" },
                                             shrink: true,
-                                          }}
-                                          inputProps={{
+                                        }}
+                                        inputProps={{
                                             style: { color: "#ffff" },
-                                          }}  
+                                        }}
                                     />
                                 </li>
 
@@ -69,16 +69,16 @@ export default class Navigation extends Component {
                                         onChange={this.onFechaChange}
                                         type="date"
                                         inputFormat="'Week of' MMM d"
-                                        
+
                                         InputLabelProps={{
                                             color: "secondary",
                                             className: "DatePicker",
                                             style: { color: "#ffff" },
                                             shrink: true,
-                                          }}
+                                        }}
                                         inputProps={{
                                             style: { color: "#ffff" },
-                                          }}
+                                        }}
                                     />
                                 </li>
 
@@ -110,46 +110,52 @@ export default class Navigation extends Component {
 
         }
         else if (this.state.infoUsuario.Tipo == 'Operador') {
-            
-                return (
 
-                    <div className="container">
-                        <nav className="navbar navbar-expand-lg navbar-dark bg-dark p-3">
-    
-    
-                            <Link className="navbar-brand" to="/menu/admin">
-                                <i className="material-icons">
-                                    directions_car </i> Parqueo TEC
-                            </Link>
-                            <h2 style={{color:"white"}}> Operador </h2>
-                            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                                <span className="navbar-toggler-icon"></span>
-                            </button>
-                            <div className="collapse navbar-collapse" id="navbarNav">
-                                <ul className="navbar-nav ml-auto">
-                                    <li className="nav-item active">
-                                        <Link to="/parqueos" className="nav-link">Parqueos</Link>
-                                    </li>
-                                    <li className="nav-item">
-                                        <Link to="/modificarParqueo" className="nav-link">Liberar visitante</Link>
-                                    </li>
-                                    <li className="nav-item">
-                                        <Link to={"/AsignarDatosAlParqueo"} className="nav-link">Guardar vehiculo oficial</Link>
-                                    </li>
-                                    <li className="nav-item">
-                                        <Link to="/" className="nav-link">Salir</Link>
-                                    </li>
-                                </ul>
-                            </div>
-    
-    
-                        </nav>
-                        <img src={logo} />
-                    </div>
-    
-                )
+            return (
+
+                <div className="container">
+                    <nav className="navbar navbar-expand-lg navbar-dark bg-dark p-3">
+
+
+
+
+                        <Link className="navbar-brand" to="/menu/admin">
+                            <i className="material-icons">
+                                directions_car </i> Parqueo TEC
+                        </Link>
+                        <h2 style={{ color: "white" }}> Operador </h2>
+                        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                            <span className="navbar-toggler-icon"></span>
+                        </button>
+                        <div className="collapse navbar-collapse" id="navbarNav">
+                            <ul className="navbar-nav ml-auto">
+
+                                <li className="nav-item">
+                                    <Link to={"/verPerfil/" + this.props.match.params.id} className="nav-link">Ver Perfil</Link>
+                                </li>
+                                <li className="nav-item active">
+                                    <Link to="/parqueos" className="nav-link">Parqueos</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link to="/modificarParqueo" className="nav-link">Liberar visitante</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link to={"/AsignarDatosAlParqueo"} className="nav-link">Guardar vehiculo oficial</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link to="/" className="nav-link">Salir</Link>
+                                </li>
+                            </ul>
+                        </div>
+
+
+                    </nav>
+                    <img src={logo} />
+                </div>
+
+            )
         }
-        else  {
+        else {
 
             return (
 
@@ -171,7 +177,7 @@ export default class Navigation extends Component {
                             <ul className="navbar-nav ml-auto">
 
 
-                            <li className="nav-item">
+                                <li className="nav-item">
                                     <TextField
                                         id="time"
                                         label="Hora"
@@ -184,10 +190,10 @@ export default class Navigation extends Component {
                                             className: "DatePicker",
                                             style: { color: "#ffff" },
                                             shrink: true,
-                                          }}
-                                          inputProps={{
+                                        }}
+                                        inputProps={{
                                             style: { color: "#ffff" },
-                                          }}  
+                                        }}
                                     />
                                 </li>
 
@@ -198,16 +204,16 @@ export default class Navigation extends Component {
                                         onChange={this.onFechaChange}
                                         type="date"
                                         inputFormat="'Week of' MMM d"
-                                        
+
                                         InputLabelProps={{
                                             color: "secondary",
                                             className: "DatePicker",
                                             style: { color: "#ffff" },
                                             shrink: true,
-                                          }}
+                                        }}
                                         inputProps={{
                                             style: { color: "#ffff" },
-                                          }}
+                                        }}
                                     />
                                 </li>
 

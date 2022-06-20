@@ -47,7 +47,7 @@ export default class Inicio extends Component {
         if ('admin' === this.state.usuario && 'admin' === this.state.contraseña) {
             window.location.href = '/menu/admin';
         }
-        if ('operador' === this.state.usuario && 'operador' === this.state.contraseña) {
+        else if ('operador' === this.state.usuario && 'operador' === this.state.contraseña) {
             window.location.href = '/menu/operador';
         }
         else {
