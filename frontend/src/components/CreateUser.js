@@ -278,17 +278,12 @@ export default class CreateUser extends Component {
                     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '180vh' }}>
 
                         <div className="card card-body">
-                            <h3>Create New User</h3>
+                            <h3>Crear Nuevo Usuario</h3>
                             <form onSubmit={this.onSubmit}>
 
                                 <h3></h3>
 
                                 <div>
-                                    <style>
-
-                                        color: orangered;
-
-                                    </style>
 
                                     <select id="lang" onChange={this.actualizar} >
                                         <option value="Funcionario">Funcionario</option>
