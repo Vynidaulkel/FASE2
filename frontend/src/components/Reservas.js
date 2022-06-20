@@ -72,7 +72,7 @@ export default class CreateUser extends Component {
 
         console.log(dia, diaNumero, mes);
 
-        if (dia === "lunes") {
+        if (dia === "lunes"  && !this.state.usuario.Tipo === "Jefe") {
 
             if (entradaLunes < this.state.usuario.entradaLunes || entradaLunes > this.state.usuario.salidaLunes) {
                 swal('No puede reservar fuera de su franja horaria')
@@ -81,7 +81,7 @@ export default class CreateUser extends Component {
             salida = this.state.usuario.salidaLunes
         }
 
-        if (dia === "martes") {
+        if (dia === "martes" && !this.state.usuario.Tipo === "Jefe") {
             if (entradaLunes < this.state.usuario.entradaMartes || entradaLunes > this.state.usuario.salidaMartes) {
                 swal('No puede reservar fuera de su franja horaria')
                 return
@@ -89,7 +89,7 @@ export default class CreateUser extends Component {
             salida = this.state.usuario.salidaMartes
         }
 
-        if (dia === "miercoles") {
+        if (dia === "miercoles" && !this.state.usuario.Tipo === "Jefe") {
             if (entradaLunes < this.state.usuario.entradaMiercoles || entradaLunes > this.state.usuario.salidaMiercoles) {
                 swal('No puede reservar fuera de su franja horaria')
                 return
@@ -97,7 +97,7 @@ export default class CreateUser extends Component {
             salida = this.state.usuario.salidaMiercoles
         }
 
-        if (dia === "jueves") {
+        if (dia === "jueves"  && !this.state.usuario.Tipo === "Jefe" ) {
             if (entradaLunes < this.state.usuario.entradaJueves || entradaLunes > this.state.usuario.salidaJueves) {
                 swal('No puede reservar fuera de su franja horaria')
                 return
@@ -105,7 +105,7 @@ export default class CreateUser extends Component {
             salida = this.state.usuario.salidaJueves
         }
 
-        if (dia === "viernes") {
+        if (dia === "viernes" && !this.state.usuario.Tipo === "Jefe") {
             if (entradaLunes < this.state.usuario.entradaViernes || entradaLunes > this.state.usuario.salidaViernes) {
                 swal('No puede reservar fuera de su franja horaria')
                 return
@@ -113,7 +113,7 @@ export default class CreateUser extends Component {
             salida = this.state.usuario.salidaViernes
         }
 
-        if (dia === "sabado") {
+        if (dia === "sabado"  && !this.state.usuario.Tipo === "Jefe") {
             if (entradaLunes < this.state.usuario.entradaSabado || entradaLunes > this.state.usuario.salidaSabado) {
                 swal('No puede reservar fuera de su franja horaria')
                 return
@@ -121,7 +121,7 @@ export default class CreateUser extends Component {
             salida = this.state.usuario.salidaSabado
         }
 
-        if (dia === "domingo") {
+        if (dia === "domingo" && !this.state.usuario.Tipo === "Jefe") {
             if (entradaLunes < this.state.usuario.entradaDomingo || entradaLunes > this.state.usuario.salidaDomingo) {
                 swal('No puede reservar fuera de su franja horaria')
                 return
@@ -333,21 +333,18 @@ export default class CreateUser extends Component {
 
                 await axios.post('http://localhost:4000/api/reservas', {
 
-                        fecha: diaNumero,
-                        dia: dia,
-                        mes: mes,
-                        IdParqueo: this.state.parqueosSede[i]._id,
-                        IdUsuario: this.state.usuario._id,
-                        HoraEntrada: entradaLunes,
-                        HoraSalida: salida,
-                        Tipo: "Normal"
-                    })
-
-
+                    fecha: diaNumero,
+                    dia: dia,
+                    mes: mes,
+                    IdParqueo: this.state.parqueosSede[i]._id,
+                    IdUsuario: this.state.usuario._id,
+                    HoraEntrada: entradaLunes,
+                    HoraSalida: salida,
+                    Tipo: "Normal"
+                })
 
 
                 await axios.post('http://localhost:4000/api/campos', {
-
 
                     fecha: diaNumero,
                     dia: dia,
