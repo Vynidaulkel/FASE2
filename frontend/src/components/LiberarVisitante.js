@@ -1,146 +1,103 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import swal from 'sweetalert'
-import TextField from '@material-ui/core/TextField';
 
 
 
 
+export default class LiberarVisitantes extends Component {
 
-export default class LiberarVisitante extends Component {
-    
     state = {
-        campos: [],
-        parqueos: [],
-        dia: '',
-        modelo: '',
-        chofer: '',
-        color: '',
-        Placa: ''
+        parqueo: []
     }
+
     async componentDidMount() {
-        this.get();
+        this.getParqueos();
     }
 
-    get = async () => {
-        
-        
-        const park = await axios.get('http://localhost:4000/api/parqueos/');
-        const us = await axios.get('http://localhost:4000/api/users/' + this.props.match.params.id);
+    getParqueos = async () => {
+        const res = await axios.get('http://localhost:4000/api/reservas');
+        let datos = []
+        for (var i = 0; i < res.data.length; i++) {
+            if (res.data[i].Tipo === "vehiculoVisitante") {
 
-        this.setState({
-            parqueos: park.data
-        });
+                let s = await axios.get('http://localhost:4000/api/parqueos/' + res.data[i].fecha)
+                let a = await axios.get('http://localhost:4000/api/users/' + this.props.match.params.id)
 
-        console.log(this.state.parqueos)
-        let parqueosSede = []
-        let HaySede = false
-        for (var i = 0; i < this.state.parqueos.length; i++) {
-            
-            if (this.state.parqueos[i].Operador=== us.data.username) {
-                HaySede = true
-                parqueosSede.push(this.state.parqueos[i].Lugar);
+                if (s.data.Operador === a.data.username) {
+                    res.data[i].Tipo = s.data.campus
+                    res.data[i].fecha = s.data.Lugar
+                    
+                    datos.push(res.data[i]);
+                }
+
             }
         }
-        
-        if (!HaySede) {
-            swal('No hay parqueos disponibles en esta sede')
-            
-        }
         this.setState({
-            parqueos: parqueosSede
+            parqueo: datos
         });
-        console.log(this.state.parqueos)
-
-    }
-    onInputChange = (e) => {
-        this.setState({
-            [e.target.name]: e.target.value
-        }) 
     }
 
-    reserva = async (e) => {
-        
-        
-        await axios.post('http://localhost:4000/api/reservas', {
-            fecha: '',
-            dia: this.state.dia,
-            mes: this.state.modelo,
-            IdParqueo: this.state.parqueos[0]._id,
-            IdUsuario: this.props.match.params.id,
-            HoraEntrada: this.state.chofer,
-            HoraSalida: this.state.color,
-            Tipo: "vehiculoOficial",
-            Placa: this.state.Placa,
-        })
-        swal('Vehiculo oficial ingresado exitosamente');
-        
-        
+    deleteUser = async (userId) => {
+        const response = window.confirm('are you sure you want to delete it?');
+        if (response) {
+            await axios.delete('http://localhost:4000/api/reservas/' + userId);
+            this.getParqueos();
+        }
     }
-    
+
+    exit = async () => {
+        window.location.href = '/';
+    }
+
+    onSubmit = async (e) => {
+        e.preventDefault();
+    }
+
     render() {
+
         return (
             <div className="row">
-                <div className="col-md-4 offset-md-4">
-                    <div className="card card-body">
-                        
-                            <h3>Seleccione el vehiculo a retirar</h3>
+                <div className="col-md-12">
+                    <ul className="list-group">
+                        {
+                            this.state.parqueo.map(users => (
+                                <div className="col-md-16" key={users._id}>
+                                    <div className="card">
+                                        <div className="card-header d-flex justify-content-between">
+                                            <h5>{users.title}</h5>
 
-                            <div className="form-group">
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        placeholder="Placa"
-                                        onChange={this.onInputChange}
-                                        name="Placa"
-                                        autocomplete="off"
-                                        value={this.state.Placa}
-                                        required />
-                            </div> 
+                                        </div>
+                                        <div className="card-body">
+                                            <p>
+                                                {users.content}
+                                            </p>
+                                            <p>
+                                                Nombre: {users.HoraEntrada} | Identificacion: {users.IdParqueo}  | Placa: {users.Placa} 
+                                            </p>
+                                            <p>
+                                                Campus: {users.Tipo} | Parqueo {users.fecha} | Responsable: {users.IdUsuario}
+                                            </p>
+                                            <p>
+                                                Motivo: {users.HoraSalida}
+                                            </p>
 
-                            <div className="form-group">
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        placeholder="modelo"
-                                        onChange={this.onInputChange}
-                                        name="modelo"
-                                        autocomplete="off"
-                                        value={this.state.mes}
-                                        required />
-                            </div>
 
-                            <div className="form-group">
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        placeholder="color"
-                                        onChange={this.onInputChange}
-                                        name="color"
-                                        autocomplete="off"
-                                        value={this.state.HoraSalida}
-                                        required />
-                            </div> 
-
-                            <div className="form-group">
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        placeholder="chofer"
-                                        onChange={this.onInputChange}
-                                        name="chofer"
-                                        autocomplete="off"
-                                        value={this.state.HoraEntrada}
-                                        required />
-                            </div>
-
-                            <button type="submit" onClick={this.reserva} className="btn btn-success btn-block">
-                                Ingresar Vehiculo
-                            </button>
-                        
-                    </div>
+                                        </div>
+                                        <div className="card-footer">
+                                            <button className="btn btn-danger" onClick={() => this.deleteUser(users._id)}>
+                                                Delete
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))
+                        }
+                    </ul>
                 </div>
+
             </div>
+
         )
     }
 }
+

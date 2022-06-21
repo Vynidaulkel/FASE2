@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
+ 
 
 
 
-export default class MostrarParqueos extends Component {
+export default class LiberarVisitantes extends Component {
 
     state = {
         parqueo: []
@@ -12,43 +12,30 @@ export default class MostrarParqueos extends Component {
 
     async componentDidMount() {
         this.getParqueos();
-
     }
 
     getParqueos = async () => {
+        const res = await axios.get('http://localhost:4000/api/reservas');
+        let datos = []
+        for (var i = 0; i < res.data.length; i++) {
+            if (res.data[i].Tipo === "vehiculoOficial") {
 
-        if (this.props.match.params.id.length>1) {
-            const a = await axios.get('http://localhost:4000/api/parqueos');
-
-            const b = await axios.get('http://localhost:4000/api/users/' + this.props.match.params.id);
-
-            let par = []
-            for (var i = 0; i < a.data.length; i++) {
-                if (a.data[i].Operador === b.data.username)
-                    par.push(a.data[i])
+                let s = await axios.get('http://localhost:4000/api/parqueos/' + res.data[i].IdParqueo)
+                let a = await axios.get('http://localhost:4000/api/users/' + res.data[i].IdUsuario)
+                res.data[i].IdParqueo = s.data.Lugar
+                res.data[i].IdUsuario = a.data.nombre
+                datos.push(res.data[i]);
             }
-
-            this.setState({
-                parqueo: par
-            });
-            return
         }
-        console.log("sdadsa");
-        const res = await axios.get('http://localhost:4000/api/parqueos');
         this.setState({
-            parqueo: res.data
+            parqueo: datos
         });
-        console.log(this.state.parqueo);
-
-
-
-
     }
 
     deleteUser = async (userId) => {
         const response = window.confirm('are you sure you want to delete it?');
         if (response) {
-            await axios.delete('http://localhost:4000/api/parqueos/' + userId);
+            await axios.delete('http://localhost:4000/api/reservas/' + userId);
             this.getParqueos();
         }
     }
@@ -57,11 +44,9 @@ export default class MostrarParqueos extends Component {
         window.location.href = '/';
     }
 
-
     onSubmit = async (e) => {
         e.preventDefault();
     }
-
 
     render() {
         console.log(this.state.parqueo)
@@ -75,23 +60,18 @@ export default class MostrarParqueos extends Component {
                                     <div className="card">
                                         <div className="card-header d-flex justify-content-between">
                                             <h5>{users.title}</h5>
-                                            <Link to={"/editParqueo/" + users._id} className="btn btn-secondary">
-                                                <i className="material-icons">
-                                                    border_color</i>
-                                            </Link>
+
                                         </div>
                                         <div className="card-body">
                                             <p>
                                                 {users.content}
                                             </p>
                                             <p>
-                                                Campus: {users.campus} | Tipo: {users.tipo} | Lugar: {users.Lugar} | Operador: {users.Operador}
+                                                Modelo: {users.mes} | Parqueo: {users.IdParqueo} | responsable: {users.IdUsuario}
                                             </p>
+
                                             <p>
-                                                Horario =>   Hora apertura: {users.HoraApertura} | Hora cierre: {users.HoraCierre}
-                                            </p>
-                                            <p>
-                                                Espacios disponibles: {users.Cantidad} => Discapacitados: {users.Discapacitados} | Reservados: {users.Reservados} | Visitantes: {users.Visitantes}
+                                                Chofer: {users.HoraEntrada} | Color: {users.HoraSalida}  | Placa: {users.Placa}
                                             </p>
 
 

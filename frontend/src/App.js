@@ -17,8 +17,11 @@ import Reservas from './components/Reservas'
 import verPerfil from './components/verPerfil'
 import VerReservas from './components/VerReservas'
 import AsignarDatosAlParqueo from './components/AsignarDatosAlParqueo'
-import LiberarVisitante from './components/LiberarVisitante'
+import LiberarVeOficial from './components/LiberarVeOficial'
 import AsignarEspacioVis from './components/AsignarEspacioVis'
+import liberarVisitante from './components/LiberarVisitante'
+
+
 
 function App() {
   return (
@@ -30,7 +33,7 @@ function App() {
         <Route path="/menu/:id" exact component={Navigation} />
         <Route path="/createUser" component={CreateUser} />
         <Route path="/modificarParqueo" component={CrearParqueo} />
-        <Route path="/parqueos" component={MostrarParqueos} />
+        <Route path="/parqueos/:id" component={MostrarParqueos} />
         <Route path="/AgregarPlaca/:id" component={AgregarPlaca} />
         <Route path="/ModificarUsuario" component={ModificarUsuario} />
         <Route path="/reservar/:id" component={sedes} />
@@ -38,8 +41,9 @@ function App() {
         <Route path="/verPerfil/:id" component={verPerfil} />
         <Route path="/VerReservas/:id" component={VerReservas} />
         <Route path="/asignarDatos/:id" component = {AsignarDatosAlParqueo}/>
-        <Route path="/liberarVisitante/" component = {LiberarVisitante}/>
+        <Route path="/liberarVehiculo" component = {LiberarVeOficial}/>
         <Route path="/asignarEspacio/:id" component = {AsignarEspacioVis}/>
+        <Route path="/LiberarVisitante/:id" component = {liberarVisitante}/>
       </div>
     </Router>
   );

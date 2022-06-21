@@ -187,7 +187,7 @@ export default class CrearParqueos extends Component {
                                     <option value="Limon">Limon</option>
                                 </select>
 
-                                <h6>{this.state.usuariosOperadores[0]}asdasdasdasd</h6>
+                               
                                 
                                 <select id="lang" onChange={this.actualizar3}>
                                     {this.state.usuariosOperadores.map((option) => (
@@ -195,7 +195,7 @@ export default class CrearParqueos extends Component {
                                     ))}
                                 </select>
 
-                                <h6>{this.state.usuariosOperadores[0]}asdasdasdasd</h6>
+                              
                                 <p>{this.state.value}</p>
 
 

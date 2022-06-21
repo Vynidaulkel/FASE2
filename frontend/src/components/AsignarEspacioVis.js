@@ -25,9 +25,9 @@ export default class AsignarEspacioVis extends Component {
     getdata  = async () => {
         let op = [];
         const res = await axios.get('http://localhost:4000/api/parqueos');
-        
-       
     }
+
+    
     onFechaChange = async (event) => {
         this.state.dia = event.target.value
     }
@@ -40,6 +40,7 @@ export default class AsignarEspacioVis extends Component {
             [e.target.name]: e.target.value
         })
     }
+
     reservar = async (e) => {
         const parks = await axios.get('http://localhost:4000/api/parqueos');
         const camps = await axios.get('http://localhost:4000/api/campos/');
@@ -52,9 +53,20 @@ export default class AsignarEspacioVis extends Component {
         console.log(this.props.match.params.id);
         for (var i = 0; i < this.state.parqueos.length; i++){
             if (this.state.destino === this.state.parqueos[i].campus){
-                if (parseInt(this.state.parqueos[i].Visitantes) >= 1){
+
+                const a = await axios.get('http://localhost:4000/api/reservas');
+                let total =0
+                
+                for(var j = 0; j < a.data.length; j++){
+                    console.log(a.data[j].fecha ,total, this.state.parqueos[i]._id);
+                    if(a.data[j].fecha === this.state.parqueos[i]._id && a.data[j].Tipo === "vehiculoVisitante"){
+                        total= total+1
+                    }
+                }
+
+                if (parseInt(this.state.parqueos[i].Visitantes) != total){
                     await axios.post('http://localhost:4000/api/reservas', {
-                    fecha: '',
+                    fecha: this.state.parqueos[i]._id,
                     dia: this.state.dia,
                     mes: this.state.modelo,
                     IdParqueo: this.state.id,
@@ -73,6 +85,7 @@ export default class AsignarEspacioVis extends Component {
         swal('No hay espacios disponibles');
         
     }
+    
     render() {
         return (
             <div className="row">
