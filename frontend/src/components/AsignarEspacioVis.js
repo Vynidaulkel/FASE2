@@ -52,6 +52,7 @@ export default class AsignarEspacioVis extends Component {
         });
         console.log(this.props.match.params.id);
         for (var i = 0; i < this.state.parqueos.length; i++){
+            console.log(this.state.destino ,this.state.parqueos[i].campus);
             if (this.state.destino === this.state.parqueos[i].campus){
 
                 const a = await axios.get('http://localhost:4000/api/reservas');
@@ -84,6 +85,9 @@ export default class AsignarEspacioVis extends Component {
         }
         swal('No hay espacios disponibles');
         
+    }
+    setDestino = async (event) => {
+        this.state.destino = event.target.value
     }
     
     render() {
