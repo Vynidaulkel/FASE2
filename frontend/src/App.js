@@ -20,7 +20,7 @@ import AsignarDatosAlParqueo from './components/AsignarDatosAlParqueo'
 import LiberarVeOficial from './components/LiberarVeOficial'
 import AsignarEspacioVis from './components/AsignarEspacioVis'
 import liberarVisitante from './components/LiberarVisitante'
-
+import Estadisticas from './components/Estadisticas'
 
 
 function App() {
@@ -44,6 +44,7 @@ function App() {
         <Route path="/liberarVehiculo" component = {LiberarVeOficial}/>
         <Route path="/asignarEspacio/:id" component = {AsignarEspacioVis}/>
         <Route path="/LiberarVisitante/:id" component = {liberarVisitante}/>
+        <Route path="/Estadisticas/" component = {Estadisticas}/>
       </div>
     </Router>
   );

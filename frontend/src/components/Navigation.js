@@ -198,7 +198,7 @@ export default class Navigation extends Component {
                             <i className="material-icons">
                                 directions_car </i> Parqueo TEC
                         </Link>
-                        <h4 style={{ color: "white" }}> Administrador </h4>
+                        <h5 style={{ color: "white" }}> Administrador </h5>
                         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                             <span className="navbar-toggler-icon"></span>
                         </button>
@@ -257,10 +257,14 @@ export default class Navigation extends Component {
                                     <Link to={"/createUser"} className="nav-link">Crear Usuario</Link>
                                 </li> 
                                 <li className="nav-item">
-                                    <Link to={"/asignarEspacio/" + this.props.match.params.id} className="nav-link">Asignar Espacio Visitante</Link>
+                                    <Link to={"/asignarEspacio/" + this.props.match.params.id} className="nav-link">Espacio Visitante</Link>
                                 </li>
                                 <li className="nav-item">
                                     <Link to={"/ModificarUsuario"} className="nav-link">Modificar Usuarios</Link>
+                                </li>
+
+                                <li className="nav-item">
+                                    <Link to={"/Estadisticas/"} className="nav-link">Estadisticas</Link>
                                 </li>
                                 <li className="nav-item">
                                     <Link to="/" className="nav-link">Salir</Link>

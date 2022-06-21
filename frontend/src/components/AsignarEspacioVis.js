@@ -76,7 +76,7 @@ export default class AsignarEspacioVis extends Component {
                     Tipo: "vehiculoVisitante",
                     Placa: this.state.placa,
                 })
-                swal('Vehiculo oficial ingresado exitosamente');
+                swal('Visitante ingresado exitosamente');
                 window.history.go(-1);
                 return;
                 }
