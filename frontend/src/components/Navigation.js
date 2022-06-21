@@ -301,10 +301,10 @@ export default class Navigation extends Component {
                                     <Link to="/parqueos" className="nav-link">Parqueos</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link to="/modificarParqueo" className="nav-link">Liberar visitante</Link>
+                                    <Link to="/liberarVisitante" className="nav-link">Liberar visitante</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link to={"/AsignarDatosAlParqueo"} className="nav-link">Guardar vehiculo oficial</Link>
+                                    <Link to={"/asignarDatos/" + this.props.match.params.id} className="nav-link">Guardar vehiculo oficial</Link>
                                 </li>
                                 <li className="nav-item">
                                     <Link to="/" className="nav-link">Salir</Link>

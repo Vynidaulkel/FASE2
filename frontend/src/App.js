@@ -19,6 +19,8 @@ import VerReservas from './components/VerReservas'
 
 import AsignarDatosAlParqueo from './components/AsignarDatosAlParqueo'
 
+import LiberarVisitante from './components/LiberarVisitante'
+
 function App() {
   return (
     <Router>
@@ -36,7 +38,8 @@ function App() {
         <Route path="/reservas/:sede/:id" component={Reservas} />
         <Route path="/verPerfil/:id" component={verPerfil} />
         <Route path="/VerReservas/:id" component={VerReservas} />
-        <Route path="/asignarDatos" component = {AsignarDatosAlParqueo}/>
+        <Route path="/asignarDatos/:id" component = {AsignarDatosAlParqueo}/>
+        <Route path="/liberarVisitante/" component = {LiberarVisitante}/>
       </div>
     </Router>
   );

@@ -18,7 +18,7 @@ export default class CrearParqueos extends Component {
         EspaciosVisitantes: '',
         EspaciosVehiculos: '',
         usuariosOperadores : [],
-        operador: '',
+        Operador: '',
         editing: false,
         parqueo: []
     }
@@ -102,7 +102,8 @@ export default class CrearParqueos extends Component {
                 CantidadDiscapacitados: this.state.CantidadDiscapacitados,
                 espaciosReservados: this.state.espaciosReservados,
                 EspaciosVisitantes: this.state.EspaciosVisitantes,
-                EspaciosVehiculos: this.state.EspaciosVehiculos
+                EspaciosVehiculos: this.state.EspaciosVehiculos,
+                Encargado: this.state.Operador
 
             };
             await axios.put('http://localhost:4000/api/parqueos/' + this.state._id, updateNote);
@@ -122,7 +123,8 @@ export default class CrearParqueos extends Component {
                 CantidadDiscapacitados: this.state.CantidadDiscapacitados,
                 espaciosReservados: this.state.espaciosReservados,
                 EspaciosVisitantes: this.state.EspaciosVisitantes,
-                EspaciosVehiculos: this.state.EspaciosVehiculos
+                EspaciosVehiculos: this.state.EspaciosVehiculos,
+                Encargado: this.state.Operador
             });
 
         }
@@ -155,7 +157,7 @@ export default class CrearParqueos extends Component {
 
     actualizar3 = async (event) => {
         console.log('kuchau');
-        this.state.operador = event.target.value
+        this.state.Operador = event.target.value
     }
 
 

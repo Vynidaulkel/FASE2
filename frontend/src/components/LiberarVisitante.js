@@ -7,7 +7,7 @@ import TextField from '@material-ui/core/TextField';
 
 
 
-export default class AsignarDatosAlParqueo extends Component {
+export default class LiberarVisitante extends Component {
     
     state = {
         campos: [],
@@ -84,7 +84,7 @@ export default class AsignarDatosAlParqueo extends Component {
                 <div className="col-md-4 offset-md-4">
                     <div className="card card-body">
                         
-                            <h3>Seleccione los datos del vehiculo oficial que va a ingresar</h3>
+                            <h3>Seleccione el vehiculo a retirar</h3>
 
                             <div className="form-group">
                                     <input
