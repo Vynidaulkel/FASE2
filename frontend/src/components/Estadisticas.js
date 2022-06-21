@@ -110,6 +110,7 @@ export default class MostrarParqueos extends Component {
             this.state.parqueo[j].Espacios[1][8] =  ((CantVisitantes / this.state.parqueo[j].Visitantes)*100)
             this.state.parqueo[j].Espacios[1][9] =  ((CantReservados / this.state.parqueo[j].Reservados)*100)
             this.state.parqueo[j].Espacios[1][4] =  ((CantVehiculos / this.state.parqueo[j].Vehiculos)*100)
+            this.state.parqueo[j].Espacios[1][5] =  ((EspaciosNormales / this.state.parqueo[j].tipo)*100)
 
 
             this.state.parqueo[j].Espacios[0][8] = CantVisitantes
@@ -202,7 +203,7 @@ export default class MostrarParqueos extends Component {
 
 
                                             <p>
-                                            Porcentaje de uso por tipo de parqueo: Discapacitados {users.Espacios[1][6]}%  |   Reservados {users.Espacios[1][9]}%  | Visitantes {users.Espacios[1][8]}% | Vehiculos {users.Espacios[1][4]}% 
+                                            Porcentaje de uso por tipo de parqueo: Discapacitados {users.Espacios[1][6]}%  |   Reservados {users.Espacios[1][9]}%  | Visitantes {users.Espacios[1][8]}% | Vehiculos {users.Espacios[1][4]}% | Espacios Normales: {users.Espacios[1][5]}% 
                                             </p>
 
 

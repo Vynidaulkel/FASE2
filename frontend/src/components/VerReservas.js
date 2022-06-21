@@ -39,6 +39,15 @@ export default class VerReservas extends Component {
         });
     }
 
+    deleteUser = async (userId) => {
+        const response = window.confirm('are you sure you want to delete it?');
+        if (response) {
+            await axios.delete('http://localhost:4000/api/reservas/' + userId);
+            this.getUsers()
+           
+        }
+    }
+
     render() {
         return (
 
@@ -88,6 +97,9 @@ export default class VerReservas extends Component {
 
                                                 </div>
                                                 <div className="card-footer">
+                                                <button className="btn btn-danger" onClick={() => this.deleteUser(users._id)}>
+                                                    Delete
+                                                </button>
 
                                                 </div>
                                             </div>
