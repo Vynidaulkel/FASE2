@@ -20,6 +20,9 @@ const parkSchema = new Schema(
         HoraCierre: {
             type: String,
         },
+        Jefatura: {
+            type: String,
+        }, 
         Cantidad: {
             type: String,
         },

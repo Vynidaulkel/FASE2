@@ -29,6 +29,8 @@ notessCtrl.createNote = async (req, res) => {
     const { EspaciosVisitantes } = req.body;
     const { EspaciosVehiculos } = req.body;
     const { Encargado } = req.body;
+ 
+    
 
     console.log(g);
 
@@ -110,9 +112,10 @@ notessCtrl.createNote = async (req, res) => {
         Visitantes = EspaciosVisitantes
         Vehiculos = EspaciosVehiculos
         Operador = Encargado
+        Jefatura= Contact_Id_Jefatura
 
         const newNote = new Note({
-            tipo, campus, Lugar,  Acceso, HoraApertura, HoraCierre, Cantidad,
+            tipo, campus, Lugar,  Acceso, HoraApertura, HoraCierre, Jefatura,Cantidad,
             Espacios, Discapacitados, 
             Reservados, Visitantes, Vehiculos, Operador
         });
@@ -184,9 +187,10 @@ notessCtrl.createNote = async (req, res) => {
         Visitantes = EspaciosVisitantes
         Vehiculos = EspaciosVehiculos
         Operador = Encargado
+        Jefatura= Contact_Id_Jefatura
 
         const newNote = new Note({
-            tipo, campus, Lugar,  Acceso, HoraApertura, HoraCierre, Cantidad,
+            tipo, campus, Lugar,  Acceso, HoraApertura, HoraCierre, Jefatura,Cantidad,
             Espacios, Discapacitados, 
             Reservados, Visitantes, Vehiculos, Operador
         });
@@ -261,9 +265,10 @@ notessCtrl.createNote = async (req, res) => {
         Visitantes = EspaciosVisitantes
         Vehiculos = EspaciosVehiculos
         Operador = Encargado
+        Jefatura= Contact_Id_Jefatura
 
         const newNote = new Note({
-            tipo, campus, Lugar,  Acceso, HoraApertura, HoraCierre, Cantidad,
+            tipo, campus, Lugar,  Acceso, HoraApertura, HoraCierre, Jefatura,Cantidad,
             Espacios, Discapacitados, 
             Reservados, Visitantes, Vehiculos, Operador
         });
@@ -276,13 +281,14 @@ notessCtrl.createNote = async (req, res) => {
 
 notessCtrl.updateNote  = async (req, res) => {
 
-    console.log(req.body);
+    
     const { g } = req.body;
     const { lcampus } = req.body;
     const { ubicacion } = req.body;
     const { acceso } = req.body;
     const { hora_apertura } = req.body;
     const { hora_cierre } = req.body;
+    const { Contact_Id_Jefatura } = req.body;
     const { cantidadDeEspacios } = req.body;
     const { CantidadDiscapacitados } = req.body;
     const { espaciosReservados } = req.body;
@@ -290,14 +296,14 @@ notessCtrl.updateNote  = async (req, res) => {
     const { EspaciosVehiculos } = req.body;
     const { Encargado } = req.body;
 
-    console.log(g);
+  
 
     cont = 0
 
     var parqueo = new Array();
-    console.log('campus')
+
     let FactoryCampus = new CreadorCampus();
-    console.log('campus2')
+
     for (var n = 0; n < cantidadDeEspacios; n++) {
         let espacio = FactoryCampus.createProduct(ubicacion, acceso, hora_apertura, hora_cierre,
             n)
@@ -311,7 +317,7 @@ notessCtrl.updateNote  = async (req, res) => {
     let visitant = EspaciosVisitantes
     let vehiculo = EspaciosVehiculos
 
-    console.log(total);
+   
  
 
     for (var n = cont; n < total; n++) {
@@ -365,6 +371,7 @@ notessCtrl.updateNote  = async (req, res) => {
     Acceso = acceso
     HoraApertura = hora_apertura
     HoraCierre = hora_cierre
+    Jefatura= Contact_Id_Jefatura
     Espacios = lita_final;
     Cantidad = cantidadDeEspacios
     Discapacitados = CantidadDiscapacitados
@@ -372,14 +379,16 @@ notessCtrl.updateNote  = async (req, res) => {
     Visitantes = EspaciosVisitantes
     Vehiculos = EspaciosVehiculos
     Operador = Encargado
- 
+    
 
     await Note.findByIdAndUpdate(req.params.id, {
-        tipo, campus, Lugar,  Acceso, HoraApertura, HoraCierre, Espacios ,Cantidad
-        , Discapacitados, 
-        Reservados, Visitantes, Vehiculos, Operador
+        tipo, campus, Lugar,  Acceso, HoraApertura, HoraCierre, Jefatura,Cantidad,
+            Espacios, Discapacitados, 
+            Reservados, Visitantes, Vehiculos, Operador
     });
     res.json('Note Updated');
+
+        
 }
 
 

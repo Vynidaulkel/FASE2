@@ -34,17 +34,14 @@ export default class CrearParqueos extends Component {
         for (var i = 0; i < us.data.length; i++) {
             if(us.data[i].Tipo === 'Operador'){
                 op.push(us.data[i].username)
+                this.state.Operador = op[0].username
             }
         }
         this.setState({
             usuariosOperadores: op
         });
-        
-        
-        console.log(this.state.usuariosOperadores);
        
         
-
 
         if (this.props.match.params.id) {
             const res = await axios.get('http://localhost:4000/api/parqueos/' + this.props.match.params.id);
@@ -57,11 +54,14 @@ export default class CrearParqueos extends Component {
                 acceso: res.data.Acceso,
                 hora_apertura: res.data.HoraApertura,
                 hora_cierre: res.data.HoraCierre,
+
+                Contact_Id_Jefatura: res.data.Jefatura,
                 cantidadDeEspacios: res.data.Cantidad,
                 CantidadDiscapacitados: res.data.Discapacitados,
                 espaciosReservados: res.data.Reservados,
                 EspaciosVisitantes: res.data.Visitantes,
-                usuariosOperadores: us.data,
+        
+                Operador: res.data.Operador,
                 _id: res.data._id,
                 editing: true
             });
@@ -87,8 +87,9 @@ export default class CrearParqueos extends Component {
     }
 
     onSubmit = async (e) => {
-
+        console.log("sdnsandjsanbhj");
         if (this.state.editing) {
+            
 
             const updateNote = {
 
@@ -98,6 +99,7 @@ export default class CrearParqueos extends Component {
                 acceso: this.state.acceso,
                 hora_apertura: this.state.hora_apertura,
                 hora_cierre: this.state.hora_cierre,
+                Contact_Id_Jefatura: this.state.Contact_Id_Jefatura,
                 cantidadDeEspacios: this.state.cantidadDeEspacios,
                 CantidadDiscapacitados: this.state.CantidadDiscapacitados,
                 espaciosReservados: this.state.espaciosReservados,
