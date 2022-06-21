@@ -102,7 +102,7 @@ export default class CreateUser extends Component {
 
         console.log(dia, diaNumero, mes);
 
-        if (dia === "lunes" && !this.state.usuario.Tipo != "Jefe") {
+        if (dia === "lunes" && this.state.usuario.Tipo != "Jefe") {
 
             if (entradaLunes < this.state.usuario.entradaLunes || entradaLunes > this.state.usuario.salidaLunes) {
                 swal('No puede reservar fuera de su franja horaria')
@@ -127,7 +127,7 @@ export default class CreateUser extends Component {
             salida = this.state.usuario.salidaMiercoles
         }
 
-        if (dia === "jueves" && !this.state.usuario.Tipo != "Jefe") {
+        if (dia === "jueves" && this.state.usuario.Tipo != "Jefe") {
             if (entradaLunes < this.state.usuario.entradaJueves || entradaLunes > this.state.usuario.salidaJueves) {
                 swal('No puede reservar fuera de su franja horaria')
                 return
@@ -135,7 +135,7 @@ export default class CreateUser extends Component {
             salida = this.state.usuario.salidaJueves
         }
 
-        if (dia === "viernes" && !this.state.usuario.Tipo != "Jefe") {
+        if (dia === "viernes" && this.state.usuario.Tipo != "Jefe") {
             if (entradaLunes < this.state.usuario.entradaViernes || entradaLunes > this.state.usuario.salidaViernes) {
                 swal('No puede reservar fuera de su franja horaria')
                 return
@@ -143,7 +143,7 @@ export default class CreateUser extends Component {
             salida = this.state.usuario.salidaViernes
         }
 
-        if (dia === "sabado" && !this.state.usuario.Tipo != "Jefe") {
+        if (dia === "sabado" && this.state.usuario.Tipo != "Jefe") {
             if (entradaLunes < this.state.usuario.entradaSabado || entradaLunes > this.state.usuario.salidaSabado) {
                 swal('No puede reservar fuera de su franja horaria')
                 return
@@ -151,7 +151,7 @@ export default class CreateUser extends Component {
             salida = this.state.usuario.salidaSabado
         }
 
-        if (dia === "domingo" && !this.state.usuario.Tipo != "Jefe") {
+        if (dia === "domingo" && this.state.usuario.Tipo != "Jefe") {
             if (entradaLunes < this.state.usuario.entradaDomingo || entradaLunes > this.state.usuario.salidaDomingo) {
                 swal('No puede reservar fuera de su franja horaria')
                 return
