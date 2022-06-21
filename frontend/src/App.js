@@ -16,10 +16,9 @@ import sedes from './components/Sedes'
 import Reservas from './components/Reservas'
 import verPerfil from './components/verPerfil'
 import VerReservas from './components/VerReservas'
-
 import AsignarDatosAlParqueo from './components/AsignarDatosAlParqueo'
-
 import LiberarVisitante from './components/LiberarVisitante'
+import AsignarEspacioVis from './components/AsignarEspacioVis'
 
 function App() {
   return (
@@ -40,6 +39,7 @@ function App() {
         <Route path="/VerReservas/:id" component={VerReservas} />
         <Route path="/asignarDatos/:id" component = {AsignarDatosAlParqueo}/>
         <Route path="/liberarVisitante/" component = {LiberarVisitante}/>
+        <Route path="/asignarEspacio/:id" component = {AsignarEspacioVis}/>
       </div>
     </Router>
   );
