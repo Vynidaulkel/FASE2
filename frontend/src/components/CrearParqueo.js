@@ -100,8 +100,7 @@ export default class CrearParqueos extends Component {
                 hora_cierre: this.state.hora_cierre,
                 cantidadDeEspacios: this.state.cantidadDeEspacios,
                 CantidadDiscapacitados: this.state.CantidadDiscapacitados,
-                espaciosReservados: this.state.espaciosReservados
-                ,
+                espaciosReservados: this.state.espaciosReservados,
                 EspaciosVisitantes: this.state.EspaciosVisitantes,
                 EspaciosVehiculos: this.state.EspaciosVehiculos
 
